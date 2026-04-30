@@ -1,18 +1,79 @@
+============================================================
+	Default Server DataBase Application Settings
+============================================================
+DB Host: localhost
+DB Name: Store
+DB User: root
+DB PassWord: "" -> Empty/None
+DB Driver: MySQLi
+
+============================================================
+	Default Server Application Settings
+============================================================
 [SERVER_ROOT] = http://localhost
 [APP_ROOT] = [SERVER_ROOT]/Product.Store
 
-[APP_ROOT]/Index
+============================================================
+	Default Public Guest Access To Application
+============================================================
+[APP_ROOT]/Index <- The View Of Main Index
 
-[APP_ROOT]/Store/Index
+============================================================
+	Default Public Guest Access To Basket
+============================================================
+[APP_ROOT]/Store/Basket/Index <- The View Of Added Products
+[APP_ROOT]/Store/Basket/Create
+[APP_ROOT]/Store/Basket/Edit/{Id}
+[APP_ROOT]/Store/Basket/Delete/{Id}
 
-[APP_ROOT]/Store/Basket/Index
-
-[APP_ROOT]/Store/Product/Create
+============================================================
+	Default Public Guest Access To Store
+============================================================
+[APP_ROOT]/Store/Index <- The View Of Products Index
 [APP_ROOT]/Store/Product/View/{Id}
+
+============================================================
+	Default Public User Access To Profile
+============================================================
+[APP_ROOT]/Member/User/Profile <- The View Of Profile
+[APP_ROOT]/Member/User/Register
+[APP_ROOT]/Member/User/Login
+[APP_ROOT]/Member/User/Edit/{Id}
+[APP_ROOT]/Member/User/Delete/{Id}
+
+============================================================
+	Default Public User Access To Product
+============================================================
+[APP_ROOT]/Store/Product/Create
 [APP_ROOT]/Store/Product/Edit/{Id}
 [APP_ROOT]/Store/Product/Delete/{Id}
 
-[APP_ROOT]/DashBoard/Index
+============================================================
+	Default Public User Access To CheckOut
+============================================================
+[APP_ROOT]/Store/CheckOut/Index <- The View Of CheckOut
+[APP_ROOT]/Store/CheckOut/Create
+[APP_ROOT]/Store/CheckOut/Edit/{Id}
+[APP_ROOT]/Store/CheckOut/Delete/{Id}
+
+============================================================
+	Default Public Administrator Access To Profile
+============================================================
+[APP_ROOT]/Member/Admin/Profile <- The View Of Profile
+[APP_ROOT]/Member/Admin/Register
+[APP_ROOT]/Member/Admin/Login
+[APP_ROOT]/Member/Admin/Edit/{Id}
+[APP_ROOT]/Member/Admin/Delete/{Id}
+
+============================================================
+	Default Administrator Access To System
+============================================================
+[APP_ROOT]/DashBoard/Index <- The View Of System Status
+
+[APP_ROOT]/DashBoard/Site_Contacts <- The View Of Contacts
+[APP_ROOT]/DashBoard/Site_Contact/Create
+[APP_ROOT]/DashBoard/Site_Contact/Edit/{Id}
+[APP_ROOT]/DashBoard/Site_Contact/Delete/{Id}
 
 [APP_ROOT]/DashBoard/SEO_Settings
 [APP_ROOT]/DashBoard/Web_Settings
