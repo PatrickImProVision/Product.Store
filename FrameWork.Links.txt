@@ -1,0 +1,18 @@
+[SERVER_ROOT] = http://localhost
+[APP_ROOT] = [SERVER_ROOT]/Product.Store
+
+[APP_ROOT]/Index
+
+[APP_ROOT]/Store/Index
+
+[APP_ROOT]/Store/Basket/Index
+
+[APP_ROOT]/Store/Product/Create
+[APP_ROOT]/Store/Product/View/{Id}
+[APP_ROOT]/Store/Product/Edit/{Id}
+[APP_ROOT]/Store/Product/Delete/{Id}
+
+[APP_ROOT]/DashBoard/Index
+
+[APP_ROOT]/DashBoard/SEO_Settings
+[APP_ROOT]/DashBoard/Web_Settings

@@ -1,0 +1,7 @@
+create Only: User::InstallDB To Create User Database By Clicking A Button
+
+create Only: User::Register For User Registration At Url /User/Register.app
+
+create Only: User::Login For User Login At Url /User/Login.app
+
+create Only: User::ProFile For User ProFile At Url /User/ProFile.app

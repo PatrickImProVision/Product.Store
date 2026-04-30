@@ -1,0 +1,112 @@
+
+SEO ROUTES USING YOUR .app EXTENSION (TXT STYLE)
+
+ROOT:
+http://localhost/CodeIgniter
+Alias: [ROOT]
+
+============================================================
+CORE SEO FILES
+============================================================
+
+robots
+[ROOT]/robots.app
+
+sitemap index
+[ROOT]/sitemap-index.app
+
+sitemap
+[ROOT]/sitemap.app
+
+feeds
+[ROOT]/rss.app
+[ROOT]/feed.app
+
+============================================================
+PUBLIC SEO‑FRIENDLY CONTENT ROUTES (.app)
+============================================================
+
+Blog index
+[ROOT]/blog.app
+
+Blog by year, month, slug
+[ROOT]/blog/{year}/{month}/{slug}.app
+example: /blog/2026/04/how-to-scale.app
+
+Blog short slug
+[ROOT]/blog/{slug}.app
+example: /blog/seo-friendly-urls.app
+
+Articles by category and slug
+[ROOT]/articles/{category}/{slug}.app
+
+Products by category and slug
+[ROOT]/products/{category}/{slug}.app
+
+Product reviews
+[ROOT]/products/{category}/{slug}/reviews.app
+
+Category listing
+[ROOT]/categories/{category-slug}.app
+
+Tag listing
+[ROOT]/tags/{tag-slug}.app
+
+Public user profile (SEO indexable)
+[ROOT]/u/{username}.app
+example: /u/patrick.app
+
+Search (query param stays)
+[ROOT]/search.app?q={terms}
+
+Pagination
+[ROOT]/{section}/page/{number}.app
+example: /blog/page/2.app
+
+Language / regionalization
+[ROOT]/{lang}/{slug}.app
+example: /cs/blog/seo-praktiky.app
+
+Well‑known files
+[ROOT]/.well-known/security.app
+[ROOT]/.well-known/schema/{slug}.app
+
+============================================================
+META / STRUCTURED DATA ENDPOINTS (.app)
+============================================================
+
+Canonical helper
+[ROOT]/meta/canonical.app?url={full-url}
+
+Open Graph preview
+[ROOT]/meta/og.app?slug={slug}
+
+Twitter card preview
+[ROOT]/meta/twitter.app?slug={slug}
+
+Structured data preview
+[ROOT]/.well-known/schema/{slug}.app
+
+============================================================
+301 REDIRECT RULES (OLD → NEW .app SLUG ROUTES)
+============================================================
+
+Old post by ID → SEO slug
+[ROOT]/Index.app?post={Post.Id}
+→ [ROOT]/blog/{year}/{month}/{slug}.app
+
+Old profile view → public profile
+[ROOT]/DashBoard/UCP.app?Route=User/ProFile&I=View&Id={User.Number}
+→ [ROOT]/u/{username}.app
+
+Old category query → category slug
+[ROOT]/Index.app?category={Category.Id}
+→ [ROOT]/categories/{category-slug}.app
+
+Old tag query → tag slug
+[ROOT]/Index.app?tag={Tag.Id}
+→ [ROOT]/tags/{tag-slug}.app
+
+============================================================
+NOTES (APPLY TO YOUR SYSTEM)
+============================================================

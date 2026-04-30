@@ -1,0 +1,45 @@
+# Apache (mod_rewrite) — project root next to Index.php
+# DocumentRoot should point here, OR to Vendor/public/ (recommended) with its own .htaccess.
+#
+# If URLs 404 in a subfolder (e.g. /MyApp/Index.app), uncomment and fix RewriteBase:
+# RewriteBase /MyApp/
+
+<IfModule mod_negotiation.c>
+    Options -MultiViews
+</IfModule>
+
+Options -Indexes
+DirectoryIndex index.php Index.php
+
+<IfModule mod_rewrite.c>
+    Options +FollowSymlinks
+    RewriteEngine On
+
+    # Required when the site lives in a subfolder (e.g. http://localhost/CodeIgniter/…).
+    # If Apache document root is this folder instead, comment out RewriteBase or use: RewriteBase /
+    RewriteBase /Product.Store/
+
+    # Force clean URLs: /index.php/... -> /...
+    RewriteCond %{THE_REQUEST} \s/+Product\.Store/index\.php(?:/([^\s?]*))? [NC]
+    RewriteRule ^index\.php/?(.*)$ /Product.Store/$1 [R=301,L]
+
+    # Strip trailing slash on non-directories
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_URI} (.+)/$
+    RewriteRule ^ %1 [L,R=301]
+
+    # Front controller: real files/dirs pass through
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^([\s\S]*)$ index.php/$1 [L,NC,QSA]
+
+    # Pass Authorization to PHP (APIs, HTTP auth)
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+</IfModule>
+
+<IfModule !mod_rewrite.c>
+    ErrorDocument 404 index.php
+</IfModule>
+
+ServerSignature Off

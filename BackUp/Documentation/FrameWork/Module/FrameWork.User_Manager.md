@@ -1,0 +1,612 @@
+# FrameWork.UserManager
+
+## Module Specification
+User Manager Description:
+
+- Core Purpose: Manage user identities, profiles, credentials, and account lifecycle.
+- Main Responsibilities:
+  - User registration, account activation, and login/logout.
+  - Password reset/change and credential lifecycle.
+  - Profile management and user preferences.
+  - Assign roles and permissions with Security Manager integration.
+  - Control built-in session/validation/service behaviors used by user flows.
+- Core Components:
+  - `UserService`
+  - `AuthService`
+  - `ProfileService`
+  - `RoleAssignmentService`
+- User Rank:
+  - Default Roles (required):
+    - Owner: Highest authority account created during installation; can control installation state, security policies, module lifecycle, and other administrators.
+    - Administrator: Manages day-to-day system operations including users, roles, content, and approved module settings, but cannot override Owner-only protections.
+    - Moderator: Oversees community or operational moderation tasks (reports, flags, user-generated content actions) without access to core system configuration.
+    - Author: Creates and edits owned content/resources and submits for review or publication according to workflow permissions.
+    - User: Standard authenticated account with permitted application usage features and self-profile management.
+    - Guest: Unauthenticated public visitor with minimal read-only access to public routes and content.
+  - Optional Roles (extensible):
+    - Manager
+    - Editor
+    - Reviewer
+    - Support
+    - Analyst
+  - Role Activation Status:
+    - `is_active = true`: role is ready for assignment/use.
+    - `is_active = false`: role exists but is not assignable or enforceable for new assignments.
+    - Default roles are active by default after installation.
+    - Optional roles are inactive by default until explicitly activated by Owner/Administrator.
+    - Deactivated roles must not be assigned to new users; existing assignments should be flagged for reassignment review.
+  - Role Extension Rules:
+    - Optional roles must be defined in database role tables, with explicit permission mapping.
+    - Optional roles must not bypass Owner-only protections.
+    - If an optional role is undefined or misconfigured, access defaults to deny.
+  - Single Role Assignment Policy:
+    - Each user must have exactly one assigned role.
+    - Assigned role must be active (`is_active = true`) before user access is granted.
+    - Access is allowed only when assigned active role includes required permissions.
+    - If role is missing/inactive/invalid, access defaults to deny until role is corrected.
+- Default Permission Matrix:
+  - Owner:
+    - `*` (all permissions)
+    - Owner-only reserved: `system.install.lock`, `system.state.manage`, `role.owner.grant`, `security.policy.override`, `database.migrate.force`, `module.install.remove`
+  - Administrator:
+    - `user.view`, `user.edit`, `user.manage`, `role.assign`
+    - `moderation.manage`
+    - `module.view`, `module.enable`, `module.disable`
+    - `content.manage`
+    - `settings.manage` (safe scope)
+  - Moderator:
+    - `user.view`
+    - `moderation.view`, `moderation.queue`, `moderation.action`
+    - `user.ban`, `user.unban`, `user.message`
+  - Author:
+    - `content.create`, `content.edit.own`, `content.view.own`, `content.submit`
+  - User:
+    - `profile.view.own`, `profile.edit.own`
+    - `content.view.public`
+    - `content.create.own` (optional toggle)
+  - Guest:
+    - `content.view.public`
+    - `auth.register`, `auth.login`, `auth.recovery`, `auth.validate`
+  - Optional Role Reservation (default inherited baseline):
+    - Manager -> inherits `Administrator` minus owner-only reserved permissions.
+    - Editor -> inherits `Author` + `content.edit.any` (if approved).
+    - Reviewer -> inherits `Author` + `content.review`, `content.approve`.
+    - Support -> inherits `Moderator` minus `user.ban` by default.
+    - Analyst -> read-only reporting permissions (`report.view`, `audit.view`).
+- Final Permission Key Catalog (Role-Mapped):
+  - Owner:
+    - `*`
+    - Reserved owner-only keys:
+      - `system.install.lock`
+      - `system.state.manage`
+      - `role.owner.grant`
+      - `security.policy.override`
+      - `database.migrate.force`
+      - `module.install.remove`
+  - Administrator:
+    - `auth.login`, `auth.logout`, `auth.recovery`, `auth.validate`
+    - `profile.view.own`, `profile.edit.own`
+    - `user.view`, `user.create`, `user.edit`, `user.manage`
+    - `role.view`, `role.create`, `role.edit`, `role.assign`
+    - `moderation.view`, `moderation.queue`, `moderation.action`, `moderation.manage`
+    - `module.view`, `module.enable`, `module.disable`
+    - `content.view.public`, `content.create`, `content.edit.any`, `content.publish`, `content.manage`
+    - `settings.view`, `settings.manage`
+    - `report.view`, `audit.view`
+  - Moderator:
+    - `auth.login`, `auth.logout`
+    - `profile.view.own`, `profile.edit.own`
+    - `user.view`
+    - `moderation.view`, `moderation.queue`, `moderation.action`
+    - `user.ban`, `user.unban`, `user.message`
+    - `content.view.public`
+  - Author:
+    - `auth.login`, `auth.logout`
+    - `profile.view.own`, `profile.edit.own`
+    - `content.view.public`, `content.create`, `content.edit.own`, `content.view.own`, `content.submit`
+  - User:
+    - `auth.login`, `auth.logout`, `auth.recovery`, `auth.validate`
+    - `profile.view.own`, `profile.edit.own`
+    - `content.view.public`
+    - `content.create.own` (optional)
+  - Guest:
+    - `auth.register`, `auth.login`, `auth.recovery`, `auth.validate`
+    - `content.view.public`
+  - Optional Role Baselines:
+    - Manager:
+      - Inherit `Administrator` minus owner-only reserved keys.
+    - Editor:
+      - Inherit `Author` + `content.edit.any` (if approved).
+    - Reviewer:
+      - Inherit `Author` + `content.review`, `content.approve`.
+    - Support:
+      - Inherit `Moderator` minus `user.ban` by default.
+    - Analyst:
+      - `report.view`, `audit.view`, `content.view.public`.
+- Dynamic Role and Permission Model (RBAC):
+  - Core Model:
+    - System roles are default inheritance roots (Owner, Administrator, Moderator, Author, User, Guest).
+    - Owner/Administrator can create custom roles that inherit from a selected parent role.
+    - Effective permissions = inherited permissions + explicit allow/deny overrides.
+  - Permission Inheritance Table (Required):
+    - `permissions`
+      - Purpose: master catalog of atomic permission keys.
+      - Columns:
+        - `id` (BIGINT UNSIGNED, PK, AUTO_INCREMENT)
+        - `permission_key` (VARCHAR 120, UNIQUE, NOT NULL) e.g., `user.view`, `module.install`
+        - `group_key` (VARCHAR 80, NOT NULL) e.g., `user`, `role`, `module`, `content`, `system`
+        - `description` (VARCHAR 255, NULL)
+        - `is_active` (TINYINT(1), NOT NULL DEFAULT 1)
+        - `created_at` (DATETIME NOT NULL)
+        - `updated_at` (DATETIME NOT NULL)
+    - `role_permissions`
+      - Purpose: direct permission rules assigned to a role.
+      - Columns:
+        - `id` (BIGINT UNSIGNED, PK, AUTO_INCREMENT)
+        - `role_id` (BIGINT UNSIGNED, NOT NULL, FK -> `roles.id`)
+        - `permission_id` (BIGINT UNSIGNED, NOT NULL, FK -> `permissions.id`)
+        - `effect` (ENUM `allow`,`deny`, NOT NULL)
+        - `source` (ENUM `base`,`override`, NOT NULL DEFAULT `override`)
+        - `created_by` (BIGINT UNSIGNED, NULL, FK -> `users.id`)
+        - `created_at` (DATETIME NOT NULL)
+        - `updated_at` (DATETIME NOT NULL)
+      - Constraints:
+        - Unique (`role_id`, `permission_id`) to avoid duplicate rules.
+    - `role_permission_effective` (materialized or computed view)
+      - Purpose: resolved effective permissions after inheritance chain evaluation.
+      - Columns:
+        - `role_id`
+        - `permission_id`
+        - `effective_effect` (`allow` or `deny`)
+        - `inherited_from_role_id` (NULL if direct)
+      - Resolution order:
+        - Start from parent chain (root -> child).
+        - Child `deny` overrides inherited `allow`.
+        - Child `allow` can grant only non-owner-reserved permissions unless Owner confirms.
+        - Undefined permission => deny by default.
+  - Optional Role Name Suggestions (for new role creation):
+    - Management: `Manager`, `TeamLead`, `Supervisor`, `OperationsManager`
+    - Content: `Editor`, `Reviewer`, `Publisher`, `ContentManager`
+    - Support: `Support`, `SupportLead`, `CommunityManager`, `CustomerCare`
+    - Analytics: `Analyst`, `ReportViewer`, `AuditViewer`, `DataReviewer`
+    - Technical: `Developer`, `ReleaseManager`, `IntegrationManager`, `QAReviewer`
+  - Role Naming Rules:
+    - Role name must be unique and human-readable.
+    - Role code should be lowercase alphanumeric with optional dash/underscore.
+    - New optional role should be mapped to a parent role before activation.
+    - New role name must not collide with protected default role names.
+  - Permission Key Standard:
+    - Use atomic permission keys such as `user.view`, `user.edit`, `user.ban`, `role.create`, `module.install`.
+    - Undefined permission keys default to deny.
+  - Required Storage:
+    - `roles`: `id`, `name`, `role_code`, `is_system`, `is_active`, `parent_role_id`, `created_by`, `created_at`, `updated_at`
+    - `permissions`: `id`, `permission_key`, `group_key`, `description`
+    - `role_permissions`: `role_id`, `permission_id`, `effect` (`allow`/`deny`)
+    - `user_roles`: `user_id`, `role_id` (enforce unique `user_id` for single-role assignment)
+  - Safety Constraints:
+    - Custom roles cannot grant Owner-only permissions unless Owner confirms explicitly.
+    - System roles should be protected from destructive edits.
+    - Role/permission changes must be audit logged with actor, target, diff, and timestamp.
+  - Management Flow:
+    - Create Role -> Select Parent Role -> Select Permission Overrides -> Preview Effective Permissions -> Save.
+    - Show conflict warnings before save (e.g., deny overriding required allow for critical operations).
+
+- Expected Storage:
+  - `users` table: identity fields, password hash, status, timestamps
+  - `user_profiles` table: profile metadata and preferences
+  - `user_roles` table: single-role relation (`one user -> one role`)
+- User Table Configuration (`users`):
+  - Required Columns:
+    - `id` (BIGINT UNSIGNED, PK, AUTO_INCREMENT, starts at `1`)
+    - `username` (VARCHAR 64, NOT NULL, UNIQUE)
+    - `email` (VARCHAR 190, NOT NULL, UNIQUE)
+    - `password_hash` (VARCHAR 255, NOT NULL)
+    - `status` (ENUM: `pending`, `active`, `suspended`, `banned`, `deleted`; default `pending`)
+    - `email_verified_at` (DATETIME NULL)
+    - `last_login_at` (DATETIME NULL)
+    - `last_login_ip` (VARCHAR 45 NULL)
+    - `created_at` (DATETIME NOT NULL)
+    - `updated_at` (DATETIME NOT NULL)
+    - `deleted_at` (DATETIME NULL, for soft delete)
+  - Optional Columns:
+    - `failed_login_count` (INT UNSIGNED NOT NULL DEFAULT 0)
+    - `locked_until` (DATETIME NULL)
+  - Attribute Rules:
+    - `id` value `0` is invalid/reserved and must never be assigned to user records.
+    - `email` must be normalized to lowercase before save.
+    - `username` must be unique and validated against allowed characters.
+    - `password_hash` must store only hashed password (Argon2id/Bcrypt), never plain text.
+    - `status` transitions must be controlled by role permission policy.
+  - Index and Constraint Rules:
+    - Unique indexes: `username`, `email`.
+    - Performance indexes: `status`, `created_at`, `last_login_at`.
+    - Foreign keys from role relation table must reference `users.id`.
+  - Default Seed Requirements:
+    - First installed account becomes `Owner`.
+    - Owner user must start with `status = active`.
+    - Owner must be mapped to Owner role in `user_roles`.
+- User Profile Table Configuration (`user_profiles`):
+  - Purpose:
+    - Canonical profile and preference storage to avoid profile-field duplication in `users`.
+  - Required Columns:
+    - `user_id` (BIGINT UNSIGNED, PK, FK -> `users.id`)
+    - `first_name` (VARCHAR 80 NULL)
+    - `last_name` (VARCHAR 80 NULL)
+    - `phone` (VARCHAR 32 NULL)
+    - `avatar_url` (VARCHAR 255 NULL)
+    - `timezone` (VARCHAR 64 NULL)
+    - `locale` (VARCHAR 16 NULL)
+    - `created_at` (DATETIME NOT NULL)
+    - `updated_at` (DATETIME NOT NULL)
+  - Rules:
+    - Exactly one profile row per user (`user_id` as PK).
+    - Profile row should be created at user registration/bootstrap.
+    - Profile updates must follow field validation matrix rules.
+- Human-Readable Field Contract (canonical for docs/UI):
+  - Purpose:
+    - Keep business fields easy to read while mapping to normalized storage columns.
+  - Identity and Access:
+    - `User.Id` -> `users.id`
+    - `User.UserName` -> `users.username`
+    - `User.E-Mail` -> `users.email`
+    - `User.UserPassWord` -> `users.password_hash`
+    - `User.Status` -> `users.status`
+    - `User.Validate.Active` -> `users.email_verified_at` (not null) and `users.status = active`
+    - `User.Validate.At` -> `users.email_verified_at`
+    - `User.Login.LastAt` -> `users.last_login_at`
+    - `User.Login.LastIp` -> `users.last_login_ip`
+    - `User.Login.FailedCount` -> `users.failed_login_count`
+    - `User.Login.LockedUntil` -> `users.locked_until`
+  - Profile:
+    - `User.Name` -> `user_profiles.first_name`
+    - `User.SurName` -> `user_profiles.last_name`
+    - `User.Phone` -> `user_profiles.phone`
+    - `User.Locale` -> `user_profiles.locale`
+    - `User.TimeZone` -> `user_profiles.timezone`
+    - `User.Avatar.Url` -> `user_profiles.avatar_url`
+  - Address:
+    - `User.Address.FlatNumber` -> `user_addresses.flat_number`
+    - `User.Address.HouseNumber` -> `user_addresses.house_number`
+    - `User.Address.StreetName` -> `user_addresses.street_name`
+    - `User.Address.City` -> `user_addresses.city`
+    - `User.Address.PostCode` -> `user_addresses.post_code`
+    - `User.Address.Primary` -> `user_addresses.is_primary`
+  - Token/Recovery:
+    - `User.Validate.Token` -> `security_tokens.token_hash` where `token_type = validate`
+    - `User.AutoLogin.Token` -> `security_tokens.token_hash` where `token_type = autologin`
+    - `User.Recovery.Token` -> `security_tokens.token_hash` where `token_type = recovery`
+    - `User.Recovery.Code` -> `security_tokens.token_hash` where `token_type = recovery_key`
+      - Recovery code display format remains `XXXX-XXXX-XXXX` (`4-4-4`, `A-Z`, `0-9`).
+  - Roles and Permissions:
+    - `User.Role` -> `user_roles.role_id` -> `roles.id`
+    - `User.Permission.Effective` -> `role_permission_effective`
+  - Notes:
+    - Human-readable names are canonical for requirement text and UI labels.
+    - Physical DB column names remain normalized and stable for migrations and queries.
+- Field Validation Matrix (final):
+  - Canonical field source for profile validations:
+    - `first_name`, `last_name`, `phone`, `locale`, `timezone` are stored in `user_profiles`.
+  - `username`
+    - Length: `3..32`
+    - Regex: `^[A-Za-z0-9](?:[A-Za-z0-9._-]{1,30}[A-Za-z0-9])?$`
+    - Rules: unique, trimmed, case-insensitive uniqueness check
+  - `first_name`
+    - Length: `1..80`
+    - Regex: `^[A-Za-z][A-Za-z\\s'\\-]{0,79}$`
+    - Rules: trimmed, collapse repeated spaces
+  - `last_name`
+    - Length: `1..80`
+    - Regex: `^[A-Za-z][A-Za-z\\s'\\-]{0,79}$`
+    - Rules: trimmed, collapse repeated spaces
+  - `phone`
+    - Length: `7..20`
+    - Regex: `^\\+?[0-9][0-9\\s\\-().]{6,19}$`
+    - Rules: normalize to canonical storage format (digits + optional leading `+`)
+  - `locale`
+    - Length: `2..16`
+    - Regex: `^[a-z]{2}(?:_[A-Z]{2})?$`
+    - Rules: allowed list should match configured supported locales
+  - `timezone`
+    - Length: `1..64`
+    - Regex: `^[A-Za-z]+(?:\\/[A-Za-z_+-]+)+$`
+    - Rules: must exist in PHP timezone identifier list
+  - Validation Enforcement:
+    - Input must be UTF-8 clean and trimmed before regex checks.
+    - On validation fail, deny write and return field-specific error.
+    - Validation rules apply on create and update operations.
+- User Status Transition Matrix:
+  - Status Set:
+    - `pending`, `active`, `suspended`, `banned`, `deleted`
+  - Transition Rules (with actors and permissions):
+    - `pending -> active`
+      - Allowed actor: system validation flow, `Moderator`, `Administrator`, `Owner`
+      - Required permission: `auth.validate` (system), or `user.edit`/`user.manage` (staff flow)
+    - `active -> suspended`
+      - Allowed actor: `Moderator`, `Administrator`, `Owner`
+      - Required permission: `moderation.action` or `user.manage`
+    - `suspended -> active`
+      - Allowed actor: `Moderator`, `Administrator`, `Owner`
+      - Required permission: `moderation.action` or `user.manage`
+    - `active -> banned`
+      - Allowed actor: `Moderator`, `Administrator`, `Owner`
+      - Required permission: `user.ban`
+    - `suspended -> banned`
+      - Allowed actor: `Moderator`, `Administrator`, `Owner`
+      - Required permission: `user.ban`
+    - `banned -> active`
+      - Allowed actor: `Moderator`, `Administrator`, `Owner`
+      - Required permission: `user.unban`
+    - `active -> deleted`
+      - Allowed actor: `Administrator`, `Owner`
+      - Required permission: `user.manage`
+    - `suspended -> deleted`
+      - Allowed actor: `Administrator`, `Owner`
+      - Required permission: `user.manage`
+    - `banned -> deleted`
+      - Allowed actor: `Administrator`, `Owner`
+      - Required permission: `user.manage`
+  - Reversal Paths:
+    - `suspended -> active` (restore)
+    - `banned -> active` (unban)
+    - `deleted -> active` only if soft-deleted and restoration is explicitly allowed by `Administrator`/`Owner`.
+  - Hard Guards:
+    - Users cannot change their own status directly through self-service routes.
+    - `Guest` and `User` roles cannot perform status transitions.
+    - Owner account cannot be banned/deleted by non-owner roles.
+    - Every status change must write audit log: actor, target user, from_status, to_status, reason, timestamp.
+- Audit Event Catalog (canonical):
+  - Required Log Fields (all user-related events):
+    - `event_id` (UUID)
+    - `event_key`
+    - `actor_user_id` (nullable for guest/system)
+    - `target_user_id` (nullable)
+    - `role_at_time`
+    - `ip_address`
+    - `user_agent`
+    - `session_id` (nullable)
+    - `request_id`
+    - `route`
+    - `method`
+    - `result` (`success`, `fail`, `deny`)
+    - `reason_code` (nullable)
+    - `metadata_json`
+    - `created_at`
+  - User-Related Event Keys:
+    - `auth.register.requested`
+    - `auth.register.completed`
+    - `auth.validate.requested`
+    - `auth.validate.success`
+    - `auth.validate.failed`
+    - `auth.login.success`
+    - `auth.login.failed`
+    - `auth.logout`
+    - `auth.autologin.success`
+    - `auth.autologin.failed`
+    - `auth.recovery.requested`
+    - `auth.recovery.success`
+    - `auth.recovery.failed`
+    - `user.profile.viewed`
+    - `user.profile.updated`
+    - `user.address.updated`
+    - `user.role.assigned`
+    - `user.role.changed`
+    - `user.status.changed`
+    - `user.ban.applied`
+    - `user.ban.removed`
+    - `session.viewed`
+    - `session.revoked`
+    - `security.lockout.triggered`
+    - `security.lockout.released`
+  - Minimum Metadata by Event Type:
+    - Auth events:
+      - `email_hash`
+      - `attempt_count`
+      - `token_type` (when token flow is used)
+    - Role/Status events:
+      - `from_value`
+      - `to_value`
+      - `approval_actor_id` (when required)
+    - Session events:
+      - `device_fingerprint`
+      - `browser`
+      - `session_target_id`
+    - LockOut events:
+      - `scope` (`email`, `token`, `user`, `ip`)
+      - `lock_until`
+- Response/Error Contract (canonical):
+  - Canonical security authority:
+    - Security-sensitive status/error/token/lockout contract is centrally maintained in `Module/FrameWork.Security_Manager.md` under `Combined Contract From User Manager (Security Canonical)`.
+  - Standard Success Schema:
+    - `success` (bool, must be `true`)
+    - `code` (string, stable application code, e.g. `AUTH_LOGIN_SUCCESS`)
+    - `message` (human-readable summary)
+    - `data` (object, endpoint-specific payload)
+    - `meta` (object, optional; pagination/request context)
+    - `timestamp` (ISO-8601 datetime)
+    - `request_id` (string)
+  - Standard Error Schema:
+    - `success` (bool, must be `false`)
+    - `code` (string, stable application code, e.g. `AUTH_INVALID_CREDENTIALS`)
+    - `message` (human-readable summary)
+    - `errors` (object/array, field-level or detail errors)
+    - `status` (int, HTTP status)
+    - `timestamp` (ISO-8601 datetime)
+    - `request_id` (string)
+  - HTTP Status Mapping (User Routes):
+    - `UserPanel/Register.app`
+      - Success: `201 Created` (`AUTH_REGISTER_SUCCESS`)
+      - Validation fail: `422 Unprocessable Entity`
+      - Conflict (duplicate email/username): `409 Conflict`
+    - `UserPanel/Validate.app`
+      - Success: `200 OK` (`AUTH_VALIDATE_SUCCESS`)
+      - Invalid token: `400 Bad Request`
+      - Expired token: `410 Gone`
+      - Too many failed attempts / lockout: `423 Locked`
+    - `UserPanel/Login.app`
+      - Success: `200 OK` (`AUTH_LOGIN_SUCCESS`)
+      - Invalid credentials: `401 Unauthorized`
+      - Account not active/blocked: `403 Forbidden`
+      - Too many failed attempts / lockout: `423 Locked`
+    - `UserPanel/AutoLogin.app`
+      - Success: `200 OK` (`AUTH_AUTOLOGIN_SUCCESS`)
+      - Invalid token: `401 Unauthorized`
+      - Token expired/revoked: `410 Gone`
+      - Too many failed attempts / lockout: `423 Locked`
+    - `UserPanel/Recovery.app`
+      - Request accepted (email sent or masked): `202 Accepted`
+      - Invalid recovery token (confirm/reset step): `400 Bad Request`
+      - Token expired/revoked: `410 Gone`
+      - Too many failed attempts / lockout: `423 Locked`
+    - `UserPanel/Logout.app`
+      - Success: `200 OK` (`AUTH_LOGOUT_SUCCESS`)
+      - No active session: `401 Unauthorized`
+    - `UserPanel/ProFile.app`
+      - Success read/update: `200 OK`
+      - Validation fail: `422 Unprocessable Entity`
+      - Unauthorized: `401 Unauthorized`
+      - Forbidden (permission denied): `403 Forbidden`
+    - `UserPanel/User/Access.app`
+      - Success read/update/revoke: `200 OK`
+      - Unauthorized: `401 Unauthorized`
+      - Forbidden: `403 Forbidden`
+    - `UserPanel/User/Address.app`
+      - Success read/update: `200 OK`
+      - Validation fail: `422 Unprocessable Entity`
+      - Unauthorized/Forbidden: `401/403`
+  - Control and Moderator Route Status Rules:
+    - `ModPanel/*`, `ControlPanel/*` success: `200 OK`
+    - Permission denied: `403 Forbidden`
+    - Unauthenticated: `401 Unauthorized`
+    - Resource not found: `404 Not Found`
+    - Validation fail: `422 Unprocessable Entity`
+    - Lockout policy action conflict: `409 Conflict`
+- Data Lifecycle Policy (canonical):
+  - Lifecycle Modes:
+    - Soft Delete (user-initiated):
+      - Action: account is deactivated by user request, record kept for potential restore.
+      - Required actor: account owner (`UserPanel` self-service) with re-authentication.
+      - Data state: `status = deleted` with `deleted_at` timestamp; data remains reversible within retention window.
+    - Anonymize (moderator-initiated):
+      - Action: personally identifying data is masked/replaced while preserving moderation/business records.
+      - Required actor: `Moderator` or higher with `moderation.action`/`user.manage`.
+      - Data state: identifiers anonymized (name/email/phone/profile fields), account cannot be used for login.
+    - Hard Delete (administrator-initiated):
+      - Action: irreversible removal/purge according to policy.
+      - Required actor: `Administrator` or `Owner` with `user.manage` and confirmation.
+      - Data state: account and related personally identifying records permanently removed where legally permitted.
+  - Retention Periods:
+    - Soft-deleted accounts: retain for `30 days` for restore eligibility.
+    - Anonymized accounts: retain anonymized business/audit-safe records for `365 days` (or policy/legal requirement).
+    - Hard-delete pending queue: optional safety hold `7 days` before final purge.
+    - Audit logs linked to user lifecycle events: retain minimum `365 days`.
+  - Restore Rules and Limits (user return flow):
+    - Restore is allowed only for soft-deleted accounts within `30 days` from `deleted_at`.
+    - Restore requires identity verification (email/token) and password reset before reactivation.
+    - Restore path: `deleted -> active` with audit event and session reset.
+    - After retention expires, soft-deleted account becomes non-restorable and must follow new registration flow.
+    - Anonymized accounts are not restorable to original identity.
+    - Hard-deleted accounts are never restorable.
+  - Guard Conditions:
+    - Every lifecycle action (soft delete, anonymize, hard delete, restore) must be audit logged.
+    - Owner account lifecycle actions require stricter policy and cannot be hard-deleted by non-owner roles.
+    - If lifecycle state is ambiguous/inconsistent, access defaults to deny until administrator review.
+- Owner Recovery (Break-Glass) Policy (canonical):
+  - Purpose:
+    - Provide emergency account recovery path before account access is completely lost.
+  - Recovery Key Generation:
+    - When user is logged in, offer generation of break-glass recovery keys.
+    - Maximum generated active keys per account: `5` (a set of keys).
+    - Generated set size per cycle must not exceed remaining active-key capacity.
+    - Key body length: `12` alphanumeric characters, divided by hyphen into `4-4-4` groups.
+    - Total key length including hyphens: `14` characters.
+    - Key format: `XXXX-XXXX-XXXX` (exactly `4-4-4`).
+    - Allowed symbols: uppercase `A-Z` and digits `0-9`.
+    - Example key style: `A904-5BC6-AK48` (applies to each key in the generated set).
+    - Each key must be one-time use.
+    - Keys must be stored hashed (never plain text) and shown only once at generation.
+  - Recovery Entry Flow:
+    - Step 1: Enter account email.
+    - Step 2: Answer one-time random account-matching question.
+      - Question sources: `UserName`, piece of address, last password confirmation context.
+    - Step 3: Enter one valid recovery key.
+    - Step 4: If all checks pass, allow secure reset/login recovery and invalidate used key.
+  - Security and Limits:
+    - Recovery attempt requires all factors: `email + random question + recovery key`.
+    - Max failed attempts per recovery session follow lockout matrix policy.
+    - On repeated failures, lock recovery attempts until next day (`00:00` server time).
+    - Every break-glass action (generate/use/revoke/fail) must be audit logged.
+  - Owner-Specific Guard:
+    - Owner recovery actions require highest audit priority.
+    - Owner break-glass recovery must not be executable by lower roles without explicit Owner policy path.
+- Public Interfaces:
+  - Endpoints: `/auth/login`, `/auth/logout`, `/auth/register`, `/users/{User_Id}`
+  - Service methods: `createUser()`, `verifyCredentials()`, `assignRole()`, `deactivateUser()`
+- Security Rules:
+  - Password policy is defined in `Default Route Contract -> Credential and Validation Policy`.
+  - Password hashing/verification MUST be delegated to Security Manager services.
+  - Token issue/verify/revoke for `Validate`, `Recovery`, `AutoLogin`, and future user-token flows MUST be delegated to Security Manager services.
+  - Enforce lockout/rate limit for repeated failed logins.
+  - Require re-authentication for high-risk account changes.
+- User Module Status:
+    - Status: `In Progress` (UI Phase)
+  - Scope Completed:
+    - Routing contract
+    - Roles and dynamic permission inheritance
+    - User attributes and validation matrix
+    - Token/session/lockout policies
+    - Audit event catalog
+    - Response/error contract
+    - Data lifecycle and break-glass recovery policy
+    - First-run installation (Owner account via `Install/Owner.app`, persisted `app_installation` state; public registration assigns `User` only after install)
+- Optional Backlog:
+  - Add request/response payload examples per user endpoint.
+  - Add user email template catalog (validation, recovery, lockout notice).
+  - Add implementation test matrix (unit/feature) for user flows.
+  - Add migration/seed examples for role-permission bootstrap.
+  - Add localization keys for user/auth UI and error messages.
+
+## First-Run Installation (Implementation Contract)
+
+This section records how the **CodeIgniter 4** application (`./Vendor/`) implements the **first Owner** step so it stays aligned with `FrameWork.md` installation lifecycle and the seed rule: *first installed account becomes Owner*.
+
+### Purpose
+- Before the application is marked **installed**, unauthenticated visitors must complete **one** Owner registration (bootstrap).
+- After installation, **Owner** is no longer creatable through public self-service registration; additional accounts use role **`user`** (unless an administrator assigns another role later per policy).
+
+### Persistent state (`app_installation`)
+- Single logical row (`id = 1`) tracks:
+  - **`is_installed`**: `0` = not complete, `1` = complete.
+  - **`installed_at`**: timestamp when installation completed (nullable until complete).
+  - **`owner_user_id`**: references the **`users.id`** of the Owner created at install (nullable until complete).
+- Migrations create this table and seed the initial `is_installed = 0` row.
+
+### Canonical route (`.app` convention)
+- **`Install/Owner.app`** (GET: form, POST: submit)
+  - **Empty user set**: creates `users` + `user_profiles` + `user_roles` with role **`owner`**, sets `app_installation` to complete, establishes session, redirects to **`Install/Finish.app`** (not directly to home).
+  - **Upgrade / repair**: if users already exist and an **`owner`** role assignment is present but `is_installed` was still `0`, the implementation may **synchronize** installation state from that Owner and continue (no second Owner), then redirect to **`Install/Finish.app`**.
+- **`Install/Finish.app`** (GET): post-install **finish** page shown after Owner is ready; static confirmation (no flash-on-redirect). User continues to **`Index.app`** manually via the primary control (no automatic timed redirect).
+
+### Request gating (global filter)
+- A global **`installgate`** filter runs on web requests (not CLI):
+  - If **`is_installed = 0`**: all requests are redirected to **`Install/Owner.app`**, except **`Install/Finish.app`** (which redirects back to **`Install/Owner.app`** if installation is not complete).
+  - If **`is_installed = 1`**: routes under **`Install/*`** redirect to home **except** **`Install/Finish.app`**, which remains allowed once so the finish screen can load after redirect from Owner registration.
+
+### Public registration after install (`UserPanel/Register.app`)
+- If installation is **not** complete, registration redirects to **`Install/Owner.app`** (Owner must exist first).
+- If installation **is** complete, new registrations receive role **`user`** only (never **`owner`** via this path).
+
+### Alignment with framework docs
+- Matches **Installation Lifecycle** intent in `FrameWork.md` (environment/DB configured → persist installation state → **first-run Owner via User Manager** → runtime treats app as installed).
+- Password hashing and token flows in production should still follow **Security Manager** delegation as described elsewhere in this module; the install path uses the same storage rules (`password_hash` only, no plaintext passwords).
+
+## Inherited Common Attributes (User Manager)
+- This module inherits shared standards from `FrameWork.md`:
+  - `Common Layer Standards (L1-L5)`
+  - `Common Security Standards (Shared Attributes)`
+
+## Route Ownership Boundary Note (User Manager)
+- User Manager owns user-domain route contracts and flow endpoints (for example: `UserPanel/*`, `ModPanel/*` user actions, `ControlPanel/*` user actions).
+- Route definitions in this module describe business flow behavior and required parameters for user features.
+- Global routing engine behavior (merge order, conflict handling, rewrite/`.htaccess`, extension normalization, route diagnostics) is owned by `Route Manager`.
+
+
