@@ -1,18 +1,21 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title><?= $mode === 'edit' ? 'Edit Product' : 'Create Product' ?></title>
-    <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-        rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-        crossorigin="anonymous"
-    >
-</head>
-<body class="bg-light">
-<div class="container py-5">
+<?php
+$chrome = [
+    'documentTitle'   => $documentTitle ?? (($mode === 'edit' ? 'Edit Product' : 'Create Product') . ' — ' . ($webTitle ?? 'Product Store')),
+    'metaTitle'       => $metaTitle ?? 'Product Store',
+    'metaDescription' => $metaDescription ?? 'Product Store powered by CodeIgniter',
+    'metaKeywords'    => $metaKeywords ?? '',
+    'webTitle'        => $webTitle ?? 'Product Store',
+];
+?>
+<?= view('shared/site_head', $chrome) ?>
+<?= view('shared/site_nav', $chrome) ?>
+
+<main class="container py-5">
+    <?= view('shared/site_hero', [
+        'webTitle'       => $webTitle ?? 'Product Store',
+        'webDescription' => $webDescription ?? '',
+    ]) ?>
+
     <div class="row justify-content-center">
         <div class="col-lg-8">
             <div class="card shadow-sm border-0">
@@ -97,14 +100,15 @@
 
                         <div class="d-flex gap-2">
                             <button type="submit" class="btn btn-primary"><?= $mode === 'edit' ? 'Update Product' : 'Create Product' ?></button>
-                            <a href="<?= site_url('Store/Index') ?>" class="btn btn-outline-secondary">Back to Products</a>
+                            <a href="<?= site_url('Store/Index') ?>" class="btn btn-outline-secondary">Back to Store</a>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</main>
+
 <script>
     const productForm = document.getElementById('productForm');
     const productMessage = document.getElementById('formMessage');
@@ -156,5 +160,5 @@
         }
     });
 </script>
-</body>
-</html>
+
+<?= view('shared/site_footer', $chrome) ?>

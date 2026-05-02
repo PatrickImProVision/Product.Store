@@ -1,23 +1,9 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>SEO Settings - Product Store</title>
-    <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-        rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-        crossorigin="anonymous"
-    >
-</head>
-<body class="bg-light">
-<div class="container py-5">
+<?= view('dashboard/partials/chrome_start') ?>
     <div class="row justify-content-center">
         <div class="col-lg-8">
             <div class="card shadow-sm border-0">
                 <div class="card-body p-4 p-md-5">
-                    <h1 class="h3 mb-4">SEO Settings</h1>
+                    <h1 class="h3 mb-4">SEO settings</h1>
 
                     <?php if (! empty($message)): ?>
                         <div id="formMessage" class="alert alert-success" role="alert">
@@ -31,7 +17,7 @@
                         <?= csrf_field() ?>
 
                         <div class="mb-3">
-                            <label for="meta_title" class="form-label">Meta Title</label>
+                            <label for="meta_title" class="form-label">Meta title</label>
                             <input
                                 type="text"
                                 class="form-control"
@@ -44,7 +30,7 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="meta_description" class="form-label">Meta Description</label>
+                            <label for="meta_description" class="form-label">Meta description</label>
                             <textarea
                                 class="form-control"
                                 id="meta_description"
@@ -54,7 +40,7 @@
                         </div>
 
                         <div class="mb-4">
-                            <label for="meta_keywords" class="form-label">Meta Keywords</label>
+                            <label for="meta_keywords" class="form-label">Meta keywords</label>
                             <textarea
                                 class="form-control"
                                 id="meta_keywords"
@@ -64,16 +50,16 @@
                             ><?= esc($seo['meta_keywords'] ?? '') ?></textarea>
                         </div>
 
-                        <div class="d-flex gap-2">
-                            <button type="submit" class="btn btn-primary">Save Settings</button>
-                            <a href="<?= site_url('Index') ?>" class="btn btn-outline-secondary">Back to Home</a>
+                        <div class="d-flex gap-2 flex-wrap">
+                            <button type="submit" class="btn btn-primary">Save settings</button>
+                            <a href="<?= site_url('DashBoard/Index') ?>" class="btn btn-outline-secondary">Dashboard</a>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-</div>
+
 <script>
     const seoForm = document.getElementById('seoSettingsForm');
     const seoMessage = document.getElementById('formMessage');
@@ -119,9 +105,8 @@
             seoMessage.textContent = 'Failed to save settings. Please try again.';
         } finally {
             submitBtn.disabled = false;
-            submitBtn.textContent = 'Save Settings';
+            submitBtn.textContent = 'Save settings';
         }
     });
 </script>
-</body>
-</html>
+<?= view('dashboard/partials/chrome_end') ?>

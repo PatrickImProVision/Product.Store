@@ -2,42 +2,75 @@
 
 namespace App\Controllers;
 
-use App\Models\SeoSettingModel;
-use App\Models\WebSettingModel;
-
 class Home extends BaseController
 {
     public function index(): string
     {
-        $seo = null;
-        $web = null;
+        $layout     = $this->getSiteLayoutData();
+        $promotions = [];
 
-        // Never let SEO storage issues break the home page.
+        // Promotions: avoid fieldExists() (schema cache / driver edge cases can break the whole query).
         try {
             $db = \Config\Database::connect();
+            if ($db->tableExists('web_promoting')) {
+                try {
+                    $promotions = $db->table('web_promoting')
+                        ->groupStart()
+                        ->where('is_active', 1)
+                        ->orWhere('is_active', null)
+                        ->groupEnd()
+                        ->orderBy('sort_order', 'ASC')
+                        ->orderBy('id', 'ASC')
+                        ->get()
+                        ->getResultArray();
+                } catch (\Throwable $e) {
+                    $promotions = $db->table('web_promoting')
+                        ->orderBy('id', 'ASC')
+                        ->get()
+                        ->getResultArray();
 
-            if ($db->tableExists('seo_settings')) {
-                $seoModel = new SeoSettingModel();
-                $seo      = $seoModel->first();
-            }
+                    $promotions = array_values(array_filter(
+                        $promotions,
+                        static function (array $row): bool {
+                            if (! array_key_exists('is_active', $row)) {
+                                return true;
+                            }
+                            if ($row['is_active'] === null) {
+                                return true;
+                            }
 
-            if ($db->tableExists('web_settings')) {
-                $webModel = new WebSettingModel();
-                $web      = $webModel->first();
+                            return (int) $row['is_active'] === 1;
+                        }
+                    ));
+                }
             }
         } catch (\Throwable $e) {
-            $seo = null;
-            $web = null;
+            $promotions = [];
         }
 
-        $siteName = trim((string) ($web['title'] ?? '')) !== '' ? $web['title'] : 'Product Store';
+        $defaultPromotions = [
+            [
+                'title'       => 'Web Promote',
+                'description' => 'Promote your products with powerful search, basket flow, and a clean storefront experience.',
+            ],
+            [
+                'title'       => 'Grow Faster',
+                'description' => 'Highlight launches, seasonal collections, or featured categories — add more blocks in DashBoard → Promote.',
+            ],
+        ];
+
+        // Only when there are no DB rows: show two placeholder cards (two-across layout).
+        if ($promotions === []) {
+            $promotions = $defaultPromotions;
+        }
 
         return view('welcome_message', [
-            'metaTitle'       => $seo['meta_title'] ?? $siteName,
-            'metaDescription' => $seo['meta_description'] ?? ($siteName . ' powered by CodeIgniter'),
-            'metaKeywords'    => $seo['meta_keywords'] ?? '',
-            'webTitle'        => $siteName,
-            'webDescription'  => $web['description'] ?? 'This project now uses Bootstrap styling instead of the default CodeIgniter welcome style.',
+            'metaTitle'       => $layout['metaTitle'],
+            'metaDescription' => $layout['metaDescription'],
+            'metaKeywords'    => $layout['metaKeywords'],
+            'webTitle'        => $layout['webTitle'],
+            'webDescription'  => $layout['webDescription'],
+            'promotions'      => $promotions,
         ]);
     }
 }

@@ -1,0 +1,1795 @@
+ERROR - 2026-05-02 05:02:41 --> Duplicate column name 'remote_image'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 4 APPPATH\Controllers\Member.php(41): CodeIgniter\Database\BaseConnection->query('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 5 APPPATH\Controllers\Member.php(317): App\Controllers\Member->ensureUsersTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Member->User_ForgotPassword()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 05:02:41 --> Duplicate column name 'role_id'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 4 APPPATH\Controllers\Member.php(47): CodeIgniter\Database\BaseConnection->query('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 5 APPPATH\Controllers\Member.php(317): App\Controllers\Member->ensureUsersTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Member->User_ForgotPassword()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 05:02:43 --> Email: Unable to send email using SMTP. Your server might not be configured to send mail using this method.
+ERROR - 2026-05-02 05:02:43 --> 220 smtp.gmail.com ESMTP ffacd0b85a97d-44a981defa6sm8366056f8f.24 - gsmtp
+
+hello: 250-smtp.gmail.com at your service, [185.68.167.59]
+250-SIZE 35882577
+250-8BITMIME
+250-STARTTLS
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+starttls: 220 2.0.0 Ready to start TLS
+
+hello: 250-smtp.gmail.com at your service, [185.68.167.59]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+from: 530-5.7.0 Authentication Required. For more information, go to
+530 5.7.0  https://support.google.com/accounts/troubleshooter/2402620. ffacd0b85a97d-44a981defa6sm8366056f8f.24 - gsmtp
+
+The following SMTP error was encountered: 530-5.7.0 Authentication Required. For more information, go to
+530 5.7.0  https://support.google.com/accounts/troubleshooter/2402620. ffacd0b85a97d-44a981defa6sm8366056f8f.24 - gsmtp
+
+quit: 221 2.0.0 closing connection ffacd0b85a97d-44a981defa6sm8366056f8f.24 - gsmtp
+
+ERROR - 2026-05-02 05:08:44 --> Duplicate column name 'remote_image'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 4 APPPATH\Controllers\Member.php(41): CodeIgniter\Database\BaseConnection->query('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 5 APPPATH\Controllers\Member.php(317): App\Controllers\Member->ensureUsersTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Member->User_ForgotPassword()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 05:08:44 --> Duplicate column name 'role_id'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 4 APPPATH\Controllers\Member.php(47): CodeIgniter\Database\BaseConnection->query('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 5 APPPATH\Controllers\Member.php(317): App\Controllers\Member->ensureUsersTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Member->User_ForgotPassword()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 05:08:45 --> Email: Unable to send email using SMTP. Your server might not be configured to send mail using this method.
+ERROR - 2026-05-02 05:08:45 --> 220 smtp.gmail.com ESMTP 5b1f17b1804b1-48a82307f7csm183306585e9.12 - gsmtp
+
+hello: 250-smtp.gmail.com at your service, [185.68.167.59]
+250-SIZE 35882577
+250-8BITMIME
+250-STARTTLS
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+starttls: 220 2.0.0 Ready to start TLS
+
+hello: 250-smtp.gmail.com at your service, [185.68.167.59]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+from: 530-5.7.0 Authentication Required. For more information, go to
+530 5.7.0  https://support.google.com/accounts/troubleshooter/2402620. 5b1f17b1804b1-48a82307f7csm183306585e9.12 - gsmtp
+
+The following SMTP error was encountered: 530-5.7.0 Authentication Required. For more information, go to
+530 5.7.0  https://support.google.com/accounts/troubleshooter/2402620. 5b1f17b1804b1-48a82307f7csm183306585e9.12 - gsmtp
+
+quit: 221 2.0.0 closing connection 5b1f17b1804b1-48a82307f7csm183306585e9.12 - gsmtp
+
+ERROR - 2026-05-02 05:11:08 --> Duplicate column name 'remote_image'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 4 APPPATH\Controllers\Member.php(41): CodeIgniter\Database\BaseConnection->query('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 5 APPPATH\Controllers\Member.php(317): App\Controllers\Member->ensureUsersTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Member->User_ForgotPassword()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 05:11:08 --> Duplicate column name 'role_id'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 4 APPPATH\Controllers\Member.php(47): CodeIgniter\Database\BaseConnection->query('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 5 APPPATH\Controllers\Member.php(317): App\Controllers\Member->ensureUsersTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Member->User_ForgotPassword()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 05:11:09 --> Email: Unable to send email using SMTP. Your server might not be configured to send mail using this method.
+ERROR - 2026-05-02 05:11:09 --> 220 smtp.gmail.com ESMTP 5b1f17b1804b1-48a8ebb2fa5sm85451315e9.12 - gsmtp
+
+hello: 250-smtp.gmail.com at your service, [185.68.167.59]
+250-SIZE 35882577
+250-8BITMIME
+250-STARTTLS
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+starttls: 220 2.0.0 Ready to start TLS
+
+hello: 250-smtp.gmail.com at your service, [185.68.167.59]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+from: 530-5.7.0 Authentication Required. For more information, go to
+530 5.7.0  https://support.google.com/accounts/troubleshooter/2402620. 5b1f17b1804b1-48a8ebb2fa5sm85451315e9.12 - gsmtp
+
+The following SMTP error was encountered: 530-5.7.0 Authentication Required. For more information, go to
+530 5.7.0  https://support.google.com/accounts/troubleshooter/2402620. 5b1f17b1804b1-48a8ebb2fa5sm85451315e9.12 - gsmtp
+
+quit: 221 2.0.0 closing connection 5b1f17b1804b1-48a8ebb2fa5sm85451315e9.12 - gsmtp
+
+ERROR - 2026-05-02 05:18:14 --> Duplicate column name 'remote_image'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 4 APPPATH\Controllers\Member.php(41): CodeIgniter\Database\BaseConnection->query('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 5 APPPATH\Controllers\Member.php(317): App\Controllers\Member->ensureUsersTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Member->User_ForgotPassword()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 05:18:14 --> Duplicate column name 'role_id'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 4 APPPATH\Controllers\Member.php(47): CodeIgniter\Database\BaseConnection->query('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 5 APPPATH\Controllers\Member.php(317): App\Controllers\Member->ensureUsersTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Member->User_ForgotPassword()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 05:18:15 --> Email: Unable to send email using SMTP. Your server might not be configured to send mail using this method.
+ERROR - 2026-05-02 05:18:15 --> 220 smtp.gmail.com ESMTP ffacd0b85a97d-44a8f51bac8sm9541917f8f.16 - gsmtp
+
+hello: 250-smtp.gmail.com at your service, [185.68.167.59]
+250-SIZE 35882577
+250-8BITMIME
+250-STARTTLS
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+starttls: 220 2.0.0 Ready to start TLS
+
+hello: 250-smtp.gmail.com at your service, [185.68.167.59]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+from: 530-5.7.0 Authentication Required. For more information, go to
+530 5.7.0  https://support.google.com/accounts/troubleshooter/2402620. ffacd0b85a97d-44a8f51bac8sm9541917f8f.16 - gsmtp
+
+The following SMTP error was encountered: 530-5.7.0 Authentication Required. For more information, go to
+530 5.7.0  https://support.google.com/accounts/troubleshooter/2402620. ffacd0b85a97d-44a8f51bac8sm9541917f8f.16 - gsmtp
+
+quit: 221 2.0.0 closing connection ffacd0b85a97d-44a8f51bac8sm9541917f8f.16 - gsmtp
+
+ERROR - 2026-05-02 05:34:26 --> Duplicate column name 'remote_image'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 4 APPPATH\Controllers\Member.php(41): CodeIgniter\Database\BaseConnection->query('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 5 APPPATH\Controllers\Member.php(263): App\Controllers\Member->ensureUsersTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Member->User_Login()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 05:34:26 --> Duplicate column name 'role_id'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 4 APPPATH\Controllers\Member.php(47): CodeIgniter\Database\BaseConnection->query('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 5 APPPATH\Controllers\Member.php(263): App\Controllers\Member->ensureUsersTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Member->User_Login()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 05:55:34 --> Duplicate column name 'remote_image'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 4 APPPATH\Controllers\Member.php(41): CodeIgniter\Database\BaseConnection->query('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 5 APPPATH\Controllers\Member.php(317): App\Controllers\Member->ensureUsersTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Member->User_ForgotPassword()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 05:55:34 --> Duplicate column name 'role_id'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 4 APPPATH\Controllers\Member.php(47): CodeIgniter\Database\BaseConnection->query('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 5 APPPATH\Controllers\Member.php(317): App\Controllers\Member->ensureUsersTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Member->User_ForgotPassword()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 05:55:35 --> Email: Unable to send email using SMTP. Your server might not be configured to send mail using this method.
+ERROR - 2026-05-02 05:55:35 --> 220 smtp.gmail.com ESMTP 5b1f17b1804b1-48a8eb69698sm184463555e9.1 - gsmtp
+
+hello: 250-smtp.gmail.com at your service, [185.68.167.59]
+250-SIZE 35882577
+250-8BITMIME
+250-STARTTLS
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+starttls: 220 2.0.0 Ready to start TLS
+
+hello: 250-smtp.gmail.com at your service, [185.68.167.59]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+from: 530-5.7.0 Authentication Required. For more information, go to
+530 5.7.0  https://support.google.com/accounts/troubleshooter/2402620. 5b1f17b1804b1-48a8eb69698sm184463555e9.1 - gsmtp
+
+The following SMTP error was encountered: 530-5.7.0 Authentication Required. For more information, go to
+530 5.7.0  https://support.google.com/accounts/troubleshooter/2402620. 5b1f17b1804b1-48a8eb69698sm184463555e9.1 - gsmtp
+
+quit: 221 2.0.0 closing connection 5b1f17b1804b1-48a8eb69698sm184463555e9.1 - gsmtp
+
+ERROR - 2026-05-02 06:01:30 --> Duplicate column name 'remote_image'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 4 APPPATH\Controllers\Member.php(41): CodeIgniter\Database\BaseConnection->query('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 5 APPPATH\Controllers\Member.php(317): App\Controllers\Member->ensureUsersTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Member->User_ForgotPassword()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 06:01:30 --> Duplicate column name 'role_id'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 4 APPPATH\Controllers\Member.php(47): CodeIgniter\Database\BaseConnection->query('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 5 APPPATH\Controllers\Member.php(317): App\Controllers\Member->ensureUsersTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Member->User_ForgotPassword()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 06:01:31 --> Email: Unable to send email using SMTP. Your server might not be configured to send mail using this method.
+ERROR - 2026-05-02 06:01:31 --> 220 smtp.gmail.com ESMTP ffacd0b85a97d-44a981dee7asm9754273f8f.21 - gsmtp
+
+hello: 250-smtp.gmail.com at your service, [185.68.167.59]
+250-SIZE 35882577
+250-8BITMIME
+250-STARTTLS
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+starttls: 220 2.0.0 Ready to start TLS
+
+hello: 250-smtp.gmail.com at your service, [185.68.167.59]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+from: 530-5.7.0 Authentication Required. For more information, go to
+530 5.7.0  https://support.google.com/accounts/troubleshooter/2402620. ffacd0b85a97d-44a981dee7asm9754273f8f.21 - gsmtp
+
+The following SMTP error was encountered: 530-5.7.0 Authentication Required. For more information, go to
+530 5.7.0  https://support.google.com/accounts/troubleshooter/2402620. ffacd0b85a97d-44a981dee7asm9754273f8f.21 - gsmtp
+
+quit: 221 2.0.0 closing connection ffacd0b85a97d-44a981dee7asm9754273f8f.21 - gsmtp
+
+ERROR - 2026-05-02 06:17:56 --> Duplicate column name 'remote_image'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 4 APPPATH\Controllers\Member.php(41): CodeIgniter\Database\BaseConnection->query('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 5 APPPATH\Controllers\Member.php(317): App\Controllers\Member->ensureUsersTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Member->User_ForgotPassword()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 06:17:56 --> Duplicate column name 'role_id'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 4 APPPATH\Controllers\Member.php(47): CodeIgniter\Database\BaseConnection->query('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 5 APPPATH\Controllers\Member.php(317): App\Controllers\Member->ensureUsersTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Member->User_ForgotPassword()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 06:17:57 --> Email: Unable to send email using SMTP. Your server might not be configured to send mail using this method.
+ERROR - 2026-05-02 06:17:57 --> 220 smtp.gmail.com ESMTP 5b1f17b1804b1-48a8fe3cae3sm38040485e9.0 - gsmtp
+
+hello: 250-smtp.gmail.com at your service, [185.68.167.59]
+250-SIZE 35882577
+250-8BITMIME
+250-STARTTLS
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+starttls: 220 2.0.0 Ready to start TLS
+
+hello: 250-smtp.gmail.com at your service, [185.68.167.59]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+from: 530-5.7.0 Authentication Required. For more information, go to
+530 5.7.0  https://support.google.com/accounts/troubleshooter/2402620. 5b1f17b1804b1-48a8fe3cae3sm38040485e9.0 - gsmtp
+
+The following SMTP error was encountered: 530-5.7.0 Authentication Required. For more information, go to
+530 5.7.0  https://support.google.com/accounts/troubleshooter/2402620. 5b1f17b1804b1-48a8fe3cae3sm38040485e9.0 - gsmtp
+
+quit: 221 2.0.0 closing connection 5b1f17b1804b1-48a8fe3cae3sm38040485e9.0 - gsmtp
+
+ERROR - 2026-05-02 06:21:23 --> Duplicate column name 'remote_image'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 4 APPPATH\Controllers\Member.php(43): CodeIgniter\Database\BaseConnection->query('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 5 APPPATH\Controllers\Member.php(340): App\Controllers\Member->ensureUsersTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Member->User_ForgotPassword()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 06:21:23 --> Duplicate column name 'role_id'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 4 APPPATH\Controllers\Member.php(49): CodeIgniter\Database\BaseConnection->query('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 5 APPPATH\Controllers\Member.php(340): App\Controllers\Member->ensureUsersTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Member->User_ForgotPassword()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 06:21:24 --> Email: Unable to send email using SMTP. Your server might not be configured to send mail using this method.
+ERROR - 2026-05-02 06:21:24 --> 220 smtp.gmail.com ESMTP 5b1f17b1804b1-48a8ebb2fa5sm88506805e9.12 - gsmtp
+
+hello: 250-smtp.gmail.com at your service, [185.68.167.59]
+250-SIZE 35882577
+250-8BITMIME
+250-STARTTLS
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+starttls: 220 2.0.0 Ready to start TLS
+
+hello: 250-smtp.gmail.com at your service, [185.68.167.59]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+from: 530-5.7.0 Authentication Required. For more information, go to
+530 5.7.0  https://support.google.com/accounts/troubleshooter/2402620. 5b1f17b1804b1-48a8ebb2fa5sm88506805e9.12 - gsmtp
+
+The following SMTP error was encountered: 530-5.7.0 Authentication Required. For more information, go to
+530 5.7.0  https://support.google.com/accounts/troubleshooter/2402620. 5b1f17b1804b1-48a8ebb2fa5sm88506805e9.12 - gsmtp
+
+quit: 221 2.0.0 closing connection 5b1f17b1804b1-48a8ebb2fa5sm88506805e9.12 - gsmtp
+
+ERROR - 2026-05-02 06:26:37 --> Duplicate column name 'remote_image'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 4 APPPATH\Controllers\Member.php(43): CodeIgniter\Database\BaseConnection->query('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 5 APPPATH\Controllers\Member.php(340): App\Controllers\Member->ensureUsersTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Member->User_ForgotPassword()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 06:26:37 --> Duplicate column name 'role_id'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 4 APPPATH\Controllers\Member.php(49): CodeIgniter\Database\BaseConnection->query('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 5 APPPATH\Controllers\Member.php(340): App\Controllers\Member->ensureUsersTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Member->User_ForgotPassword()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 06:26:38 --> Email: Unable to send email using SMTP. Your server might not be configured to send mail using this method.
+ERROR - 2026-05-02 06:26:38 --> 220 smtp.gmail.com ESMTP ffacd0b85a97d-44a981dee90sm9185893f8f.22 - gsmtp
+
+hello: 250-smtp.gmail.com at your service, [185.68.167.59]
+250-SIZE 35882577
+250-8BITMIME
+250-STARTTLS
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+starttls: 220 2.0.0 Ready to start TLS
+
+hello: 250-smtp.gmail.com at your service, [185.68.167.59]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+from: 530-5.7.0 Authentication Required. For more information, go to
+530 5.7.0  https://support.google.com/accounts/troubleshooter/2402620. ffacd0b85a97d-44a981dee90sm9185893f8f.22 - gsmtp
+
+The following SMTP error was encountered: 530-5.7.0 Authentication Required. For more information, go to
+530 5.7.0  https://support.google.com/accounts/troubleshooter/2402620. ffacd0b85a97d-44a981dee90sm9185893f8f.22 - gsmtp
+
+quit: 221 2.0.0 closing connection ffacd0b85a97d-44a981dee90sm9185893f8f.22 - gsmtp
+
+ERROR - 2026-05-02 06:31:34 --> Duplicate column name 'remote_image'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 4 APPPATH\Controllers\Member.php(43): CodeIgniter\Database\BaseConnection->query('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 5 APPPATH\Controllers\Member.php(340): App\Controllers\Member->ensureUsersTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Member->User_ForgotPassword()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 06:31:34 --> Duplicate column name 'role_id'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 4 APPPATH\Controllers\Member.php(49): CodeIgniter\Database\BaseConnection->query('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 5 APPPATH\Controllers\Member.php(340): App\Controllers\Member->ensureUsersTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Member->User_ForgotPassword()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 06:31:35 --> Email: Unable to send email using SMTP. Your server might not be configured to send mail using this method.
+ERROR - 2026-05-02 06:31:35 --> 220 smtp.gmail.com ESMTP 5b1f17b1804b1-48a81ed69fasm187950045e9.3 - gsmtp
+
+hello: 250-smtp.gmail.com at your service, [185.68.167.59]
+250-SIZE 35882577
+250-8BITMIME
+250-STARTTLS
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+starttls: 220 2.0.0 Ready to start TLS
+
+hello: 250-smtp.gmail.com at your service, [185.68.167.59]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+from: 530-5.7.0 Authentication Required. For more information, go to
+530 5.7.0  https://support.google.com/accounts/troubleshooter/2402620. 5b1f17b1804b1-48a81ed69fasm187950045e9.3 - gsmtp
+
+The following SMTP error was encountered: 530-5.7.0 Authentication Required. For more information, go to
+530 5.7.0  https://support.google.com/accounts/troubleshooter/2402620. 5b1f17b1804b1-48a81ed69fasm187950045e9.3 - gsmtp
+
+quit: 221 2.0.0 closing connection 5b1f17b1804b1-48a81ed69fasm187950045e9.3 - gsmtp
+
+ERROR - 2026-05-02 06:33:08 --> Duplicate column name 'remote_image'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 4 APPPATH\Controllers\Member.php(43): CodeIgniter\Database\BaseConnection->query('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 5 APPPATH\Controllers\Member.php(340): App\Controllers\Member->ensureUsersTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Member->User_ForgotPassword()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 06:33:08 --> Duplicate column name 'role_id'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 4 APPPATH\Controllers\Member.php(49): CodeIgniter\Database\BaseConnection->query('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 5 APPPATH\Controllers\Member.php(340): App\Controllers\Member->ensureUsersTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Member->User_ForgotPassword()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 06:33:09 --> Email: Unable to send email using SMTP. Your server might not be configured to send mail using this method.
+ERROR - 2026-05-02 06:33:09 --> 220 smtp.gmail.com ESMTP 5b1f17b1804b1-48a8eb69698sm187805105e9.1 - gsmtp
+
+hello: 250-smtp.gmail.com at your service, [185.68.167.59]
+250-SIZE 35882577
+250-8BITMIME
+250-STARTTLS
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+starttls: 220 2.0.0 Ready to start TLS
+
+hello: 250-smtp.gmail.com at your service, [185.68.167.59]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+from: 530-5.7.0 Authentication Required. For more information, go to
+530 5.7.0  https://support.google.com/accounts/troubleshooter/2402620. 5b1f17b1804b1-48a8eb69698sm187805105e9.1 - gsmtp
+
+The following SMTP error was encountered: 530-5.7.0 Authentication Required. For more information, go to
+530 5.7.0  https://support.google.com/accounts/troubleshooter/2402620. 5b1f17b1804b1-48a8eb69698sm187805105e9.1 - gsmtp
+
+quit: 221 2.0.0 closing connection 5b1f17b1804b1-48a8eb69698sm187805105e9.1 - gsmtp
+
+ERROR - 2026-05-02 06:35:42 --> Duplicate column name 'remote_image'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 4 APPPATH\Controllers\Member.php(43): CodeIgniter\Database\BaseConnection->query('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 5 APPPATH\Controllers\Member.php(340): App\Controllers\Member->ensureUsersTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Member->User_ForgotPassword()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 06:35:42 --> Duplicate column name 'role_id'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 4 APPPATH\Controllers\Member.php(49): CodeIgniter\Database\BaseConnection->query('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 5 APPPATH\Controllers\Member.php(340): App\Controllers\Member->ensureUsersTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Member->User_ForgotPassword()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 06:35:43 --> Email: Unable to send email using SMTP. Your server might not be configured to send mail using this method.
+ERROR - 2026-05-02 06:35:43 --> 220 smtp.gmail.com ESMTP 5b1f17b1804b1-48a8fef8464sm27171115e9.30 - gsmtp
+
+hello: 250-smtp.gmail.com at your service, [185.68.167.59]
+250-SIZE 35882577
+250-8BITMIME
+250-STARTTLS
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+starttls: 220 2.0.0 Ready to start TLS
+
+hello: 250-smtp.gmail.com at your service, [185.68.167.59]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+from: 530-5.7.0 Authentication Required. For more information, go to
+530 5.7.0  https://support.google.com/accounts/troubleshooter/2402620. 5b1f17b1804b1-48a8fef8464sm27171115e9.30 - gsmtp
+
+The following SMTP error was encountered: 530-5.7.0 Authentication Required. For more information, go to
+530 5.7.0  https://support.google.com/accounts/troubleshooter/2402620. 5b1f17b1804b1-48a8fef8464sm27171115e9.30 - gsmtp
+
+quit: 221 2.0.0 closing connection 5b1f17b1804b1-48a8fef8464sm27171115e9.30 - gsmtp
+
+ERROR - 2026-05-02 06:36:48 --> Duplicate column name 'remote_image'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 4 APPPATH\Controllers\Member.php(43): CodeIgniter\Database\BaseConnection->query('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 5 APPPATH\Controllers\Member.php(340): App\Controllers\Member->ensureUsersTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Member->User_ForgotPassword()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 06:36:48 --> Duplicate column name 'role_id'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 4 APPPATH\Controllers\Member.php(49): CodeIgniter\Database\BaseConnection->query('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 5 APPPATH\Controllers\Member.php(340): App\Controllers\Member->ensureUsersTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Member->User_ForgotPassword()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 06:36:49 --> Email: Unable to send email using SMTP. Your server might not be configured to send mail using this method.
+ERROR - 2026-05-02 06:36:49 --> 220 smtp.gmail.com ESMTP 5b1f17b1804b1-48a8fee5033sm28441045e9.22 - gsmtp
+
+hello: 250-smtp.gmail.com at your service, [185.68.167.59]
+250-SIZE 35882577
+250-8BITMIME
+250-STARTTLS
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+starttls: 220 2.0.0 Ready to start TLS
+
+hello: 250-smtp.gmail.com at your service, [185.68.167.59]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+from: 530-5.7.0 Authentication Required. For more information, go to
+530 5.7.0  https://support.google.com/accounts/troubleshooter/2402620. 5b1f17b1804b1-48a8fee5033sm28441045e9.22 - gsmtp
+
+The following SMTP error was encountered: 530-5.7.0 Authentication Required. For more information, go to
+530 5.7.0  https://support.google.com/accounts/troubleshooter/2402620. 5b1f17b1804b1-48a8fee5033sm28441045e9.22 - gsmtp
+
+quit: 221 2.0.0 closing connection 5b1f17b1804b1-48a8fee5033sm28441045e9.22 - gsmtp
+
+ERROR - 2026-05-02 06:47:45 --> Duplicate column name 'remote_image'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 4 APPPATH\Controllers\Member.php(43): CodeIgniter\Database\BaseConnection->query('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 5 APPPATH\Controllers\Member.php(378): App\Controllers\Member->ensureUsersTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Member->User_ForgotPassword()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 06:47:45 --> Duplicate column name 'role_id'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 4 APPPATH\Controllers\Member.php(49): CodeIgniter\Database\BaseConnection->query('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 5 APPPATH\Controllers\Member.php(378): App\Controllers\Member->ensureUsersTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Member->User_ForgotPassword()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 06:47:46 --> Email: Unable to send email using SMTP. Your server might not be configured to send mail using this method.
+ERROR - 2026-05-02 06:47:46 --> 220 smtp.gmail.com ESMTP ffacd0b85a97d-44a8f237368sm9610067f8f.14 - gsmtp
+
+hello: 250-smtp.gmail.com at your service, [185.68.167.59]
+250-SIZE 35882577
+250-8BITMIME
+250-STARTTLS
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+starttls: 220 2.0.0 Ready to start TLS
+
+hello: 250-smtp.gmail.com at your service, [185.68.167.59]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+from: 530-5.7.0 Authentication Required. For more information, go to
+530 5.7.0  https://support.google.com/accounts/troubleshooter/2402620. ffacd0b85a97d-44a8f237368sm9610067f8f.14 - gsmtp
+
+The following SMTP error was encountered: 530-5.7.0 Authentication Required. For more information, go to
+530 5.7.0  https://support.google.com/accounts/troubleshooter/2402620. ffacd0b85a97d-44a8f237368sm9610067f8f.14 - gsmtp
+
+quit: 221 2.0.0 closing connection ffacd0b85a97d-44a8f237368sm9610067f8f.14 - gsmtp
+
+ERROR - 2026-05-02 06:47:51 --> Duplicate column name 'remote_image'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 4 APPPATH\Controllers\Member.php(43): CodeIgniter\Database\BaseConnection->query('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 5 APPPATH\Controllers\Member.php(378): App\Controllers\Member->ensureUsersTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Member->User_ForgotPassword()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 06:47:51 --> Duplicate column name 'role_id'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 4 APPPATH\Controllers\Member.php(49): CodeIgniter\Database\BaseConnection->query('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 5 APPPATH\Controllers\Member.php(378): App\Controllers\Member->ensureUsersTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Member->User_ForgotPassword()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 06:47:52 --> Email: Unable to send email using SMTP. Your server might not be configured to send mail using this method.
+ERROR - 2026-05-02 06:47:52 --> 220 smtp.gmail.com ESMTP ffacd0b85a97d-44b638ac434sm5770154f8f.36 - gsmtp
+
+hello: 250-smtp.gmail.com at your service, [185.68.167.59]
+250-SIZE 35882577
+250-8BITMIME
+250-STARTTLS
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+starttls: 220 2.0.0 Ready to start TLS
+
+hello: 250-smtp.gmail.com at your service, [185.68.167.59]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+from: 530-5.7.0 Authentication Required. For more information, go to
+530 5.7.0  https://support.google.com/accounts/troubleshooter/2402620. ffacd0b85a97d-44b638ac434sm5770154f8f.36 - gsmtp
+
+The following SMTP error was encountered: 530-5.7.0 Authentication Required. For more information, go to
+530 5.7.0  https://support.google.com/accounts/troubleshooter/2402620. ffacd0b85a97d-44b638ac434sm5770154f8f.36 - gsmtp
+
+quit: 221 2.0.0 closing connection ffacd0b85a97d-44b638ac434sm5770154f8f.36 - gsmtp
+
+ERROR - 2026-05-02 06:48:19 --> Duplicate column name 'remote_image'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 4 APPPATH\Controllers\Member.php(43): CodeIgniter\Database\BaseConnection->query('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 5 APPPATH\Controllers\Member.php(499): App\Controllers\Member->ensureUsersTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Member->User_Activate('fad752e915f4dea6f8eb5ada9c8c4f18265b1e7dd82e86c2')
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 06:48:19 --> Duplicate column name 'role_id'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 4 APPPATH\Controllers\Member.php(49): CodeIgniter\Database\BaseConnection->query('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 5 APPPATH\Controllers\Member.php(499): App\Controllers\Member->ensureUsersTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Member->User_Activate('fad752e915f4dea6f8eb5ada9c8c4f18265b1e7dd82e86c2')
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 06:49:46 --> Duplicate column name 'remote_image'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 4 APPPATH\Controllers\Member.php(43): CodeIgniter\Database\BaseConnection->query('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 5 APPPATH\Controllers\Member.php(499): App\Controllers\Member->ensureUsersTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Member->User_Activate('fad752e915f4dea6f8eb5ada9c8c4f18265b1e7dd82e86c2')
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 06:49:46 --> Duplicate column name 'role_id'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 4 APPPATH\Controllers\Member.php(49): CodeIgniter\Database\BaseConnection->query('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 5 APPPATH\Controllers\Member.php(499): App\Controllers\Member->ensureUsersTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Member->User_Activate('fad752e915f4dea6f8eb5ada9c8c4f18265b1e7dd82e86c2')
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 06:50:24 --> Duplicate column name 'remote_image'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 4 APPPATH\Controllers\Member.php(43): CodeIgniter\Database\BaseConnection->query('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 5 APPPATH\Controllers\Member.php(499): App\Controllers\Member->ensureUsersTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Member->User_Activate('fad752e915f4dea6f8eb5ada9c8c4f18265b1e7dd82e86c2')
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 06:50:24 --> Duplicate column name 'role_id'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 4 APPPATH\Controllers\Member.php(49): CodeIgniter\Database\BaseConnection->query('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 5 APPPATH\Controllers\Member.php(499): App\Controllers\Member->ensureUsersTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Member->User_Activate('fad752e915f4dea6f8eb5ada9c8c4f18265b1e7dd82e86c2')
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 06:50:25 --> Duplicate column name 'remote_image'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 4 APPPATH\Controllers\Member.php(43): CodeIgniter\Database\BaseConnection->query('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 5 APPPATH\Controllers\Member.php(324): App\Controllers\Member->ensureUsersTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Member->User_Login()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 06:50:25 --> Duplicate column name 'role_id'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 4 APPPATH\Controllers\Member.php(49): CodeIgniter\Database\BaseConnection->query('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 5 APPPATH\Controllers\Member.php(324): App\Controllers\Member->ensureUsersTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Member->User_Login()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 06:50:43 --> Duplicate column name 'remote_image'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 4 APPPATH\Controllers\Member.php(43): CodeIgniter\Database\BaseConnection->query('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 5 APPPATH\Controllers\Member.php(324): App\Controllers\Member->ensureUsersTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Member->User_Login()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 06:50:43 --> Duplicate column name 'role_id'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 4 APPPATH\Controllers\Member.php(49): CodeIgniter\Database\BaseConnection->query('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 5 APPPATH\Controllers\Member.php(324): App\Controllers\Member->ensureUsersTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Member->User_Login()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 06:50:44 --> Duplicate column name 'remote_image'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 4 APPPATH\Controllers\Member.php(43): CodeIgniter\Database\BaseConnection->query('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 5 APPPATH\Controllers\Member.php(182): App\Controllers\Member->ensureUsersTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Member->User_Profile()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 06:50:44 --> Duplicate column name 'role_id'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 4 APPPATH\Controllers\Member.php(49): CodeIgniter\Database\BaseConnection->query('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 5 APPPATH\Controllers\Member.php(182): App\Controllers\Member->ensureUsersTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Member->User_Profile()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 06:56:32 --> Duplicate column name 'remote_image'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 4 APPPATH\Controllers\Member.php(43): CodeIgniter\Database\BaseConnection->query('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 5 APPPATH\Controllers\Member.php(295): App\Controllers\Member->ensureUsersTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Member->User_Profile()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 06:56:32 --> Duplicate column name 'role_id'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 4 APPPATH\Controllers\Member.php(49): CodeIgniter\Database\BaseConnection->query('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 5 APPPATH\Controllers\Member.php(295): App\Controllers\Member->ensureUsersTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Member->User_Profile()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 06:56:46 --> Duplicate column name 'remote_image'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 4 APPPATH\Controllers\Member.php(43): CodeIgniter\Database\BaseConnection->query('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 5 APPPATH\Controllers\Member.php(594): App\Controllers\Member->ensureUsersTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Member->User_DeActivateRequest()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 06:56:46 --> Duplicate column name 'role_id'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 4 APPPATH\Controllers\Member.php(49): CodeIgniter\Database\BaseConnection->query('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 5 APPPATH\Controllers\Member.php(594): App\Controllers\Member->ensureUsersTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Member->User_DeActivateRequest()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 06:56:46 --> Duplicate column name 'active'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE users ADD COLUMN active TINYINT(1) UNSIGNED NOT NULL DEFAULT 1', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE users ADD COLUMN active TINYINT(1) UNSIGNED NOT NULL DEFAULT 1')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE users ADD COLUMN active TINYINT(1) UNSIGNED NOT NULL DEFAULT 1')
+ 4 APPPATH\Controllers\Member.php(55): CodeIgniter\Database\BaseConnection->query('ALTER TABLE users ADD COLUMN active TINYINT(1) UNSIGNED NOT NULL DEFAULT 1')
+ 5 APPPATH\Controllers\Member.php(594): App\Controllers\Member->ensureUsersTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Member->User_DeActivateRequest()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 07:06:29 --> Duplicate column name 'remote_image'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE products ADD COLUMN remote_image VARCHAR(2048) NULL', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE products ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE products ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 4 APPPATH\Controllers\Store.php(127): CodeIgniter\Database\BaseConnection->query('ALTER TABLE products ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 5 APPPATH\Controllers\Store.php(476): App\Controllers\Store->ensureProductsTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Store->index()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 07:06:33 --> Duplicate column name 'remote_image'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE products ADD COLUMN remote_image VARCHAR(2048) NULL', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE products ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE products ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 4 APPPATH\Controllers\Store.php(127): CodeIgniter\Database\BaseConnection->query('ALTER TABLE products ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 5 APPPATH\Controllers\Store.php(863): App\Controllers\Store->ensureProductsTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Store->Product_View(1)
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 07:06:33 --> Duplicate column name 'user_id'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE products ADD COLUMN user_id INT UNSIGNED NULL', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE products ADD COLUMN user_id INT UNSIGNED NULL')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE products ADD COLUMN user_id INT UNSIGNED NULL')
+ 4 APPPATH\Controllers\Store.php(133): CodeIgniter\Database\BaseConnection->query('ALTER TABLE products ADD COLUMN user_id INT UNSIGNED NULL')
+ 5 APPPATH\Controllers\Store.php(863): App\Controllers\Store->ensureProductsTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Store->Product_View(1)
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 07:06:33 --> Duplicate key name 'products_user_id_idx'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE products ADD KEY products_user_id_idx (user_id)', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE products ADD KEY products_user_id_idx (user_id)')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE products ADD KEY products_user_id_idx (user_id)')
+ 4 APPPATH\Controllers\Store.php(139): CodeIgniter\Database\BaseConnection->query('ALTER TABLE products ADD KEY products_user_id_idx (user_id)')
+ 5 APPPATH\Controllers\Store.php(863): App\Controllers\Store->ensureProductsTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Store->Product_View(1)
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 07:13:46 --> Duplicate column name 'remote_image'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 4 APPPATH\Controllers\Member.php(43): CodeIgniter\Database\BaseConnection->query('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 5 APPPATH\Controllers\Member.php(295): App\Controllers\Member->ensureUsersTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Member->User_Profile()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 07:13:46 --> Duplicate column name 'role_id'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 4 APPPATH\Controllers\Member.php(49): CodeIgniter\Database\BaseConnection->query('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 5 APPPATH\Controllers\Member.php(295): App\Controllers\Member->ensureUsersTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Member->User_Profile()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 07:13:46 --> Duplicate column name 'active'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE users ADD COLUMN active TINYINT(1) UNSIGNED NOT NULL DEFAULT 1', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE users ADD COLUMN active TINYINT(1) UNSIGNED NOT NULL DEFAULT 1')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE users ADD COLUMN active TINYINT(1) UNSIGNED NOT NULL DEFAULT 1')
+ 4 APPPATH\Controllers\Member.php(55): CodeIgniter\Database\BaseConnection->query('ALTER TABLE users ADD COLUMN active TINYINT(1) UNSIGNED NOT NULL DEFAULT 1')
+ 5 APPPATH\Controllers\Member.php(295): App\Controllers\Member->ensureUsersTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Member->User_Profile()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 07:14:17 --> Duplicate column name 'remote_image'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 4 APPPATH\Controllers\Member.php(43): CodeIgniter\Database\BaseConnection->query('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 5 APPPATH\Controllers\Member.php(1247): App\Controllers\Member->ensureUsersTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Member->Admin_Login()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 07:14:17 --> Duplicate column name 'role_id'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 4 APPPATH\Controllers\Member.php(49): CodeIgniter\Database\BaseConnection->query('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 5 APPPATH\Controllers\Member.php(1247): App\Controllers\Member->ensureUsersTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Member->Admin_Login()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 07:14:17 --> Duplicate column name 'active'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE users ADD COLUMN active TINYINT(1) UNSIGNED NOT NULL DEFAULT 1', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE users ADD COLUMN active TINYINT(1) UNSIGNED NOT NULL DEFAULT 1')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE users ADD COLUMN active TINYINT(1) UNSIGNED NOT NULL DEFAULT 1')
+ 4 APPPATH\Controllers\Member.php(55): CodeIgniter\Database\BaseConnection->query('ALTER TABLE users ADD COLUMN active TINYINT(1) UNSIGNED NOT NULL DEFAULT 1')
+ 5 APPPATH\Controllers\Member.php(1247): App\Controllers\Member->ensureUsersTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Member->Admin_Login()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 07:14:28 --> Duplicate column name 'remote_image'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 4 APPPATH\Controllers\Member.php(43): CodeIgniter\Database\BaseConnection->query('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 5 APPPATH\Controllers\Member.php(1058): App\Controllers\Member->ensureUsersTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Member->Admin_Register()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 07:14:28 --> Duplicate column name 'role_id'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 4 APPPATH\Controllers\Member.php(49): CodeIgniter\Database\BaseConnection->query('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 5 APPPATH\Controllers\Member.php(1058): App\Controllers\Member->ensureUsersTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Member->Admin_Register()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 07:14:28 --> Duplicate column name 'active'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE users ADD COLUMN active TINYINT(1) UNSIGNED NOT NULL DEFAULT 1', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE users ADD COLUMN active TINYINT(1) UNSIGNED NOT NULL DEFAULT 1')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE users ADD COLUMN active TINYINT(1) UNSIGNED NOT NULL DEFAULT 1')
+ 4 APPPATH\Controllers\Member.php(55): CodeIgniter\Database\BaseConnection->query('ALTER TABLE users ADD COLUMN active TINYINT(1) UNSIGNED NOT NULL DEFAULT 1')
+ 5 APPPATH\Controllers\Member.php(1058): App\Controllers\Member->ensureUsersTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Member->Admin_Register()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 07:17:01 --> Duplicate column name 'remote_image'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 4 APPPATH\Controllers\Member.php(43): CodeIgniter\Database\BaseConnection->query('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 5 APPPATH\Controllers\Member.php(1058): App\Controllers\Member->ensureUsersTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Member->Admin_Register()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 07:17:01 --> Duplicate column name 'role_id'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 4 APPPATH\Controllers\Member.php(49): CodeIgniter\Database\BaseConnection->query('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 5 APPPATH\Controllers\Member.php(1058): App\Controllers\Member->ensureUsersTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Member->Admin_Register()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 07:17:01 --> Duplicate column name 'active'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE users ADD COLUMN active TINYINT(1) UNSIGNED NOT NULL DEFAULT 1', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE users ADD COLUMN active TINYINT(1) UNSIGNED NOT NULL DEFAULT 1')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE users ADD COLUMN active TINYINT(1) UNSIGNED NOT NULL DEFAULT 1')
+ 4 APPPATH\Controllers\Member.php(55): CodeIgniter\Database\BaseConnection->query('ALTER TABLE users ADD COLUMN active TINYINT(1) UNSIGNED NOT NULL DEFAULT 1')
+ 5 APPPATH\Controllers\Member.php(1058): App\Controllers\Member->ensureUsersTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Member->Admin_Register()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 07:18:27 --> Duplicate column name 'remote_image'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 4 APPPATH\Controllers\Member.php(43): CodeIgniter\Database\BaseConnection->query('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 5 APPPATH\Controllers\Member.php(1060): App\Controllers\Member->ensureUsersTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Member->Admin_Register()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 07:18:27 --> Duplicate column name 'role_id'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 4 APPPATH\Controllers\Member.php(49): CodeIgniter\Database\BaseConnection->query('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 5 APPPATH\Controllers\Member.php(1060): App\Controllers\Member->ensureUsersTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Member->Admin_Register()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 07:18:27 --> Duplicate column name 'active'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE users ADD COLUMN active TINYINT(1) UNSIGNED NOT NULL DEFAULT 1', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE users ADD COLUMN active TINYINT(1) UNSIGNED NOT NULL DEFAULT 1')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE users ADD COLUMN active TINYINT(1) UNSIGNED NOT NULL DEFAULT 1')
+ 4 APPPATH\Controllers\Member.php(55): CodeIgniter\Database\BaseConnection->query('ALTER TABLE users ADD COLUMN active TINYINT(1) UNSIGNED NOT NULL DEFAULT 1')
+ 5 APPPATH\Controllers\Member.php(1060): App\Controllers\Member->ensureUsersTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Member->Admin_Register()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 07:19:04 --> Duplicate column name 'remote_image'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 4 APPPATH\Controllers\Member.php(43): CodeIgniter\Database\BaseConnection->query('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 5 APPPATH\Controllers\Member.php(1060): App\Controllers\Member->ensureUsersTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Member->Admin_Register()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 07:19:04 --> Duplicate column name 'role_id'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 4 APPPATH\Controllers\Member.php(49): CodeIgniter\Database\BaseConnection->query('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 5 APPPATH\Controllers\Member.php(1060): App\Controllers\Member->ensureUsersTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Member->Admin_Register()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 07:19:04 --> Duplicate column name 'active'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE users ADD COLUMN active TINYINT(1) UNSIGNED NOT NULL DEFAULT 1', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE users ADD COLUMN active TINYINT(1) UNSIGNED NOT NULL DEFAULT 1')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE users ADD COLUMN active TINYINT(1) UNSIGNED NOT NULL DEFAULT 1')
+ 4 APPPATH\Controllers\Member.php(55): CodeIgniter\Database\BaseConnection->query('ALTER TABLE users ADD COLUMN active TINYINT(1) UNSIGNED NOT NULL DEFAULT 1')
+ 5 APPPATH\Controllers\Member.php(1060): App\Controllers\Member->ensureUsersTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Member->Admin_Register()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 07:27:38 --> Duplicate column name 'remote_image'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 4 APPPATH\Controllers\Member.php(43): CodeIgniter\Database\BaseConnection->query('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 5 APPPATH\Controllers\Member.php(1251): App\Controllers\Member->ensureUsersTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Member->Admin_Login()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 07:27:38 --> Duplicate column name 'role_id'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 4 APPPATH\Controllers\Member.php(49): CodeIgniter\Database\BaseConnection->query('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 5 APPPATH\Controllers\Member.php(1251): App\Controllers\Member->ensureUsersTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Member->Admin_Login()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 07:27:38 --> Duplicate column name 'active'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE users ADD COLUMN active TINYINT(1) UNSIGNED NOT NULL DEFAULT 1', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE users ADD COLUMN active TINYINT(1) UNSIGNED NOT NULL DEFAULT 1')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE users ADD COLUMN active TINYINT(1) UNSIGNED NOT NULL DEFAULT 1')
+ 4 APPPATH\Controllers\Member.php(55): CodeIgniter\Database\BaseConnection->query('ALTER TABLE users ADD COLUMN active TINYINT(1) UNSIGNED NOT NULL DEFAULT 1')
+ 5 APPPATH\Controllers\Member.php(1251): App\Controllers\Member->ensureUsersTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Member->Admin_Login()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 07:29:18 --> Duplicate column name 'remote_image'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 4 APPPATH\Controllers\Member.php(43): CodeIgniter\Database\BaseConnection->query('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 5 APPPATH\Controllers\Member.php(1251): App\Controllers\Member->ensureUsersTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Member->Admin_Login()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 07:29:18 --> Duplicate column name 'role_id'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 4 APPPATH\Controllers\Member.php(49): CodeIgniter\Database\BaseConnection->query('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 5 APPPATH\Controllers\Member.php(1251): App\Controllers\Member->ensureUsersTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Member->Admin_Login()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 07:29:18 --> Duplicate column name 'active'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE users ADD COLUMN active TINYINT(1) UNSIGNED NOT NULL DEFAULT 1', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE users ADD COLUMN active TINYINT(1) UNSIGNED NOT NULL DEFAULT 1')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE users ADD COLUMN active TINYINT(1) UNSIGNED NOT NULL DEFAULT 1')
+ 4 APPPATH\Controllers\Member.php(55): CodeIgniter\Database\BaseConnection->query('ALTER TABLE users ADD COLUMN active TINYINT(1) UNSIGNED NOT NULL DEFAULT 1')
+ 5 APPPATH\Controllers\Member.php(1251): App\Controllers\Member->ensureUsersTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Member->Admin_Login()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 07:30:31 --> Duplicate column name 'remote_image'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE products ADD COLUMN remote_image VARCHAR(2048) NULL', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE products ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE products ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 4 APPPATH\Controllers\Store.php(127): CodeIgniter\Database\BaseConnection->query('ALTER TABLE products ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 5 APPPATH\Controllers\Store.php(482): App\Controllers\Store->ensureProductsTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Store->index()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 07:30:31 --> Duplicate column name 'user_id'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE products ADD COLUMN user_id INT UNSIGNED NULL', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE products ADD COLUMN user_id INT UNSIGNED NULL')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE products ADD COLUMN user_id INT UNSIGNED NULL')
+ 4 APPPATH\Controllers\Store.php(133): CodeIgniter\Database\BaseConnection->query('ALTER TABLE products ADD COLUMN user_id INT UNSIGNED NULL')
+ 5 APPPATH\Controllers\Store.php(482): App\Controllers\Store->ensureProductsTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Store->index()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 07:30:31 --> Duplicate key name 'products_user_id_idx'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE products ADD KEY products_user_id_idx (user_id)', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE products ADD KEY products_user_id_idx (user_id)')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE products ADD KEY products_user_id_idx (user_id)')
+ 4 APPPATH\Controllers\Store.php(139): CodeIgniter\Database\BaseConnection->query('ALTER TABLE products ADD KEY products_user_id_idx (user_id)')
+ 5 APPPATH\Controllers\Store.php(482): App\Controllers\Store->ensureProductsTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Store->index()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 07:30:35 --> Duplicate column name 'remote_image'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE products ADD COLUMN remote_image VARCHAR(2048) NULL', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE products ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE products ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 4 APPPATH\Controllers\Store.php(127): CodeIgniter\Database\BaseConnection->query('ALTER TABLE products ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 5 APPPATH\Controllers\Store.php(869): App\Controllers\Store->ensureProductsTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Store->Product_View(1)
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 07:30:35 --> Duplicate column name 'user_id'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE products ADD COLUMN user_id INT UNSIGNED NULL', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE products ADD COLUMN user_id INT UNSIGNED NULL')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE products ADD COLUMN user_id INT UNSIGNED NULL')
+ 4 APPPATH\Controllers\Store.php(133): CodeIgniter\Database\BaseConnection->query('ALTER TABLE products ADD COLUMN user_id INT UNSIGNED NULL')
+ 5 APPPATH\Controllers\Store.php(869): App\Controllers\Store->ensureProductsTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Store->Product_View(1)
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 07:30:35 --> Duplicate key name 'products_user_id_idx'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE products ADD KEY products_user_id_idx (user_id)', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE products ADD KEY products_user_id_idx (user_id)')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE products ADD KEY products_user_id_idx (user_id)')
+ 4 APPPATH\Controllers\Store.php(139): CodeIgniter\Database\BaseConnection->query('ALTER TABLE products ADD KEY products_user_id_idx (user_id)')
+ 5 APPPATH\Controllers\Store.php(869): App\Controllers\Store->ensureProductsTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Store->Product_View(1)
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 07:31:52 --> Duplicate column name 'remote_image'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 4 APPPATH\Controllers\Member.php(43): CodeIgniter\Database\BaseConnection->query('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 5 APPPATH\Controllers\Member.php(1251): App\Controllers\Member->ensureUsersTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Member->Admin_Login()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 07:31:52 --> Duplicate column name 'role_id'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 4 APPPATH\Controllers\Member.php(49): CodeIgniter\Database\BaseConnection->query('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1')
+ 5 APPPATH\Controllers\Member.php(1251): App\Controllers\Member->ensureUsersTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Member->Admin_Login()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 07:31:52 --> Duplicate column name 'active'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE users ADD COLUMN active TINYINT(1) UNSIGNED NOT NULL DEFAULT 1', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE users ADD COLUMN active TINYINT(1) UNSIGNED NOT NULL DEFAULT 1')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE users ADD COLUMN active TINYINT(1) UNSIGNED NOT NULL DEFAULT 1')
+ 4 APPPATH\Controllers\Member.php(55): CodeIgniter\Database\BaseConnection->query('ALTER TABLE users ADD COLUMN active TINYINT(1) UNSIGNED NOT NULL DEFAULT 1')
+ 5 APPPATH\Controllers\Member.php(1251): App\Controllers\Member->ensureUsersTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Member->Admin_Login()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 07:34:48 --> Duplicate column name 'remote_image'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE products ADD COLUMN remote_image VARCHAR(2048) NULL', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE products ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE products ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 4 APPPATH\Controllers\Store.php(147): CodeIgniter\Database\BaseConnection->query('ALTER TABLE products ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 5 APPPATH\Controllers\Store.php(893): App\Controllers\Store->ensureProductsTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Store->Product_View(1)
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 07:34:48 --> Duplicate column name 'user_id'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE products ADD COLUMN user_id INT UNSIGNED NULL', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE products ADD COLUMN user_id INT UNSIGNED NULL')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE products ADD COLUMN user_id INT UNSIGNED NULL')
+ 4 APPPATH\Controllers\Store.php(153): CodeIgniter\Database\BaseConnection->query('ALTER TABLE products ADD COLUMN user_id INT UNSIGNED NULL')
+ 5 APPPATH\Controllers\Store.php(893): App\Controllers\Store->ensureProductsTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Store->Product_View(1)
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 07:34:48 --> Duplicate key name 'products_user_id_idx'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE products ADD KEY products_user_id_idx (user_id)', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE products ADD KEY products_user_id_idx (user_id)')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE products ADD KEY products_user_id_idx (user_id)')
+ 4 APPPATH\Controllers\Store.php(159): CodeIgniter\Database\BaseConnection->query('ALTER TABLE products ADD KEY products_user_id_idx (user_id)')
+ 5 APPPATH\Controllers\Store.php(893): App\Controllers\Store->ensureProductsTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Store->Product_View(1)
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 07:35:05 --> Duplicate column name 'remote_image'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE products ADD COLUMN remote_image VARCHAR(2048) NULL', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE products ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE products ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 4 APPPATH\Controllers\Store.php(147): CodeIgniter\Database\BaseConnection->query('ALTER TABLE products ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 5 APPPATH\Controllers\Store.php(502): App\Controllers\Store->ensureProductsTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Store->index()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 07:35:05 --> Duplicate column name 'user_id'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE products ADD COLUMN user_id INT UNSIGNED NULL', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE products ADD COLUMN user_id INT UNSIGNED NULL')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE products ADD COLUMN user_id INT UNSIGNED NULL')
+ 4 APPPATH\Controllers\Store.php(153): CodeIgniter\Database\BaseConnection->query('ALTER TABLE products ADD COLUMN user_id INT UNSIGNED NULL')
+ 5 APPPATH\Controllers\Store.php(502): App\Controllers\Store->ensureProductsTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Store->index()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 07:35:05 --> Duplicate key name 'products_user_id_idx'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE products ADD KEY products_user_id_idx (user_id)', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE products ADD KEY products_user_id_idx (user_id)')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE products ADD KEY products_user_id_idx (user_id)')
+ 4 APPPATH\Controllers\Store.php(159): CodeIgniter\Database\BaseConnection->query('ALTER TABLE products ADD KEY products_user_id_idx (user_id)')
+ 5 APPPATH\Controllers\Store.php(502): App\Controllers\Store->ensureProductsTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Store->index()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 07:35:10 --> Duplicate column name 'remote_image'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE products ADD COLUMN remote_image VARCHAR(2048) NULL', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE products ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE products ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 4 APPPATH\Controllers\Store.php(147): CodeIgniter\Database\BaseConnection->query('ALTER TABLE products ADD COLUMN remote_image VARCHAR(2048) NULL')
+ 5 APPPATH\Controllers\Store.php(502): App\Controllers\Store->ensureProductsTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Store->index()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 07:35:10 --> Duplicate column name 'user_id'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE products ADD COLUMN user_id INT UNSIGNED NULL', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE products ADD COLUMN user_id INT UNSIGNED NULL')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE products ADD COLUMN user_id INT UNSIGNED NULL')
+ 4 APPPATH\Controllers\Store.php(153): CodeIgniter\Database\BaseConnection->query('ALTER TABLE products ADD COLUMN user_id INT UNSIGNED NULL')
+ 5 APPPATH\Controllers\Store.php(502): App\Controllers\Store->ensureProductsTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Store->index()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')
+ERROR - 2026-05-02 07:35:10 --> Duplicate key name 'products_user_id_idx'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('ALTER TABLE products ADD KEY products_user_id_idx (user_id)', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE products ADD KEY products_user_id_idx (user_id)')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE products ADD KEY products_user_id_idx (user_id)')
+ 4 APPPATH\Controllers\Store.php(159): CodeIgniter\Database\BaseConnection->query('ALTER TABLE products ADD KEY products_user_id_idx (user_id)')
+ 5 APPPATH\Controllers\Store.php(502): App\Controllers\Store->ensureProductsTable()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Store->index()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 A:\CloudDrive\SilverSoft.Projects\App.Production\Product.Store\index.php(5): require('A:\\CloudDrive\\SilverSoft.Projects\\App.Production\\Product.Store\\Vendor\\public\\index.php')

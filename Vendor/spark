@@ -81,6 +81,12 @@ require FCPATH . '../app/Config/Paths.php';
 
 $paths = new Paths();
 
+require_once $paths->systemDirectory . '/Config/DotEnv.php';
+$workspaceRoot = dirname(FCPATH, 2);
+if (is_file($workspaceRoot . DIRECTORY_SEPARATOR . '.env')) {
+    (new CodeIgniter\Config\DotEnv($workspaceRoot . DIRECTORY_SEPARATOR))->load();
+}
+
 // LOAD THE FRAMEWORK BOOTSTRAP FILE
 require $paths->systemDirectory . '/Boot.php';
 

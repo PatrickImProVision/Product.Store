@@ -39,8 +39,21 @@
                             Price: <strong><?= esc(number_format((float) $product['price'], 2)) ?></strong>
                             &nbsp;|&nbsp; Quantity: <strong><?= esc((string) $product['quantity']) ?></strong>
                         </div>
-                        <div class="d-flex justify-content-end mt-auto">
+                        <?php
+                        $memberUid = $memberUserId ?? null;
+                        $isAdmin   = $memberIsAdministrator ?? false;
+                        $canManage = $isAdmin || (
+                            $memberUid !== null
+                            && array_key_exists('user_id', $product)
+                            && ($product['user_id'] !== null && $product['user_id'] !== '' && (int) $product['user_id'] === $memberUid)
+                        );
+                        ?>
+                        <div class="d-flex justify-content-end flex-wrap gap-2 mt-auto">
                             <a class="btn btn-sm btn-outline-secondary" href="<?= site_url('Store/Product/View/' . $product['id']) ?>">View</a>
+                            <?php if ($canManage): ?>
+                                <a class="btn btn-sm btn-outline-primary" href="<?= site_url('Store/Product/Edit/' . $product['id']) ?>">Edit</a>
+                                <a class="btn btn-sm btn-outline-danger" href="<?= site_url('Store/Product/Delete/' . $product['id']) ?>">Delete</a>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </article>

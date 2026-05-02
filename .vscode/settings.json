@@ -20,7 +20,6 @@
     },
     "search.exclude": {
         "**/node_modules": true,
-        "**/Vendor": true,
         "**/WritAble": true
     },
     "editor.tabSize": 4,

@@ -1,0 +1,102 @@
+====================================================================
+	FrameWork.Links.Done.txt
+	Built by comparing FrameWork.Links.Default.txt to the project
+	(Vendor/app/Config/Routes.php + controller/view behaviour).
+	Only links that match “Done” in Default’s legend are listed here,
+	grouped under the same section titles as Default.
+====================================================================
+
+====================================================================
+	Default Server DataBase Application Settings
+====================================================================
+DB Host: localhost
+DB Name: Store
+DB User: root
+DB PassWord: "" -> Empty/None
+DB Driver: MySQLi
+
+====================================================================
+	Default Server Application Settings
+====================================================================
+[SERVER_ROOT] = http://localhost
+[APP_ROOT] = [SERVER_ROOT]/Product.Store
+
+====================================================================
+	Default Public Guest Access To Application
+====================================================================
+[APP_ROOT]/Index
+
+====================================================================
+	Default Public Guest Access To Basket
+====================================================================
+[APP_ROOT]/Store/Basket/Index <- The View Of Added Products
+[APP_ROOT]/Store/Basket/Create
+[APP_ROOT]/Store/Basket/Add/{Id}
+[APP_ROOT]/Store/Basket/Edit/{Id}
+[APP_ROOT]/Store/Basket/Delete/{Id}
+
+====================================================================
+	Default Public Guest Access To Store Search Products
+====================================================================
+[APP_ROOT]/Store/Search/Index <- The View Of Full Text Store Search
+[APP_ROOT]/Store/Search/Whisper
+
+====================================================================
+	Default Public Guest Access To Store
+====================================================================
+[APP_ROOT]/Store/Index <- The View Of Products Index
+[APP_ROOT]/Store/Product/View/{Id}
+
+====================================================================
+	Default Public User Access To Product
+====================================================================
+[APP_ROOT]/Store/Product/Create
+[APP_ROOT]/Store/Product/Edit/{Id}
+[APP_ROOT]/Store/Product/Delete/{Id}
+
+====================================================================
+	Default Public User Access To CheckOut
+====================================================================
+[APP_ROOT]/Store/CheckOut/Index <- The View Of CheckOut
+[APP_ROOT]/Store/CheckOut/Create
+[APP_ROOT]/Store/CheckOut/Edit/{Id}
+[APP_ROOT]/Store/CheckOut/Delete/{Id}
+
+====================================================================
+	Default Administrator Access To System Contacts
+====================================================================
+[APP_ROOT]/DashBoard/Site_Contacts <- The View Of Contacts
+[APP_ROOT]/DashBoard/Site_Contact/Create
+[APP_ROOT]/DashBoard/Site_Contact/Edit/{Id}
+[APP_ROOT]/DashBoard/Site_Contact/Delete/{Id}
+
+====================================================================
+	Default Administrator Access To System Web Setup
+====================================================================
+[APP_ROOT]/DashBoard/SEO_Settings
+[APP_ROOT]/DashBoard/Web_Promoting
+[APP_ROOT]/DashBoard/Web_Promoting/Create
+[APP_ROOT]/DashBoard/Web_Promoting/Edit/{Id}
+[APP_ROOT]/DashBoard/Web_Promoting/Delete/{Id}
+[APP_ROOT]/DashBoard/Web_Settings
+
+====================================================================
+	Sections from Default with no Done links in this project yet
+====================================================================
+	Default Public User Access To Profile
+		(Member/User/* routes exist but return placeholder pages only.)
+
+	Default Public Administrator Access To Profile
+		(Member/Admin/* routes exist but return placeholder pages only.)
+
+	Default Administrator Access To System
+		(DashBoard/Index is routed but remains a minimal stub.)
+
+	Default Administrator Access To System User Management
+		(No DashBoard/Member/* routes in Routes.php.)
+
+====================================================================
+	Extra routed endpoints (not listed in FrameWork.Links.Default.txt)
+====================================================================
+[APP_ROOT]/  -> redirects to Index
+[APP_ROOT]/Store/Basket  -> redirects to Store/Basket/Index
