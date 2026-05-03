@@ -3,10 +3,11 @@
 namespace App\Models;
 
 use CodeIgniter\Model;
+use Config\CiTables;
 
 class UserModel extends Model
 {
-    protected $table            = 'users';
+    protected $table            = CiTables::USERS;
     protected $primaryKey       = 'id';
     protected $returnType       = 'array';
     protected $allowedFields    = ['email', 'password_hash', 'display_name', 'remote_image', 'role_id', 'active'];

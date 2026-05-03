@@ -3,10 +3,11 @@
 namespace App\Models;
 
 use CodeIgniter\Model;
+use Config\CiTables;
 
 class WebSettingModel extends Model
 {
-    protected $table            = 'web_settings';
+    protected $table            = CiTables::WEB_SETTINGS;
     protected $primaryKey       = 'id';
     protected $returnType       = 'array';
     protected $allowedFields    = ['title', 'description'];

@@ -6,15 +6,17 @@ use App\Models\ProductModel;
 use App\Models\RolesModel;
 use App\Models\SeoSettingModel;
 use App\Models\WebSettingModel;
+use Config\CiTables;
 
 class Store extends BaseController
 {
     private function ensureCheckOutTable(): bool
     {
         try {
-            $db = \Config\Database::connect();
+            $db            = \Config\Database::connect();
+            $checkoutsTable = $db->prefixTable(CiTables::CHECKOUTS);
             $db->query(
-                'CREATE TABLE IF NOT EXISTS checkouts (
+                'CREATE TABLE IF NOT EXISTS `' . $checkoutsTable . '` (
                     id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
                     profile_id VARCHAR(64) NOT NULL,
                     profile_name VARCHAR(255) NOT NULL,
@@ -130,9 +132,10 @@ class Store extends BaseController
     private function ensureProductsTable(): bool
     {
         try {
-            $db = \Config\Database::connect();
+            $db           = \Config\Database::connect();
+            $productsTable = $db->prefixTable(CiTables::PRODUCTS);
             $db->query(
-                'CREATE TABLE IF NOT EXISTS products (
+                'CREATE TABLE IF NOT EXISTS `' . $productsTable . '` (
                     id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
                     name VARCHAR(255) NOT NULL,
                     price DECIMAL(10,2) NOT NULL DEFAULT 0.00,
@@ -142,21 +145,21 @@ class Store extends BaseController
                 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci'
             );
 
-            // Backward compatibility for existing products tables.
+            // Backward compatibility for existing catalog tables.
             try {
-                $db->query('ALTER TABLE products ADD COLUMN remote_image VARCHAR(2048) NULL');
+                $db->query('ALTER TABLE `' . $productsTable . '` ADD COLUMN remote_image VARCHAR(2048) NULL');
             } catch (\Throwable $e) {
                 // Ignore "duplicate column" errors.
             }
 
             try {
-                $db->query('ALTER TABLE products ADD COLUMN user_id INT UNSIGNED NULL');
+                $db->query('ALTER TABLE `' . $productsTable . '` ADD COLUMN user_id INT UNSIGNED NULL');
             } catch (\Throwable $e) {
                 // Ignore "duplicate column" errors.
             }
 
             try {
-                $db->query('ALTER TABLE products ADD KEY products_user_id_idx (user_id)');
+                $db->query('ALTER TABLE `' . $productsTable . '` ADD KEY products_user_id_idx (user_id)');
             } catch (\Throwable $e) {
                 // Index may already exist.
             }
@@ -171,7 +174,7 @@ class Store extends BaseController
     {
         try {
             $db = \Config\Database::connect();
-            $row = $db->query("SHOW INDEX FROM `products` WHERE Key_name = 'ft_products_name_description'")->getRowArray();
+            $row = $db->query('SHOW INDEX FROM `' . $db->prefixTable(CiTables::PRODUCTS) . '` WHERE Key_name = \'ft_products_name_description\'')->getRowArray();
 
             return $row !== null;
         } catch (\Throwable $e) {
@@ -187,7 +190,7 @@ class Store extends BaseController
             }
 
             $db = \Config\Database::connect();
-            $db->query('ALTER TABLE products ADD FULLTEXT INDEX ft_products_name_description (name, description)');
+            $db->query('ALTER TABLE `' . $db->prefixTable(CiTables::PRODUCTS) . '` ADD FULLTEXT INDEX ft_products_name_description (name, description)');
         } catch (\Throwable $e) {
             // Duplicate index, engine limitation, or permissions — LIKE fallback still works.
         }
@@ -222,14 +225,15 @@ class Store extends BaseController
         ?float $maxPrice,
         int $limit
     ): array {
-        $db = \Config\Database::connect();
+        $db            = \Config\Database::connect();
+        $productsTable = $db->prefixTable(CiTables::PRODUCTS);
 
         $againstMode = $mode === 'boolean' ? 'BOOLEAN MODE' : 'NATURAL LANGUAGE MODE';
         $needle      = $mode === 'boolean' ? mb_substr($q, 0, 512) : $q;
 
         $sql = 'SELECT id, name, price, quantity, description, remote_image,
                 MATCH(name, description) AGAINST (? IN ' . $againstMode . ') AS relevance_score
-            FROM products
+            FROM `' . $productsTable . '`
             WHERE MATCH(name, description) AGAINST (? IN ' . $againstMode . ')';
 
         $params = [$needle, $needle];
@@ -275,12 +279,13 @@ class Store extends BaseController
         ?float $minPrice,
         ?float $maxPrice
     ): int {
-        $db = \Config\Database::connect();
+        $db            = \Config\Database::connect();
+        $productsTable = $db->prefixTable(CiTables::PRODUCTS);
 
         $againstMode = $mode === 'boolean' ? 'BOOLEAN MODE' : 'NATURAL LANGUAGE MODE';
         $needle      = $mode === 'boolean' ? mb_substr($q, 0, 512) : $q;
 
-        $sql = 'SELECT COUNT(*) AS c FROM products WHERE MATCH(name, description) AGAINST (? IN ' . $againstMode . ')';
+        $sql = 'SELECT COUNT(*) AS c FROM `' . $productsTable . '` WHERE MATCH(name, description) AGAINST (? IN ' . $againstMode . ')';
         $params = [$needle];
 
         if ($minPrice !== null) {
@@ -399,9 +404,9 @@ class Store extends BaseController
         try {
             $db = \Config\Database::connect();
 
-            // Ensure the seo_settings table exists for this minimal setup.
+            // Ensure the SEO settings table exists for this minimal setup.
             $db->query(
-                'CREATE TABLE IF NOT EXISTS seo_settings (
+                'CREATE TABLE IF NOT EXISTS `' . $db->prefixTable(CiTables::SEO_SETTINGS) . '` (
                     id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
                     meta_title VARCHAR(255) NOT NULL DEFAULT "",
                     meta_description TEXT NULL,
@@ -454,7 +459,7 @@ class Store extends BaseController
             $db = \Config\Database::connect();
 
             $db->query(
-                'CREATE TABLE IF NOT EXISTS web_settings (
+                'CREATE TABLE IF NOT EXISTS `' . $db->prefixTable(CiTables::WEB_SETTINGS) . '` (
                     id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
                     title VARCHAR(255) NOT NULL DEFAULT "",
                     description TEXT NULL
@@ -901,9 +906,10 @@ class Store extends BaseController
         }
 
         $layout = $this->getSiteLayoutData();
-        $layout['pageTitle'] = trim((string) ($product['name'] ?? '')) !== ''
+        $layout['pageTitle']   = trim((string) ($product['name'] ?? '')) !== ''
             ? trim((string) $product['name'])
             : 'Product';
+        $layout['bodyClass']   = static::STOREFRONT_BODY_CLASS;
 
         return view('store/product_view', array_merge($layout, [
             'product'           => $product,
@@ -914,7 +920,13 @@ class Store extends BaseController
 
     public function Basket_Add(int $id)
     {
+        $isAjax = $this->request->isAJAX();
+
         if (! $this->ensureProductsTable()) {
+            if ($isAjax) {
+                return $this->jsonResponse(false, 'Database connection failed. Please check DB settings.');
+            }
+
             return redirect()->to(site_url('Store/Index'))->with('message', 'Database connection failed. Please check DB settings.');
         }
 
@@ -922,6 +934,10 @@ class Store extends BaseController
         $product      = $productModel->find($id);
 
         if ($product === null) {
+            if ($isAjax) {
+                return $this->jsonResponse(false, 'Product not found.');
+            }
+
             return redirect()->to(site_url('Store/Index'))->with('message', 'Product not found.');
         }
 
@@ -939,6 +955,24 @@ class Store extends BaseController
         }
 
         $this->saveBasketForVisitor($basket);
+
+        if ($isAjax) {
+            $lineQty = (int) ($basket[$id]['quantity'] ?? 0);
+            $lines   = count($basket);
+            $pieces  = 0;
+
+            foreach ($basket as $row) {
+                $pieces += (int) ($row['quantity'] ?? 0);
+            }
+
+            return $this->jsonResponse(true, 'Product added to basket.', [
+                'productId'             => $id,
+                'lineQuantity'          => $lineQty,
+                'basketLineCount'       => $lines,
+                'basketTotalQuantity'   => $pieces,
+                'viewBasketUrl'         => site_url('Store/Basket/Index'),
+            ]);
+        }
 
         return redirect()->to(site_url('Store/Product/View/' . $id))->with('message', 'Product added to basket.');
     }
@@ -963,12 +997,15 @@ class Store extends BaseController
         }
         unset($item);
 
-        return view('store/basket_index', array_merge($this->getSiteLayoutData(), [
+        $layout = $this->getSiteLayoutData();
+        $layout['pageTitle']  = 'Basket';
+        $layout['bodyClass']  = static::STOREFRONT_BODY_CLASS;
+
+        return view('store/basket_index', array_merge($layout, [
             'profile'    => $profile,
             'basket'     => $basket,
             'grandTotal' => $grandTotal,
             'message'    => session()->getFlashdata('message'),
-            'pageTitle'  => 'Basket',
         ]));
     }
 
@@ -1023,7 +1060,7 @@ class Store extends BaseController
         }
 
         $db = \Config\Database::connect();
-        $rows = $db->table('checkouts')->orderBy('id', 'DESC')->get()->getResultArray();
+        $rows = $db->table(CiTables::CHECKOUTS)->orderBy('id', 'DESC')->get()->getResultArray();
 
         return view('store/checkout_index', array_merge($this->getSiteLayoutData(), [
             'rows'      => $rows,
@@ -1047,7 +1084,7 @@ class Store extends BaseController
             }
 
             $db = \Config\Database::connect();
-            $db->table('checkouts')->insert([
+            $db->table(CiTables::CHECKOUTS)->insert([
                 'profile_id' => (string) $profile['id'],
                 'profile_name' => (string) $profile['name'],
                 'total_amount' => $total,
@@ -1072,7 +1109,7 @@ class Store extends BaseController
         }
 
         $db = \Config\Database::connect();
-        $row = $db->table('checkouts')->where('id', $id)->get()->getRowArray();
+        $row = $db->table(CiTables::CHECKOUTS)->where('id', $id)->get()->getRowArray();
         if ($row === null) {
             return redirect()->to(site_url('Store/CheckOut/Index'))->with('message', 'Checkout not found.');
         }
@@ -1082,7 +1119,7 @@ class Store extends BaseController
             if ($status === '') {
                 $status = 'pending';
             }
-            $db->table('checkouts')->where('id', $id)->update(['status' => $status]);
+            $db->table(CiTables::CHECKOUTS)->where('id', $id)->update(['status' => $status]);
             return redirect()->to(site_url('Store/CheckOut/Index'))->with('message', 'Checkout updated successfully.');
         }
 
@@ -1101,7 +1138,7 @@ class Store extends BaseController
         }
 
         $db = \Config\Database::connect();
-        $db->table('checkouts')->where('id', $id)->delete();
+        $db->table(CiTables::CHECKOUTS)->where('id', $id)->delete();
         return redirect()->to(site_url('Store/CheckOut/Index'))->with('message', 'Checkout deleted successfully.');
     }
 

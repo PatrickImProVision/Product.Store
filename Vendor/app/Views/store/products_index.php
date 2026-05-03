@@ -26,8 +26,6 @@ $chrome = [
             <a href="<?= site_url('Store/Search/Index') ?>" class="btn btn-outline-secondary">Search catalog</a>
             <?php if ($memberSignedIn): ?>
                 <a href="<?= site_url('Store/Product/Create') ?>" class="btn btn-primary">Create Product</a>
-            <?php else: ?>
-                <a href="<?= site_url('Member/User/Login') ?>" class="btn btn-outline-primary">Sign in to create products</a>
             <?php endif; ?>
         </div>
     </div>

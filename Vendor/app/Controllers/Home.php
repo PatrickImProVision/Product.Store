@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use Config\CiTables;
+
 class Home extends BaseController
 {
     public function index(): string
@@ -12,9 +14,9 @@ class Home extends BaseController
         // Promotions: avoid fieldExists() (schema cache / driver edge cases can break the whole query).
         try {
             $db = \Config\Database::connect();
-            if ($db->tableExists('web_promoting')) {
+            if ($db->tableExists(CiTables::WEB_PROMOTING)) {
                 try {
-                    $promotions = $db->table('web_promoting')
+                    $promotions = $db->table(CiTables::WEB_PROMOTING)
                         ->groupStart()
                         ->where('is_active', 1)
                         ->orWhere('is_active', null)
@@ -24,7 +26,7 @@ class Home extends BaseController
                         ->get()
                         ->getResultArray();
                 } catch (\Throwable $e) {
-                    $promotions = $db->table('web_promoting')
+                    $promotions = $db->table(CiTables::WEB_PROMOTING)
                         ->orderBy('id', 'ASC')
                         ->get()
                         ->getResultArray();
@@ -51,8 +53,8 @@ class Home extends BaseController
         $siteContacts = [];
         try {
             $db = \Config\Database::connect();
-            if ($db->tableExists('site_contacts')) {
-                $siteContacts = $db->table('site_contacts')
+            if ($db->tableExists(CiTables::SITE_CONTACTS)) {
+                $siteContacts = $db->table(CiTables::SITE_CONTACTS)
                     ->orderBy('id', 'ASC')
                     ->get()
                     ->getResultArray();

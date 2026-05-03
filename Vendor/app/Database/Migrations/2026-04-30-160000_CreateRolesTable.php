@@ -5,16 +5,17 @@ declare(strict_types=1);
 namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
+use Config\CiTables;
 
 /**
- * Creates `roles` and seeds User / Administrator.
+ * Creates `ci_user_roles` and seeds the six-role catalog.
  * Run: php spark migrate
  */
 class CreateRolesTable extends Migration
 {
     public function up(): void
     {
-        if (! $this->db->tableExists('roles')) {
+        if (! $this->db->tableExists(CiTables::USER_ROLES)) {
             $this->forge->addField([
                 'id' => [
                     'type'           => 'TINYINT',
@@ -34,11 +35,11 @@ class CreateRolesTable extends Migration
 
             $this->forge->addKey('id', true);
             $this->forge->addUniqueKey(['slug']);
-            $this->forge->createTable('roles');
+            $this->forge->createTable(CiTables::USER_ROLES);
         }
 
         $this->db->query(
-            'INSERT IGNORE INTO roles (id, slug, name) VALUES
+            'INSERT IGNORE INTO `' . $this->db->prefixTable(CiTables::USER_ROLES) . '` (id, slug, name) VALUES
                 (1, \'user\', \'User\'),
                 (2, \'administrator\', \'Administrator\'),
                 (3, \'owner\', \'Owner\'),
@@ -50,6 +51,6 @@ class CreateRolesTable extends Migration
 
     public function down(): void
     {
-        $this->forge->dropTable('roles', true);
+        $this->forge->dropTable(CiTables::USER_ROLES, true);
     }
 }

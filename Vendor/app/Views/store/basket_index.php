@@ -1,23 +1,25 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title><?= esc(\App\Libraries\SiteChrome::browserTitle([
-        'webTitle'   => $webTitle ?? null,
-        'metaTitle'  => $metaTitle ?? null,
-        'pageTitle'  => $pageTitle ?? 'Basket',
-    ])) ?></title>
-    <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-        rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-        crossorigin="anonymous"
-    >
-</head>
-<body class="bg-light">
-<div class="container py-5">
-    <div class="d-flex justify-content-between align-items-center mb-4">
+<?php
+
+$chrome = [
+    'documentTitle'   => $documentTitle ?? '',
+    'pageTitle'       => $pageTitle ?? 'Basket',
+    'metaTitle'       => $metaTitle ?? 'Product Store',
+    'metaDescription' => $metaDescription ?? 'Product Store powered by CodeIgniter',
+    'metaKeywords'    => $metaKeywords ?? '',
+    'webTitle'        => $webTitle ?? 'Product Store',
+    'bodyClass'       => $bodyClass ?? 'bg-light',
+];
+?>
+<?= view('shared/site_head', $chrome) ?>
+<?= view('shared/site_nav', $chrome) ?>
+
+<main class="container py-5">
+    <?= view('shared/site_hero', [
+        'webTitle'       => $webTitle ?? 'Product Store',
+        'webDescription' => $webDescription ?? '',
+    ]) ?>
+
+    <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
         <h1 class="h3 mb-0">Basket</h1>
         <a href="<?= site_url('Store/Index') ?>" class="btn btn-outline-secondary">Back to Products</a>
     </div>
@@ -64,9 +66,7 @@
                                     <button
                                         type="button"
                                         data-delete-url="<?= site_url('Store/Basket/Delete/' . (int) ($item['id'] ?? 0)) ?>"
-                                        href="<?= site_url('Store/Basket/Delete/' . (int) ($item['id'] ?? 0)) ?>"
                                         class="btn btn-sm btn-outline-danger"
-                                        onclick="return false;"
                                     >
                                         Delete From Basket
                                     </button>
@@ -85,7 +85,8 @@
             </div>
         </div>
     </div>
-</div>
+</main>
+
 <script>
     const basketMessage = document.getElementById('basketMessage');
     const grandTotalEl = document.getElementById('grandTotalValue');
@@ -121,7 +122,7 @@
                     method: 'GET',
                     headers: {
                         'X-Requested-With': 'XMLHttpRequest',
-                        'Accept': 'application/json',
+                        Accept: 'application/json',
                     },
                 });
 
@@ -147,5 +148,5 @@
         });
     });
 </script>
-</body>
-</html>
+
+<?= view('shared/site_footer', $chrome) ?>

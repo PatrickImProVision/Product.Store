@@ -8,6 +8,7 @@ use App\Libraries\RolesSchema;
 use App\Models\RolesModel;
 use App\Models\UserModel;
 use CodeIgniter\CodeIgniter;
+use Config\CiTables;
 
 class DashBoard extends BaseController
 {
@@ -39,14 +40,14 @@ class DashBoard extends BaseController
     {
         try {
             $db = \Config\Database::connect();
-            if (! $db->tableExists('web_promoting')) {
+            if (! $db->tableExists(CiTables::WEB_PROMOTING)) {
                 return null;
             }
-            if (! $db->fieldExists('is_active', 'web_promoting')) {
+            if (! $db->fieldExists('is_active', CiTables::WEB_PROMOTING)) {
                 return null;
             }
 
-            return (int) $db->table('web_promoting')
+            return (int) $db->table(CiTables::WEB_PROMOTING)
                 ->groupStart()
                 ->where('is_active', 1)
                 ->orWhere('is_active', null)
@@ -61,11 +62,11 @@ class DashBoard extends BaseController
     {
         try {
             $db = \Config\Database::connect();
-            if (! $db->tableExists('checkouts')) {
+            if (! $db->tableExists(CiTables::CHECKOUTS)) {
                 return null;
             }
 
-            return (int) $db->table('checkouts')->where('status', 'pending')->countAllResults();
+            return (int) $db->table(CiTables::CHECKOUTS)->where('status', 'pending')->countAllResults();
         } catch (\Throwable $e) {
             return null;
         }
@@ -102,12 +103,12 @@ class DashBoard extends BaseController
      */
     private function dashboardOverviewStats(): array
     {
-        $countProducts = $this->safeTableCount('products');
-        $countUsers    = $this->safeTableCount('users');
-        $countRoles    = $this->safeTableCount('roles');
-        $countContacts = $this->safeTableCount('site_contacts');
+        $countProducts = $this->safeTableCount(CiTables::PRODUCTS);
+        $countUsers    = $this->safeTableCount(CiTables::USERS);
+        $countRoles    = $this->safeTableCount(CiTables::USER_ROLES);
+        $countContacts = $this->safeTableCount(CiTables::SITE_CONTACTS);
 
-        $promoTotal  = $this->safeTableCount('web_promoting');
+        $promoTotal  = $this->safeTableCount(CiTables::WEB_PROMOTING);
         $promoActive = $this->safeWebPromotingActiveCount();
         $promoValue  = '—';
         if ($promoTotal !== null) {
@@ -116,7 +117,7 @@ class DashBoard extends BaseController
                 : (string) $promoTotal;
         }
 
-        $checkoutsTotal = $this->safeTableCount('checkouts');
+        $checkoutsTotal = $this->safeTableCount(CiTables::CHECKOUTS);
         $checkoutsPen   = $this->safeCheckoutPendingCount();
         $checkoutValue  = '—';
         if ($checkoutsTotal !== null) {
@@ -125,14 +126,14 @@ class DashBoard extends BaseController
                 : (string) $checkoutsTotal;
         }
 
-        $seoSaved = $this->safeHasRows('seo_settings');
+        $seoSaved = $this->safeHasRows(CiTables::SEO_SETTINGS);
         $seoValue = match ($seoSaved) {
             true    => 'Configured',
             false   => 'Not saved yet',
             default => '—',
         };
 
-        $webSaved = $this->safeHasRows('web_settings');
+        $webSaved = $this->safeHasRows(CiTables::WEB_SETTINGS);
         $webValue = match ($webSaved) {
             true    => 'Configured',
             false   => 'Not saved yet',
@@ -206,7 +207,7 @@ class DashBoard extends BaseController
         try {
             $db = \Config\Database::connect();
             $db->query(
-                'CREATE TABLE IF NOT EXISTS web_promoting (
+                'CREATE TABLE IF NOT EXISTS `' . $db->prefixTable(CiTables::WEB_PROMOTING) . '` (
                     id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
                     title VARCHAR(255) NOT NULL DEFAULT "",
                     description TEXT NULL,
@@ -225,16 +226,16 @@ class DashBoard extends BaseController
     {
         try {
             $db = \Config\Database::connect();
-            if (! $db->tableExists('web_promoting')) {
+            if (! $db->tableExists(CiTables::WEB_PROMOTING)) {
                 return;
             }
 
-            if (! $db->fieldExists('sort_order', 'web_promoting')) {
-                $db->query('ALTER TABLE web_promoting ADD COLUMN sort_order INT UNSIGNED NOT NULL DEFAULT 0 AFTER description');
+            if (! $db->fieldExists('sort_order', CiTables::WEB_PROMOTING)) {
+                $db->query('ALTER TABLE `' . $db->prefixTable(CiTables::WEB_PROMOTING) . '` ADD COLUMN sort_order INT UNSIGNED NOT NULL DEFAULT 0 AFTER description');
             }
 
-            if (! $db->fieldExists('is_active', 'web_promoting')) {
-                $db->query('ALTER TABLE web_promoting ADD COLUMN is_active TINYINT(1) UNSIGNED NOT NULL DEFAULT 1 AFTER sort_order');
+            if (! $db->fieldExists('is_active', CiTables::WEB_PROMOTING)) {
+                $db->query('ALTER TABLE `' . $db->prefixTable(CiTables::WEB_PROMOTING) . '` ADD COLUMN is_active TINYINT(1) UNSIGNED NOT NULL DEFAULT 1 AFTER sort_order');
             }
         } catch (\Throwable $e) {
             // Best-effort upgrades only.
@@ -246,7 +247,7 @@ class DashBoard extends BaseController
         try {
             $db = \Config\Database::connect();
             $db->query(
-                'CREATE TABLE IF NOT EXISTS site_contacts (
+                'CREATE TABLE IF NOT EXISTS `' . $db->prefixTable(CiTables::SITE_CONTACTS) . '` (
                     id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
                     name VARCHAR(255) NOT NULL,
                     email VARCHAR(255) NOT NULL,
@@ -266,12 +267,12 @@ class DashBoard extends BaseController
     {
         try {
             $db = \Config\Database::connect();
-            if (! $db->tableExists('site_contacts')) {
+            if (! $db->tableExists(CiTables::SITE_CONTACTS)) {
                 return;
             }
 
-            if (! $db->fieldExists('remote_image', 'site_contacts')) {
-                $db->query('ALTER TABLE site_contacts ADD COLUMN remote_image VARCHAR(2048) NULL AFTER message');
+            if (! $db->fieldExists('remote_image', CiTables::SITE_CONTACTS)) {
+                $db->query('ALTER TABLE `' . $db->prefixTable(CiTables::SITE_CONTACTS) . '` ADD COLUMN remote_image VARCHAR(2048) NULL AFTER message');
             }
         } catch (\Throwable $e) {
             // Best-effort upgrades only.
@@ -298,7 +299,7 @@ class DashBoard extends BaseController
         }
 
         $db = \Config\Database::connect();
-        $rows = $db->table('site_contacts')->orderBy('id', 'DESC')->get()->getResultArray();
+        $rows = $db->table(CiTables::SITE_CONTACTS)->orderBy('id', 'DESC')->get()->getResultArray();
         $layout = $this->getSiteLayoutData();
 
         return $this->renderDashboard('dashboard/site_contacts_index', [
@@ -359,7 +360,7 @@ class DashBoard extends BaseController
             }
 
             $db = \Config\Database::connect();
-            $db->table('site_contacts')->insert([
+            $db->table(CiTables::SITE_CONTACTS)->insert([
                 'name'         => $name,
                 'email'        => $email,
                 'message'      => $message !== '' ? $message : null,
@@ -382,7 +383,7 @@ class DashBoard extends BaseController
         }
 
         $db = \Config\Database::connect();
-        $row = $db->table('site_contacts')->where('id', $id)->get()->getRowArray();
+        $row = $db->table(CiTables::SITE_CONTACTS)->where('id', $id)->get()->getRowArray();
         if ($row === null) {
             return redirect()->to(site_url('DashBoard/Site_Contacts'))->with('message', 'Contact not found.');
         }
@@ -431,7 +432,7 @@ class DashBoard extends BaseController
                 ]);
             }
 
-            $db->table('site_contacts')->where('id', $id)->update([
+            $db->table(CiTables::SITE_CONTACTS)->where('id', $id)->update([
                 'name'         => $name,
                 'email'        => $email,
                 'message'      => $message !== '' ? $message : null,
@@ -451,7 +452,7 @@ class DashBoard extends BaseController
         }
 
         $db = \Config\Database::connect();
-        $db->table('site_contacts')->where('id', $id)->delete();
+        $db->table(CiTables::SITE_CONTACTS)->where('id', $id)->delete();
         return redirect()->to(site_url('DashBoard/Site_Contacts'))->with('message', 'Contact deleted successfully.');
     }
 
@@ -462,7 +463,7 @@ class DashBoard extends BaseController
         }
 
         $db = \Config\Database::connect();
-        $rows = $db->table('web_promoting')
+        $rows = $db->table(CiTables::WEB_PROMOTING)
             ->orderBy('sort_order', 'ASC')
             ->orderBy('id', 'ASC')
             ->get()
@@ -489,7 +490,7 @@ class DashBoard extends BaseController
             $sortOrder = (int) $this->request->getPost('sort_order');
             $isActive  = (string) $this->request->getPost('is_active') === '1' ? 1 : 0;
 
-            $db->table('web_promoting')->insert([
+            $db->table(CiTables::WEB_PROMOTING)->insert([
                 'title'       => trim((string) $this->request->getPost('title')),
                 'description' => trim((string) $this->request->getPost('description')),
                 'sort_order'  => $sortOrder,
@@ -517,7 +518,7 @@ class DashBoard extends BaseController
         }
 
         $db = \Config\Database::connect();
-        $row = $db->table('web_promoting')->where('id', $id)->get()->getRowArray();
+        $row = $db->table(CiTables::WEB_PROMOTING)->where('id', $id)->get()->getRowArray();
         if ($row === null) {
             return redirect()->to(site_url('DashBoard/Web_Promoting'))->with('message', 'Promotion not found.');
         }
@@ -526,7 +527,7 @@ class DashBoard extends BaseController
             $sortOrder = (int) $this->request->getPost('sort_order');
             $isActive  = (string) $this->request->getPost('is_active') === '1' ? 1 : 0;
 
-            $db->table('web_promoting')->where('id', $id)->update([
+            $db->table(CiTables::WEB_PROMOTING)->where('id', $id)->update([
                 'title'       => trim((string) $this->request->getPost('title')),
                 'description' => trim((string) $this->request->getPost('description')),
                 'sort_order'  => $sortOrder,
@@ -554,7 +555,7 @@ class DashBoard extends BaseController
         }
 
         $db = \Config\Database::connect();
-        $db->table('web_promoting')->where('id', $id)->delete();
+        $db->table(CiTables::WEB_PROMOTING)->where('id', $id)->delete();
 
         return redirect()->to(site_url('DashBoard/Web_Promoting'))->with('message', 'Promotion deleted successfully.');
     }
@@ -564,7 +565,7 @@ class DashBoard extends BaseController
         try {
             RolesSchema::ensure();
 
-            return \Config\Database::connect()->tableExists('roles');
+            return \Config\Database::connect()->tableExists(CiTables::USER_ROLES);
         } catch (\Throwable $e) {
             return false;
         }
@@ -616,7 +617,7 @@ class DashBoard extends BaseController
     }
 
     /**
-     * List roles (`roles` table).
+     * List roles ({@see CiTables::USER_ROLES}).
      */
     public function Member_Admin_Roles()
     {

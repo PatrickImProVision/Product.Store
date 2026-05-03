@@ -13,6 +13,11 @@ $storeBrowseOk = $navMember === null
     || ! MemberCapabilityGate::enforcementActive($navMember)
     || MemberCapabilityGate::allows($navMember, 'cap_store_view');
 
+$storeBasketCheckoutOk = $navMember === null
+    || MemberCapabilityGate::bypasses($navMember)
+    || ! MemberCapabilityGate::enforcementActive($navMember)
+    || MemberCapabilityGate::allows($navMember, 'cap_store_basket_checkout');
+
 $storeManageProductsOk = $navMember !== null && (
     MemberCapabilityGate::bypasses($navMember)
     || ! MemberCapabilityGate::enforcementActive($navMember)
@@ -90,6 +95,9 @@ if ($memberLoggedIn && is_array($memberNav)) {
                             <?php if ($storeBrowseOk): ?>
                                 <li><a class="dropdown-item" href="<?= site_url('Store/Index') ?>">Products</a></li>
                                 <li><a class="dropdown-item" href="<?= site_url('Store/Search/Index') ?>">Search</a></li>
+                            <?php endif; ?>
+                            <?php if ($storeBrowseOk && $storeBasketCheckoutOk): ?>
+                                <li><a class="dropdown-item" href="<?= site_url('Store/Basket/Index') ?>">Basket</a></li>
                             <?php endif; ?>
                             <?php if ($storeBrowseOk && $storeManageProductsOk): ?>
                                 <li><hr class="dropdown-divider"></li>

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use CodeIgniter\Model;
+use Config\CiTables;
 
 class RolesModel extends Model
 {
@@ -28,7 +29,7 @@ class RolesModel extends Model
     /** Default access tier for installation Owner (above Administrator). */
     public const ACCESS_LEVEL_OWNER_DEFAULT = 1000;
 
-    protected $table         = 'roles';
+    protected $table         = CiTables::USER_ROLES;
     protected $primaryKey    = 'id';
     protected $returnType    = 'array';
     protected $allowedFields = ['slug', 'name', 'description', 'access_level', 'restriction', 'behaviour'];

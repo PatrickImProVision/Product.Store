@@ -31,7 +31,7 @@ class Database extends Config
         'password'     => '',
         'database'     => 'Store',
         'DBDriver'     => 'MySQLi',
-        'DBPrefix'     => '',
+        'DBPrefix'     => 'ci_',
         'pConnect'     => false,
         'DBDebug'      => true,
         'charset'      => 'utf8mb4',

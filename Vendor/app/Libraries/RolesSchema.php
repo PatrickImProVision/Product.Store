@@ -6,9 +6,10 @@ namespace App\Libraries;
 
 use App\Models\RolesModel;
 use CodeIgniter\Database\BaseConnection;
+use Config\CiTables;
 
 /**
- * Runtime bootstrap for `roles` (mirrors migration for hosts where migrate was not run).
+ * Runtime bootstrap for {@see CiTables::USER_ROLES} (mirrors migration for hosts where migrate was not run).
  */
 class RolesSchema
 {
@@ -17,7 +18,7 @@ class RolesSchema
         try {
             $db = \Config\Database::connect();
 
-            if (! $db->tableExists('roles')) {
+            if (! $db->tableExists(CiTables::USER_ROLES)) {
                 self::createTableWithForge($db);
             }
 
@@ -26,8 +27,8 @@ class RolesSchema
             self::ensureAccessRestrictionBehaviourColumns($db);
             self::syncDefaultRoleDefinitions($db);
 
-            if (! $db->tableExists('roles')) {
-                log_message('critical', 'RolesSchema: roles table still missing after bootstrap.');
+            if (! $db->tableExists(CiTables::USER_ROLES)) {
+                log_message('critical', 'RolesSchema: ci_user_roles table still missing after bootstrap.');
             }
         } catch (\Throwable $e) {
             log_message('critical', 'RolesSchema::ensure failed: {msg}', ['msg' => $e->getMessage()]);
@@ -77,10 +78,10 @@ class RolesSchema
         $forge->addKey('id', true);
         $forge->addUniqueKey(['slug']);
 
-        $ok = $forge->createTable('roles');
+        $ok = $forge->createTable(CiTables::USER_ROLES);
 
         if ($ok === false) {
-            throw new \RuntimeException('Forge createTable("roles") returned false.');
+            throw new \RuntimeException('Forge createTable(ci_user_roles) returned false.');
         }
     }
 
@@ -90,7 +91,7 @@ class RolesSchema
     private static function seedRoles(BaseConnection $db): void
     {
         $db->query(
-            'INSERT IGNORE INTO roles (id, slug, name) VALUES
+            'INSERT IGNORE INTO `' . $db->prefixTable(CiTables::USER_ROLES) . '` (id, slug, name) VALUES
                 (1, \'user\', \'User\'),
                 (2, \'administrator\', \'Administrator\'),
                 (3, \'owner\', \'Owner\'),
@@ -103,15 +104,15 @@ class RolesSchema
     private static function ensureDescriptionColumn(BaseConnection $db): void
     {
         try {
-            if (! $db->tableExists('roles')) {
+            if (! $db->tableExists(CiTables::USER_ROLES)) {
                 return;
             }
 
-            if ($db->fieldExists('description', 'roles')) {
+            if ($db->fieldExists('description', CiTables::USER_ROLES)) {
                 return;
             }
 
-            $db->query('ALTER TABLE roles ADD COLUMN description TEXT NULL AFTER name');
+            $db->query('ALTER TABLE `' . $db->prefixTable(CiTables::USER_ROLES) . '` ADD COLUMN description TEXT NULL AFTER name');
         } catch (\Throwable $e) {
             log_message('debug', 'RolesSchema::ensureDescriptionColumn: {msg}', ['msg' => $e->getMessage()]);
         }
@@ -120,22 +121,22 @@ class RolesSchema
     private static function ensureAccessRestrictionBehaviourColumns(BaseConnection $db): void
     {
         try {
-            if (! $db->tableExists('roles')) {
+            if (! $db->tableExists(CiTables::USER_ROLES)) {
                 return;
             }
 
-            if (! $db->fieldExists('access_level', 'roles')) {
+            if (! $db->fieldExists('access_level', CiTables::USER_ROLES)) {
                 $db->query(
-                    'ALTER TABLE roles ADD COLUMN access_level SMALLINT UNSIGNED NOT NULL DEFAULT 10 AFTER description'
+                    'ALTER TABLE `' . $db->prefixTable(CiTables::USER_ROLES) . '` ADD COLUMN access_level SMALLINT UNSIGNED NOT NULL DEFAULT 10 AFTER description'
                 );
             }
 
-            if (! $db->fieldExists('restriction', 'roles')) {
-                $db->query('ALTER TABLE roles ADD COLUMN restriction TEXT NULL AFTER access_level');
+            if (! $db->fieldExists('restriction', CiTables::USER_ROLES)) {
+                $db->query('ALTER TABLE `' . $db->prefixTable(CiTables::USER_ROLES) . '` ADD COLUMN restriction TEXT NULL AFTER access_level');
             }
 
-            if (! $db->fieldExists('behaviour', 'roles')) {
-                $db->query('ALTER TABLE roles ADD COLUMN behaviour TEXT NULL AFTER restriction');
+            if (! $db->fieldExists('behaviour', CiTables::USER_ROLES)) {
+                $db->query('ALTER TABLE `' . $db->prefixTable(CiTables::USER_ROLES) . '` ADD COLUMN behaviour TEXT NULL AFTER restriction');
             }
         } catch (\Throwable $e) {
             log_message('debug', 'RolesSchema::ensureAccessRestrictionBehaviourColumns: {msg}', ['msg' => $e->getMessage()]);
@@ -204,16 +205,16 @@ class RolesSchema
     private static function syncDefaultRoleDefinitions(BaseConnection $db): void
     {
         try {
-            if (! $db->tableExists('roles')) {
+            if (! $db->tableExists(CiTables::USER_ROLES)) {
                 return;
             }
 
-            if (! $db->fieldExists('description', 'roles') || ! $db->fieldExists('access_level', 'roles')) {
+            if (! $db->fieldExists('description', CiTables::USER_ROLES) || ! $db->fieldExists('access_level', CiTables::USER_ROLES)) {
                 return;
             }
 
             foreach (self::defaultRoleBlueprint() as $slug => $def) {
-                $row = $db->table('roles')->where('slug', $slug)->get()->getRowArray();
+                $row = $db->table(CiTables::USER_ROLES)->where('slug', $slug)->get()->getRowArray();
 
                 $payload = [
                     'name'          => $def['name'],
@@ -224,7 +225,7 @@ class RolesSchema
                 ];
 
                 if ($row === null) {
-                    $db->table('roles')->insert(array_merge(
+                    $db->table(CiTables::USER_ROLES)->insert(array_merge(
                         ['id' => (int) $def['id'], 'slug' => $slug],
                         $payload
                     ));
@@ -234,7 +235,7 @@ class RolesSchema
 
                 $descEmpty = trim((string) ($row['description'] ?? '')) === '';
                 if ($descEmpty) {
-                    $db->table('roles')->where('slug', $slug)->update($payload);
+                    $db->table(CiTables::USER_ROLES)->where('slug', $slug)->update($payload);
                 }
             }
         } catch (\Throwable $e) {

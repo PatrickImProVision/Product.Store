@@ -1,0 +1,9 @@
+ci_migration
+ci_products
+ci_seo_settings
+ci_users
+ci_user_deactivation
+ci_user_password_resets
+ci_user_roles
+ci_web_promoting
+ci_web_settings

@@ -6,6 +6,7 @@ use App\Libraries\RolesSchema;
 use App\Models\RolesModel;
 use App\Models\SeoSettingModel;
 use App\Models\WebSettingModel;
+use Config\CiTables;
 use CodeIgniter\Controller;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
@@ -65,12 +66,12 @@ abstract class BaseController extends Controller
         try {
             $db = \Config\Database::connect();
 
-            if ($db->tableExists('seo_settings')) {
+            if ($db->tableExists(CiTables::SEO_SETTINGS)) {
                 $seoModel = new SeoSettingModel();
                 $seo      = $seoModel->first();
             }
 
-            if ($db->tableExists('web_settings')) {
+            if ($db->tableExists(CiTables::WEB_SETTINGS)) {
                 $webModel = new WebSettingModel();
                 $web      = $webModel->first();
             }
@@ -91,17 +92,18 @@ abstract class BaseController extends Controller
     }
 
     /**
-     * Ensure `users` table exists (shared by Member and dashboard user management).
+     * Ensure `ci_users` table exists (shared by Member and dashboard user management).
      */
     protected function ensureUsersTableExists(): bool
     {
         try {
             RolesSchema::ensure();
 
-            $db = \Config\Database::connect();
+            $db        = \Config\Database::connect();
+            $usersTable = $db->prefixTable(CiTables::USERS);
 
             $db->query(
-                'CREATE TABLE IF NOT EXISTS users (
+                'CREATE TABLE IF NOT EXISTS `' . $usersTable . '` (
                     id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
                     email VARCHAR(255) NOT NULL,
                     password_hash VARCHAR(255) NOT NULL,
@@ -115,20 +117,20 @@ abstract class BaseController extends Controller
             );
 
             try {
-                $db->query('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL');
+                $db->query('ALTER TABLE `' . $usersTable . '` ADD COLUMN remote_image VARCHAR(2048) NULL');
             } catch (\Throwable $e) {
                 // Column already present.
             }
 
             try {
-                $db->query('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1');
+                $db->query('ALTER TABLE `' . $usersTable . '` ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1');
             } catch (\Throwable $e) {
                 // Column already present.
             }
 
             try {
                 $db->query(
-                    'ALTER TABLE users ADD COLUMN active TINYINT(1) UNSIGNED NOT NULL DEFAULT 1'
+                    'ALTER TABLE `' . $usersTable . '` ADD COLUMN active TINYINT(1) UNSIGNED NOT NULL DEFAULT 1'
                 );
             } catch (\Throwable $e) {
                 // Column already present.

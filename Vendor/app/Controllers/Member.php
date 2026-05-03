@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Libraries\RolesSchema;
 use App\Models\RolesModel;
 use App\Models\UserModel;
+use Config\CiTables;
 use Config\Email as EmailConfig;
 use Config\Services;
 
@@ -28,7 +29,7 @@ class Member extends BaseController
         try {
             $db = \Config\Database::connect();
             $db->query(
-                'CREATE TABLE IF NOT EXISTS user_password_resets (
+                'CREATE TABLE IF NOT EXISTS `' . $db->prefixTable(CiTables::USER_PASSWORD_RESETS) . '` (
                     id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
                     user_id INT UNSIGNED NOT NULL,
                     token_hash VARCHAR(255) NOT NULL,
@@ -51,7 +52,7 @@ class Member extends BaseController
         try {
             $db = \Config\Database::connect();
             $db->query(
-                'CREATE TABLE IF NOT EXISTS user_deactivation_tokens (
+                'CREATE TABLE IF NOT EXISTS `' . $db->prefixTable(CiTables::USER_DEACTIVATION) . '` (
                     id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
                     user_id INT UNSIGNED NOT NULL,
                     token_hash VARCHAR(255) NOT NULL,
@@ -75,7 +76,7 @@ class Member extends BaseController
     }
 
     /**
-     * Match forgot-password token (plain URL segment) to `user_password_resets.token_hash`.
+     * Match forgot-password token (plain URL segment) to {@see CiTables::USER_PASSWORD_RESETS}.token_hash.
      *
      * @return array<string, mixed>|null
      */
@@ -88,7 +89,7 @@ class Member extends BaseController
         $db = \Config\Database::connect();
 
         try {
-            $rows = $db->table('user_password_resets')
+            $rows = $db->table(CiTables::USER_PASSWORD_RESETS)
                 ->where('used_at', null)
                 ->where('expires_at >', date('Y-m-d H:i:s'))
                 ->orderBy('id', 'desc')
@@ -124,7 +125,7 @@ class Member extends BaseController
         $db = \Config\Database::connect();
 
         try {
-            $rows = $db->table('user_deactivation_tokens')
+            $rows = $db->table(CiTables::USER_DEACTIVATION)
                 ->where('used_at', null)
                 ->where('expires_at >', date('Y-m-d H:i:s'))
                 ->orderBy('id', 'desc')
@@ -457,7 +458,7 @@ class Member extends BaseController
 
             if ($user !== null) {
                 $db = \Config\Database::connect();
-                $db->table('user_password_resets')
+                $db->table(CiTables::USER_PASSWORD_RESETS)
                     ->where('user_id', (int) $user['id'])
                     ->where('used_at', null)
                     ->delete();
@@ -466,7 +467,7 @@ class Member extends BaseController
                 $tokenHash  = password_hash($tokenPlain, PASSWORD_DEFAULT);
                 $expiresAt  = date('Y-m-d H:i:s', strtotime('+24 hours'));
 
-                $db->table('user_password_resets')->insert([
+                $db->table(CiTables::USER_PASSWORD_RESETS)->insert([
                     'user_id'    => (int) $user['id'],
                     'token_hash' => $tokenHash,
                     'expires_at' => $expiresAt,
@@ -566,7 +567,7 @@ class Member extends BaseController
             }
 
             $db = \Config\Database::connect();
-            $db->table('user_deactivation_tokens')
+            $db->table(CiTables::USER_DEACTIVATION)
                 ->where('user_id', (int) $user['id'])
                 ->where('used_at', null)
                 ->delete();
@@ -575,7 +576,7 @@ class Member extends BaseController
             $tokenHash  = password_hash($tokenPlain, PASSWORD_DEFAULT);
             $expiresAt  = date('Y-m-d H:i:s', strtotime('+24 hours'));
 
-            $db->table('user_deactivation_tokens')->insert([
+            $db->table(CiTables::USER_DEACTIVATION)->insert([
                 'user_id'    => (int) $user['id'],
                 'token_hash' => $tokenHash,
                 'expires_at' => $expiresAt,
@@ -612,7 +613,7 @@ class Member extends BaseController
     }
 
     /**
-     * Confirm deactivation using GUID from email (`user_deactivation_tokens`).
+     * Confirm deactivation using GUID from email ({@see CiTables::USER_DEACTIVATION}).
      */
     public function User_DeActivate(string $guid)
     {
@@ -680,7 +681,7 @@ class Member extends BaseController
             $db = \Config\Database::connect();
             $db->transStart();
             $userModel->update((int) $user['id'], ['active' => 0]);
-            $db->table('user_deactivation_tokens')->where('id', $tokenId)->update([
+            $db->table(CiTables::USER_DEACTIVATION)->where('id', $tokenId)->update([
                 'used_at' => date('Y-m-d H:i:s'),
             ]);
             $db->transComplete();
@@ -715,7 +716,7 @@ class Member extends BaseController
     }
 
     /**
-     * Password reset / account recovery: matches GUID from email to `user_password_resets`, then sets a new password.
+     * Password reset / account recovery: matches GUID from email to {@see CiTables::USER_PASSWORD_RESETS}, then sets a new password.
      */
     public function User_Activate(string $guid)
     {
@@ -796,7 +797,7 @@ class Member extends BaseController
             $userModel->update((int) $user['id'], [
                 'password_hash' => password_hash($password, PASSWORD_DEFAULT),
             ]);
-            $db->table('user_password_resets')->where('id', $resetId)->update([
+            $db->table(CiTables::USER_PASSWORD_RESETS)->where('id', $resetId)->update([
                 'used_at' => date('Y-m-d H:i:s'),
             ]);
             $db->transComplete();
