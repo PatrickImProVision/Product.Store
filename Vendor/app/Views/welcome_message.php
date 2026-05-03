@@ -1,10 +1,12 @@
 <?php
 $chrome = [
-    'documentTitle'   => $documentTitle ?? ($metaTitle ?? $webTitle ?? 'Product Store'),
+    'documentTitle'   => $documentTitle ?? '',
+    'pageTitle'       => $pageTitle ?? '',
     'metaTitle'       => $metaTitle ?? 'Product Store',
     'metaDescription' => $metaDescription ?? 'Product Store powered by CodeIgniter',
     'metaKeywords'    => $metaKeywords ?? '',
     'webTitle'        => $webTitle ?? 'Product Store',
+    'bodyClass'       => $bodyClass ?? 'bg-light',
 ];
 ?>
 <?= view('shared/site_head', $chrome) ?>

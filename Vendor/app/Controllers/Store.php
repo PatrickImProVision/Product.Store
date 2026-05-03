@@ -440,8 +440,8 @@ class Store extends BaseController
         $layout = $this->getSiteLayoutData();
 
         return view('store/seo_settings', array_merge($layout, [
-            'documentTitle' => 'SEO settings — ' . $layout['webTitle'],
-            'seo'           => $seo,
+            'pageTitle' => 'SEO settings',
+            'seo'       => $seo,
             'message'       => session()->getFlashdata('message'),
         ]));
     }
@@ -491,8 +491,8 @@ class Store extends BaseController
         $layout = $this->getSiteLayoutData();
 
         return view('store/web_settings', array_merge($layout, [
-            'documentTitle' => 'Web settings — ' . $layout['webTitle'],
-            'web'           => $web,
+            'pageTitle' => 'Web settings',
+            'web'       => $web,
             'message'       => session()->getFlashdata('message'),
         ]));
     }
@@ -532,8 +532,8 @@ class Store extends BaseController
         }
 
         $layout = $this->getSiteLayoutData();
-        $layout['documentTitle'] = 'Store — ' . $layout['webTitle'];
-        $layout['pageTitle']     = 'Store';
+        $layout['pageTitle']  = 'Store';
+        $layout['bodyClass'] = static::STOREFRONT_BODY_CLASS;
 
         return view('store/products_index', array_merge($layout, $viewData));
     }
@@ -636,8 +636,7 @@ class Store extends BaseController
         }
 
         $layout = $this->getSiteLayoutData();
-        $layout['documentTitle'] = 'Search — ' . $layout['webTitle'];
-        $layout['pageTitle']     = 'Search';
+        $layout['pageTitle'] = 'Search';
 
         return view('store/search_index', array_merge($layout, $viewData));
     }
@@ -790,7 +789,7 @@ class Store extends BaseController
         }
 
         $layout = $this->getSiteLayoutData();
-        $layout['documentTitle'] = 'Create Product — ' . $layout['webTitle'];
+        $layout['pageTitle'] = 'Create Product';
 
         return view('store/product_form', array_merge($layout, [
             'mode'    => 'create',
@@ -878,7 +877,7 @@ class Store extends BaseController
         }
 
         $layout = $this->getSiteLayoutData();
-        $layout['documentTitle'] = 'Edit Product — ' . $layout['webTitle'];
+        $layout['pageTitle'] = 'Edit Product';
 
         return view('store/product_form', array_merge($layout, [
             'mode'    => 'edit',
@@ -902,9 +901,9 @@ class Store extends BaseController
         }
 
         $layout = $this->getSiteLayoutData();
-        $layout['documentTitle'] = trim((string) ($product['name'] ?? '')) !== ''
-            ? ($product['name'] . ' — ' . $layout['webTitle'])
-            : ('Product — ' . $layout['webTitle']);
+        $layout['pageTitle'] = trim((string) ($product['name'] ?? '')) !== ''
+            ? trim((string) $product['name'])
+            : 'Product';
 
         return view('store/product_view', array_merge($layout, [
             'product'           => $product,
@@ -964,12 +963,13 @@ class Store extends BaseController
         }
         unset($item);
 
-        return view('store/basket_index', [
+        return view('store/basket_index', array_merge($this->getSiteLayoutData(), [
             'profile'    => $profile,
             'basket'     => $basket,
             'grandTotal' => $grandTotal,
             'message'    => session()->getFlashdata('message'),
-        ]);
+            'pageTitle'  => 'Basket',
+        ]));
     }
 
     public function Basket_Delete(int $id)
@@ -1010,9 +1010,10 @@ class Store extends BaseController
             return redirect()->to(site_url('Store/Basket/Index'))->with('message', 'Basket item updated.');
         }
 
-        return view('store/basket_edit', [
-            'item' => $basket[$id],
-        ]);
+        return view('store/basket_edit', array_merge($this->getSiteLayoutData(), [
+            'item'      => $basket[$id],
+            'pageTitle' => 'Edit basket item',
+        ]));
     }
 
     public function CheckOut_Index()
@@ -1024,7 +1025,11 @@ class Store extends BaseController
         $db = \Config\Database::connect();
         $rows = $db->table('checkouts')->orderBy('id', 'DESC')->get()->getResultArray();
 
-        return view('store/checkout_index', ['rows' => $rows, 'message' => session()->getFlashdata('message')]);
+        return view('store/checkout_index', array_merge($this->getSiteLayoutData(), [
+            'rows'      => $rows,
+            'message'   => session()->getFlashdata('message'),
+            'pageTitle' => 'Checkout',
+        ]));
     }
 
     public function CheckOut_Create()
@@ -1052,7 +1057,12 @@ class Store extends BaseController
             return redirect()->to(site_url('Store/CheckOut/Index'))->with('message', 'Checkout created successfully.');
         }
 
-        return view('store/checkout_form', ['mode' => 'create', 'row' => null, 'action' => site_url('Store/CheckOut/Create')]);
+        return view('store/checkout_form', array_merge($this->getSiteLayoutData(), [
+            'mode'      => 'create',
+            'row'       => null,
+            'action'    => site_url('Store/CheckOut/Create'),
+            'pageTitle' => 'Create checkout',
+        ]));
     }
 
     public function CheckOut_Edit(int $id)
@@ -1076,7 +1086,12 @@ class Store extends BaseController
             return redirect()->to(site_url('Store/CheckOut/Index'))->with('message', 'Checkout updated successfully.');
         }
 
-        return view('store/checkout_form', ['mode' => 'edit', 'row' => $row, 'action' => site_url('Store/CheckOut/Edit/' . $id)]);
+        return view('store/checkout_form', array_merge($this->getSiteLayoutData(), [
+            'mode'      => 'edit',
+            'row'       => $row,
+            'action'    => site_url('Store/CheckOut/Edit/' . $id),
+            'pageTitle' => 'Edit checkout',
+        ]));
     }
 
     public function CheckOut_Delete(int $id)
@@ -1118,8 +1133,7 @@ class Store extends BaseController
         }
 
         $layout = $this->getSiteLayoutData();
-        $layout['documentTitle'] = 'Delete product — ' . $layout['webTitle'];
-        $layout['pageTitle']     = 'Delete product';
+        $layout['pageTitle'] = 'Delete product';
 
         return view('store/product_delete', array_merge($layout, ['product' => $product]));
     }

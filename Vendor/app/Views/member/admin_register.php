@@ -1,6 +1,7 @@
 <?php
 $chrome = [
-    'documentTitle'   => $documentTitle ?? ('Become administrator — ' . ($webTitle ?? 'Product Store')),
+    'documentTitle'   => $documentTitle ?? '',
+    'pageTitle'       => $pageTitle ?? '',
     'metaTitle'       => $metaTitle ?? 'Product Store',
     'metaDescription' => $metaDescription ?? 'Grant administrator role to an existing member account',
     'metaKeywords'    => $metaKeywords ?? '',

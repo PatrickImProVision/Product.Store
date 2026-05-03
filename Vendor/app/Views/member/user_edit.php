@@ -1,6 +1,7 @@
 <?php
 $chrome = [
-    'documentTitle'   => $documentTitle ?? ('Edit profile — ' . ($webTitle ?? 'Product Store')),
+    'documentTitle'   => $documentTitle ?? '',
+    'pageTitle'       => $pageTitle ?? '',
     'metaTitle'       => $metaTitle ?? 'Product Store',
     'metaDescription' => $metaDescription ?? 'Update your account',
     'metaKeywords'    => $metaKeywords ?? '',

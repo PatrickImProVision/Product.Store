@@ -49,6 +49,9 @@ abstract class BaseController extends Controller
         // $this->session = service('session');
     }
 
+    /** Bootstrap utility classes for `<body>` on public storefront pages (home + catalog). */
+    protected const STOREFRONT_BODY_CLASS = 'min-vh-100 bg-primary-subtle';
+
     /**
      * Shared SEO + site title/description for layouts matching the home page chrome.
      *

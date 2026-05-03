@@ -2,11 +2,13 @@
 $memberSignedIn = $memberSignedIn ?? false;
 
 $chrome = [
-    'documentTitle'   => $documentTitle ?? (($pageTitle ?? 'Store') . ' — ' . ($webTitle ?? 'Product Store')),
+    'documentTitle'   => $documentTitle ?? '',
+    'pageTitle'       => $pageTitle ?? 'Store',
     'metaTitle'       => $metaTitle ?? 'Product Store',
     'metaDescription' => $metaDescription ?? 'Product Store powered by CodeIgniter',
     'metaKeywords'    => $metaKeywords ?? '',
     'webTitle'        => $webTitle ?? 'Product Store',
+    'bodyClass'       => $bodyClass ?? 'bg-light',
 ];
 ?>
 <?= view('shared/site_head', $chrome) ?>

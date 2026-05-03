@@ -1,6 +1,7 @@
 <?php
 $chrome = [
-    'documentTitle'   => $documentTitle ?? (($mode === 'edit' ? 'Edit Product' : 'Create Product') . ' — ' . ($webTitle ?? 'Product Store')),
+    'documentTitle'   => $documentTitle ?? '',
+    'pageTitle'       => $pageTitle ?? ($mode === 'edit' ? 'Edit Product' : 'Create Product'),
     'metaTitle'       => $metaTitle ?? 'Product Store',
     'metaDescription' => $metaDescription ?? 'Product Store powered by CodeIgniter',
     'metaKeywords'    => $metaKeywords ?? '',

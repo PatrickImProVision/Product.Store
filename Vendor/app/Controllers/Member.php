@@ -10,12 +10,12 @@ use Config\Services;
 
 class Member extends BaseController
 {
-    private function page(string $title, string $message)
+    private function page(string $pageTitle, string $message)
     {
-        return view('shared/page', [
-            'title' => $title,
-            'message' => $message,
-        ]);
+        return view('shared/page', array_merge($this->getSiteLayoutData(), [
+            'pageTitle' => $pageTitle,
+            'message'   => $message,
+        ]));
     }
 
     private function ensureUsersTable(): bool
@@ -241,7 +241,7 @@ class Member extends BaseController
         $layout = $this->getSiteLayoutData();
 
         return view('member/user_profile', array_merge($layout, [
-            'documentTitle' => 'Profile — ' . $layout['webTitle'],
+            'pageTitle' => 'Profile',
             'notice'        => session()->getFlashdata('message'),
             'profile'       => [
                 'id'           => (int) $row['id'],
@@ -280,7 +280,7 @@ class Member extends BaseController
 
             if (! $this->validate($rules)) {
                 return view('member/user_register', array_merge($layout, [
-                    'documentTitle' => 'Register — ' . $layout['webTitle'],
+                    'pageTitle' => 'Register',
                     'errors'        => $this->validator->getErrors(),
                     'prefill'       => [
                         'email'          => trim((string) $this->request->getPost('email')),
@@ -296,7 +296,7 @@ class Member extends BaseController
             [$imgOk, $remoteImage, $imgErr] = $this->sanitizeRemoteProfileImageUrl((string) $this->request->getPost('remote_image'));
             if (! $imgOk) {
                 return view('member/user_register', array_merge($layout, [
-                    'documentTitle' => 'Register — ' . $layout['webTitle'],
+                    'pageTitle' => 'Register',
                     'errors'        => ['remote_image' => $imgErr ?? 'Invalid profile image URL.'],
                     'prefill'       => [
                         'email'        => $email,
@@ -310,7 +310,7 @@ class Member extends BaseController
 
             if ($userModel->where('email', $email)->first() !== null) {
                 return view('member/user_register', array_merge($layout, [
-                    'documentTitle' => 'Register — ' . $layout['webTitle'],
+                    'pageTitle' => 'Register',
                     'errors'        => ['email' => 'An account with this email already exists.'],
                     'prefill'       => [
                         'email'        => $email,
@@ -339,7 +339,7 @@ class Member extends BaseController
 
             if ($inserted === false) {
                 return view('member/user_register', array_merge($layout, [
-                    'documentTitle' => 'Register — ' . $layout['webTitle'],
+                    'pageTitle' => 'Register',
                     'errors'        => ['database' => 'Could not save your account. Please try again.'],
                     'prefill'       => [
                         'email'        => $email,
@@ -353,7 +353,7 @@ class Member extends BaseController
         }
 
         return view('member/user_register', array_merge($layout, [
-            'documentTitle' => 'Register — ' . $layout['webTitle'],
+            'pageTitle' => 'Register',
             'errors'        => [],
             'prefill'       => [],
         ]));
@@ -375,7 +375,7 @@ class Member extends BaseController
 
             if (! $this->validate($rules)) {
                 return view('member/user_login', array_merge($layout, [
-                    'documentTitle' => 'Sign in — ' . $layout['webTitle'],
+                    'pageTitle' => 'Sign in',
                     'notice'        => null,
                     'errors'        => $this->validator->getErrors(),
                     'prefill'       => [
@@ -391,7 +391,7 @@ class Member extends BaseController
 
             if ($user === null || ! password_verify($password, (string) ($user['password_hash'] ?? ''))) {
                 return view('member/user_login', array_merge($layout, [
-                    'documentTitle' => 'Sign in — ' . $layout['webTitle'],
+                    'pageTitle' => 'Sign in',
                     'notice'        => null,
                     'errors'        => ['login' => 'Invalid email or password.'],
                     'prefill'       => [
@@ -402,7 +402,7 @@ class Member extends BaseController
 
             if (! $this->isUserActive($user)) {
                 return view('member/user_login', array_merge($layout, [
-                    'documentTitle' => 'Sign in — ' . $layout['webTitle'],
+                    'pageTitle' => 'Sign in',
                     'notice'        => null,
                     'errors'        => ['login' => 'This account has been deactivated.'],
                     'prefill'       => [
@@ -417,7 +417,7 @@ class Member extends BaseController
         }
 
         return view('member/user_login', array_merge($layout, [
-            'documentTitle' => 'Sign in — ' . $layout['webTitle'],
+            'pageTitle' => 'Sign in',
             'notice'        => session()->getFlashdata('message'),
             'errors'        => [],
             'prefill'       => [],
@@ -439,7 +439,7 @@ class Member extends BaseController
 
             if (! $this->validate($rules)) {
                 return view('member/user_forgot_password', array_merge($layout, [
-                    'documentTitle' => 'Forgot password — ' . $layout['webTitle'],
+                    'pageTitle' => 'Forgot password',
                     'errors'        => $this->validator->getErrors(),
                     'notice'        => null,
                     'prefill'       => [
@@ -485,7 +485,7 @@ class Member extends BaseController
             }
 
             return view('member/user_forgot_password', array_merge($layout, [
-                'documentTitle' => 'Forgot password — ' . $layout['webTitle'],
+                'pageTitle' => 'Forgot password',
                 'errors'        => [],
                 'notice'        => 'If that email exists, a password reset link has been prepared.',
                 'prefill'       => [
@@ -497,7 +497,7 @@ class Member extends BaseController
         }
 
         return view('member/user_forgot_password', array_merge($layout, [
-            'documentTitle' => 'Forgot password — ' . $layout['webTitle'],
+            'pageTitle' => 'Forgot password',
             'errors'        => [],
             'notice'        => session()->getFlashdata('message'),
             'prefill'       => [],
@@ -544,7 +544,7 @@ class Member extends BaseController
 
             if (! $this->validate($rules)) {
                 return view('member/user_deactivate_request', array_merge($layout, [
-                    'documentTitle' => 'Deactivate account — ' . $layout['webTitle'],
+                    'pageTitle' => 'Deactivate account',
                     'errors'          => $this->validator->getErrors(),
                     'notice'          => null,
                     'deactivateLink'  => null,
@@ -556,7 +556,7 @@ class Member extends BaseController
             $password = (string) $this->request->getPost('password');
             if (! password_verify($password, (string) ($user['password_hash'] ?? ''))) {
                 return view('member/user_deactivate_request', array_merge($layout, [
-                    'documentTitle' => 'Deactivate account — ' . $layout['webTitle'],
+                    'pageTitle' => 'Deactivate account',
                     'errors'          => ['password' => 'Password does not match this account.'],
                     'notice'          => null,
                     'deactivateLink'  => null,
@@ -592,7 +592,7 @@ class Member extends BaseController
             );
 
             return view('member/user_deactivate_request', array_merge($layout, [
-                'documentTitle' => 'Deactivate account — ' . $layout['webTitle'],
+                'pageTitle' => 'Deactivate account',
                 'errors'          => [],
                 'notice'          => 'If email is configured, we sent a confirmation link to your address.',
                 'deactivateLink'  => $deactivateLink,
@@ -602,7 +602,7 @@ class Member extends BaseController
         }
 
         return view('member/user_deactivate_request', array_merge($layout, [
-            'documentTitle' => 'Deactivate account — ' . $layout['webTitle'],
+            'pageTitle' => 'Deactivate account',
             'errors'          => [],
             'notice'          => session()->getFlashdata('message'),
             'deactivateLink'  => null,
@@ -631,7 +631,7 @@ class Member extends BaseController
         $tokenRow = $this->findValidDeactivationToken($guid);
         if ($tokenRow === null) {
             return $render($layout, [
-                'documentTitle' => 'Invalid link — ' . $layout['webTitle'],
+                'pageTitle' => 'Invalid link',
                 'tokenValid'    => false,
                 'statusMessage' => 'This deactivation link is invalid, expired, or was already used.',
                 'accountEmail'  => '',
@@ -644,7 +644,7 @@ class Member extends BaseController
 
         if ($user === null) {
             return $render($layout, [
-                'documentTitle' => 'Account not found — ' . $layout['webTitle'],
+                'pageTitle' => 'Account not found',
                 'tokenValid'    => false,
                 'statusMessage' => 'No account matches this link.',
                 'accountEmail'  => '',
@@ -657,7 +657,7 @@ class Member extends BaseController
 
         if (! $this->isUserActive($user)) {
             return $render($layout, [
-                'documentTitle' => 'Already deactivated — ' . $layout['webTitle'],
+                'pageTitle' => 'Already deactivated',
                 'tokenValid'    => false,
                 'statusMessage' => 'This account is already deactivated.',
                 'accountEmail'  => $accountEmail,
@@ -669,7 +669,7 @@ class Member extends BaseController
             $tokenRow2 = $this->findValidDeactivationToken($guid);
             if ($tokenRow2 === null || (int) ($tokenRow2['id'] ?? 0) !== $tokenId) {
                 return $render($layout, [
-                    'documentTitle' => 'Link expired — ' . $layout['webTitle'],
+                    'pageTitle' => 'Link expired',
                     'tokenValid'    => false,
                     'statusMessage' => 'This link was already used or expired.',
                     'accountEmail'  => '',
@@ -687,7 +687,7 @@ class Member extends BaseController
 
             if ($db->transStatus() === false) {
                 return $render($layout, [
-                    'documentTitle' => 'Deactivate account — ' . $layout['webTitle'],
+                    'pageTitle' => 'Deactivate account',
                     'tokenValid'    => true,
                     'statusMessage' => null,
                     'errors'        => ['database' => 'Could not deactivate the account. Please try again.'],
@@ -705,7 +705,7 @@ class Member extends BaseController
         }
 
         return $render($layout, [
-            'documentTitle' => 'Deactivate account — ' . $layout['webTitle'],
+            'pageTitle' => 'Deactivate account',
             'tokenValid'    => true,
             'statusMessage' => null,
             'errors'        => [],
@@ -734,7 +734,7 @@ class Member extends BaseController
         $resetRow = $this->findValidPasswordReset($guid);
         if ($resetRow === null) {
             return $render($layout, [
-                'documentTitle' => 'Invalid link — ' . $layout['webTitle'],
+                'pageTitle' => 'Invalid link',
                 'tokenValid'    => false,
                 'statusMessage' => 'This link is invalid or has expired. Use Forgot password to request a new one.',
                 'errors'        => [],
@@ -748,7 +748,7 @@ class Member extends BaseController
 
         if ($user === null) {
             return $render($layout, [
-                'documentTitle' => 'Account not found — ' . $layout['webTitle'],
+                'pageTitle' => 'Account not found',
                 'tokenValid'    => false,
                 'statusMessage' => 'No account matches this reset link.',
                 'errors'        => [],
@@ -768,7 +768,7 @@ class Member extends BaseController
 
             if (! $this->validate($rules)) {
                 return $render($layout, [
-                    'documentTitle' => 'Set new password — ' . $layout['webTitle'],
+                    'pageTitle' => 'Set new password',
                     'tokenValid'    => true,
                     'statusMessage' => null,
                     'errors'        => $this->validator->getErrors(),
@@ -780,7 +780,7 @@ class Member extends BaseController
             $resetRow2 = $this->findValidPasswordReset($guid);
             if ($resetRow2 === null || (int) ($resetRow2['id'] ?? 0) !== $resetId) {
                 return $render($layout, [
-                    'documentTitle' => 'Link expired — ' . $layout['webTitle'],
+                    'pageTitle' => 'Link expired',
                     'tokenValid'    => false,
                     'statusMessage' => 'This link was already used or has expired. Request a new reset.',
                     'errors'        => [],
@@ -803,7 +803,7 @@ class Member extends BaseController
 
             if ($db->transStatus() === false) {
                 return $render($layout, [
-                    'documentTitle' => 'Set new password — ' . $layout['webTitle'],
+                    'pageTitle' => 'Set new password',
                     'tokenValid'    => true,
                     'statusMessage' => null,
                     'errors'        => ['database' => 'Could not update your password. Please try again.'],
@@ -816,7 +816,7 @@ class Member extends BaseController
         }
 
         return $render($layout, [
-            'documentTitle' => 'Activate account — ' . $layout['webTitle'],
+            'pageTitle' => 'Activate account',
             'tokenValid'    => true,
             'statusMessage' => null,
             'errors'        => [],
@@ -860,7 +860,7 @@ class Member extends BaseController
 
         $renderForm = function (array $prefill, array $errors) use ($layout, $id): string {
             return view('member/user_edit', array_merge($layout, [
-                'documentTitle' => 'Edit profile — ' . $layout['webTitle'],
+                'pageTitle' => 'Edit profile',
                 'userId'        => $id,
                 'errors'        => $errors,
                 'prefill'       => $prefill,
@@ -991,7 +991,7 @@ class Member extends BaseController
 
         $render = function (array $extra) use ($layout, $formOpen, $requiresSecret): string {
             return view('member/admin_register', array_merge($layout, [
-                'documentTitle'    => 'Become administrator — ' . $layout['webTitle'],
+                'pageTitle' => 'Become administrator',
                 'formOpen'         => $formOpen,
                 'requiresSecret'   => $requiresSecret,
             ], $extra));
@@ -1199,7 +1199,7 @@ class Member extends BaseController
 
             if (! $this->validate($rules)) {
                 return view('member/admin_login', array_merge($layout, [
-                    'documentTitle' => 'Administrator sign in — ' . $layout['webTitle'],
+                    'pageTitle' => 'Administrator sign in',
                     'notice'        => null,
                     'errors'        => $this->validator->getErrors(),
                     'prefill'       => [
@@ -1215,7 +1215,7 @@ class Member extends BaseController
 
             if ($user === null || ! password_verify($password, (string) ($user['password_hash'] ?? ''))) {
                 return view('member/admin_login', array_merge($layout, [
-                    'documentTitle' => 'Administrator sign in — ' . $layout['webTitle'],
+                    'pageTitle' => 'Administrator sign in',
                     'notice'        => null,
                     'errors'        => ['login' => 'Invalid email or password.'],
                     'prefill'       => [
@@ -1226,7 +1226,7 @@ class Member extends BaseController
 
             if (! $this->isUserActive($user)) {
                 return view('member/admin_login', array_merge($layout, [
-                    'documentTitle' => 'Administrator sign in — ' . $layout['webTitle'],
+                    'pageTitle' => 'Administrator sign in',
                     'notice'        => null,
                     'errors'        => ['login' => 'This account has been deactivated.'],
                     'prefill'       => [
@@ -1237,7 +1237,7 @@ class Member extends BaseController
 
             if (! $this->accountHasDashboardRole($user)) {
                 return view('member/admin_login', array_merge($layout, [
-                    'documentTitle' => 'Administrator sign in — ' . $layout['webTitle'],
+                    'pageTitle' => 'Administrator sign in',
                     'notice'        => null,
                     'errors'        => ['login' => 'This account does not have dashboard access (Owner or Administrator required). Use member login for standard accounts.'],
                     'prefill'       => [
@@ -1252,7 +1252,7 @@ class Member extends BaseController
         }
 
         return view('member/admin_login', array_merge($layout, [
-            'documentTitle' => 'Administrator sign in — ' . $layout['webTitle'],
+            'pageTitle' => 'Administrator sign in',
             'notice'        => session()->getFlashdata('message'),
             'errors'        => [],
             'prefill'       => [],

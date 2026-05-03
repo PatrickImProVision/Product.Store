@@ -2,7 +2,8 @@
 $canManageProduct = $canManageProduct ?? false;
 
 $chrome = [
-    'documentTitle'   => $documentTitle ?? (($product['name'] ?? 'Product') . ' — ' . ($webTitle ?? 'Product Store')),
+    'documentTitle'   => $documentTitle ?? '',
+    'pageTitle'       => $pageTitle ?? ($product['name'] ?? 'Product'),
     'metaTitle'       => $metaTitle ?? 'Product Store',
     'metaDescription' => $metaDescription ?? 'Product Store powered by CodeIgniter',
     'metaKeywords'    => $metaKeywords ?? '',

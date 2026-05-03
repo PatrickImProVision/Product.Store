@@ -1,6 +1,7 @@
 <?php
 $chrome = [
-    'documentTitle'   => $documentTitle ?? ('Deactivate account — ' . ($webTitle ?? 'Product Store')),
+    'documentTitle'   => $documentTitle ?? '',
+    'pageTitle'       => $pageTitle ?? '',
     'metaTitle'       => $metaTitle ?? ($webTitle ?? 'Product Store'),
     'metaDescription' => $metaDescription ?? 'Request account deactivation',
     'metaKeywords'    => $metaKeywords ?? '',

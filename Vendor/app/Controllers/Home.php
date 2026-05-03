@@ -83,6 +83,8 @@ class Home extends BaseController
             'metaKeywords'    => $layout['metaKeywords'],
             'webTitle'        => $layout['webTitle'],
             'webDescription'  => $layout['webDescription'],
+            'bodyClass'       => static::STOREFRONT_BODY_CLASS,
+            'pageTitle'       => 'Home',
             'promotions'      => $promotions,
             'siteContacts'    => $siteContacts,
         ]);

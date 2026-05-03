@@ -7,17 +7,198 @@ use App\Libraries\RoleRestrictionCapabilities;
 use App\Libraries\RolesSchema;
 use App\Models\RolesModel;
 use App\Models\UserModel;
+use CodeIgniter\CodeIgniter;
 
 class DashBoard extends BaseController
 {
     /**
-     * Site chrome (nav + footer), no hero image. Pass `documentTitle` in `$data`.
+     * Site chrome (nav + footer), no hero image. Pass `pageTitle` in `$data` for the browser tab.
      *
      * @param array<string, mixed> $data
      */
     private function renderDashboard(string $view, array $data): string
     {
         return view($view, array_merge($this->getSiteLayoutData(), $data));
+    }
+
+    private function safeTableCount(string $table): ?int
+    {
+        try {
+            $db = \Config\Database::connect();
+            if (! $db->tableExists($table)) {
+                return null;
+            }
+
+            return (int) $db->table($table)->countAllResults();
+        } catch (\Throwable $e) {
+            return null;
+        }
+    }
+
+    private function safeWebPromotingActiveCount(): ?int
+    {
+        try {
+            $db = \Config\Database::connect();
+            if (! $db->tableExists('web_promoting')) {
+                return null;
+            }
+            if (! $db->fieldExists('is_active', 'web_promoting')) {
+                return null;
+            }
+
+            return (int) $db->table('web_promoting')
+                ->groupStart()
+                ->where('is_active', 1)
+                ->orWhere('is_active', null)
+                ->groupEnd()
+                ->countAllResults();
+        } catch (\Throwable $e) {
+            return null;
+        }
+    }
+
+    private function safeCheckoutPendingCount(): ?int
+    {
+        try {
+            $db = \Config\Database::connect();
+            if (! $db->tableExists('checkouts')) {
+                return null;
+            }
+
+            return (int) $db->table('checkouts')->where('status', 'pending')->countAllResults();
+        } catch (\Throwable $e) {
+            return null;
+        }
+    }
+
+    private function safeHasRows(string $table): ?bool
+    {
+        try {
+            $db = \Config\Database::connect();
+            if (! $db->tableExists($table)) {
+                return null;
+            }
+
+            return $db->table($table)->countAllResults() > 0;
+        } catch (\Throwable $e) {
+            return null;
+        }
+    }
+
+    private function databaseConnected(): bool
+    {
+        try {
+            $db = \Config\Database::connect();
+            $db->query('SELECT 1');
+
+            return true;
+        } catch (\Throwable $e) {
+            return false;
+        }
+    }
+
+    /**
+     * @return array{usage: list<array{label: string, value: string, href: string|null}>, other: list<array{label: string, value: string}>}
+     */
+    private function dashboardOverviewStats(): array
+    {
+        $countProducts = $this->safeTableCount('products');
+        $countUsers    = $this->safeTableCount('users');
+        $countRoles    = $this->safeTableCount('roles');
+        $countContacts = $this->safeTableCount('site_contacts');
+
+        $promoTotal  = $this->safeTableCount('web_promoting');
+        $promoActive = $this->safeWebPromotingActiveCount();
+        $promoValue  = '—';
+        if ($promoTotal !== null) {
+            $promoValue = $promoActive !== null
+                ? sprintf('%d (%d active)', $promoTotal, $promoActive)
+                : (string) $promoTotal;
+        }
+
+        $checkoutsTotal = $this->safeTableCount('checkouts');
+        $checkoutsPen   = $this->safeCheckoutPendingCount();
+        $checkoutValue  = '—';
+        if ($checkoutsTotal !== null) {
+            $checkoutValue = $checkoutsPen !== null
+                ? sprintf('%d records (%d pending)', $checkoutsTotal, $checkoutsPen)
+                : (string) $checkoutsTotal;
+        }
+
+        $seoSaved = $this->safeHasRows('seo_settings');
+        $seoValue = match ($seoSaved) {
+            true    => 'Configured',
+            false   => 'Not saved yet',
+            default => '—',
+        };
+
+        $webSaved = $this->safeHasRows('web_settings');
+        $webValue = match ($webSaved) {
+            true    => 'Configured',
+            false   => 'Not saved yet',
+            default => '—',
+        };
+
+        $logsDir = defined('WRITEPATH') ? WRITEPATH . 'logs' : '';
+        $logsOk  = ($logsDir !== '' && is_dir($logsDir) && is_writable($logsDir));
+
+        $fmt = static fn (?int $n): string => $n === null ? '—' : (string) $n;
+
+        $usage = [
+            [
+                'label' => 'Catalog products',
+                'value' => $fmt($countProducts),
+                'href'  => site_url('Store/Index'),
+            ],
+            [
+                'label' => 'Member accounts',
+                'value' => $fmt($countUsers),
+                'href'  => site_url('DashBoard/Member/User/Profiles'),
+            ],
+            [
+                'label' => 'Roles',
+                'value' => $fmt($countRoles),
+                'href'  => site_url('DashBoard/Member/Admin/Roles'),
+            ],
+            [
+                'label' => 'Site contacts',
+                'value' => $fmt($countContacts),
+                'href'  => site_url('DashBoard/Site_Contacts'),
+            ],
+            [
+                'label' => 'Web promotions',
+                'value' => $promoValue,
+                'href'  => site_url('DashBoard/Web_Promoting'),
+            ],
+            [
+                'label' => 'Checkouts',
+                'value' => $checkoutValue,
+                'href'  => site_url('Store/CheckOut/Index'),
+            ],
+            [
+                'label' => 'SEO settings',
+                'value' => $seoValue,
+                'href'  => site_url('DashBoard/SEO_Settings'),
+            ],
+            [
+                'label' => 'Web settings',
+                'value' => $webValue,
+                'href'  => site_url('DashBoard/Web_Settings'),
+            ],
+        ];
+
+        $dbLabel = $this->databaseConnected() ? 'Connected' : 'Unavailable';
+
+        $other = [
+            ['label' => 'PHP', 'value' => PHP_VERSION],
+            ['label' => 'CodeIgniter', 'value' => CodeIgniter::CI_VERSION],
+            ['label' => 'Environment', 'value' => ENVIRONMENT],
+            ['label' => 'Time zone', 'value' => date_default_timezone_get()],
+            ['label' => 'Database', 'value' => $dbLabel],
+            ['label' => 'Logs folder writable', 'value' => $logsOk ? 'Yes' : 'No'],
+        ];
+
+        return ['usage' => $usage, 'other' => $other];
     }
 
     private function ensureWebPromotingTable(): bool
@@ -102,10 +283,11 @@ class DashBoard extends BaseController
         $layout = $this->getSiteLayoutData();
 
         return $this->renderDashboard('dashboard/dashboard_index', [
-            'documentTitle' => 'Dashboard — ' . $layout['webTitle'],
+            'pageTitle' => 'Dashboard',
             'notice'        => session()->getFlashdata('message'),
             'pageTitle'     => 'Dashboard',
-            'pageMessage'   => 'Default system status page.',
+            'pageMessage'   => 'Usage across the storefront and content tools, plus runtime details.',
+            'overview'      => $this->dashboardOverviewStats(),
         ]);
     }
 
@@ -120,7 +302,7 @@ class DashBoard extends BaseController
         $layout = $this->getSiteLayoutData();
 
         return $this->renderDashboard('dashboard/site_contacts_index', [
-            'documentTitle' => 'Site contacts — ' . $layout['webTitle'],
+            'pageTitle' => 'Site contacts',
             'rows'          => $rows,
             'message'       => session()->getFlashdata('message'),
         ]);
@@ -137,7 +319,7 @@ class DashBoard extends BaseController
 
         $renderForm = function (array $extra = []) use ($layout, $listUrl): string {
             return $this->renderDashboard('dashboard/site_contact_form', array_merge([
-                'documentTitle' => 'Create site contact — ' . $layout['webTitle'],
+                'pageTitle' => 'Create site contact',
                 'mode'          => 'create',
                 'row'           => null,
                 'action'        => site_url('DashBoard/Site_Contact/Create'),
@@ -210,7 +392,7 @@ class DashBoard extends BaseController
 
         $renderForm = function (array $extra = []) use ($layout, $listUrl, $row, $id): string {
             return $this->renderDashboard('dashboard/site_contact_form', array_merge([
-                'documentTitle' => 'Edit site contact — ' . $layout['webTitle'],
+                'pageTitle' => 'Edit site contact',
                 'mode'          => 'edit',
                 'row'           => $row,
                 'action'        => site_url('DashBoard/Site_Contact/Edit/' . $id),
@@ -289,7 +471,7 @@ class DashBoard extends BaseController
         $layout = $this->getSiteLayoutData();
 
         return $this->renderDashboard('dashboard/web_promoting_index', [
-            'documentTitle' => 'Web promoting — ' . $layout['webTitle'],
+            'pageTitle' => 'Web promoting',
             'rows'          => $rows,
             'message'       => session()->getFlashdata('message'),
         ]);
@@ -320,7 +502,7 @@ class DashBoard extends BaseController
         $layout = $this->getSiteLayoutData();
 
         return $this->renderDashboard('dashboard/web_promoting_form', [
-            'documentTitle' => 'Create promotion — ' . $layout['webTitle'],
+            'pageTitle' => 'Create promotion',
             'mode'          => 'create',
             'row'           => null,
             'action'        => site_url('DashBoard/Web_Promoting/Create'),
@@ -357,7 +539,7 @@ class DashBoard extends BaseController
         $layout = $this->getSiteLayoutData();
 
         return $this->renderDashboard('dashboard/web_promoting_form', [
-            'documentTitle' => 'Edit promotion — ' . $layout['webTitle'],
+            'pageTitle' => 'Edit promotion',
             'mode'          => 'edit',
             'row'           => $row,
             'action'        => site_url('DashBoard/Web_Promoting/Edit/' . $id),
@@ -447,7 +629,7 @@ class DashBoard extends BaseController
         $layout     = $this->getSiteLayoutData();
 
         return $this->renderDashboard('dashboard/member_admin_roles_index', [
-            'documentTitle'   => 'Roles — ' . $layout['webTitle'],
+            'pageTitle' => 'Roles',
             'rows'            => $rows,
             'message'         => session()->getFlashdata('message'),
             'protectedSlugs'  => RolesModel::getProtectedRoleSlugs(),
@@ -469,7 +651,7 @@ class DashBoard extends BaseController
 
         $renderForm = function (array $extra = []) use ($layout, $listUrl): string {
             return $this->renderDashboard('dashboard/member_admin_role_form', array_merge([
-                'documentTitle' => 'Create role — ' . $layout['webTitle'],
+                'pageTitle' => 'Create role',
                 'mode'          => 'create',
                 'action'        => site_url('DashBoard/Member/Admin/Role/Create'),
                 'slugLocked'    => false,
@@ -588,7 +770,7 @@ class DashBoard extends BaseController
 
         $renderForm = function (array $extra = []) use ($layout, $listUrl, $row, $slugLocked, $id): string {
             return $this->renderDashboard('dashboard/member_admin_role_form', array_merge([
-                'documentTitle' => 'Edit role — ' . $layout['webTitle'],
+                'pageTitle' => 'Edit role',
                 'mode'          => 'edit',
                 'action'        => site_url('DashBoard/Member/Admin/Role/Edit/' . $id),
                 'slugLocked'    => $slugLocked,
@@ -818,7 +1000,7 @@ class DashBoard extends BaseController
         $layout = $this->getSiteLayoutData();
 
         return $this->renderDashboard('dashboard/member_user_profiles_index', [
-            'documentTitle' => 'Member profiles — ' . $layout['webTitle'],
+            'pageTitle' => 'Member profiles',
             'rows'            => $users,
             'message'         => session()->getFlashdata('message'),
         ]);
@@ -841,7 +1023,7 @@ class DashBoard extends BaseController
 
         $renderForm = function (array $extra = []) use ($layout, $listUrl, $roles): string {
             return $this->renderDashboard('dashboard/member_user_profile_form', array_merge([
-                'documentTitle' => 'Create member profile — ' . $layout['webTitle'],
+                'pageTitle' => 'Create member profile',
                 'mode'           => 'create',
                 'action'         => site_url('DashBoard/Member/User/Profile/Create'),
                 'listUrl'        => $listUrl,
@@ -969,7 +1151,7 @@ class DashBoard extends BaseController
 
         $renderForm = function (array $extra = []) use ($layout, $listUrl, $roles, $row, $id): string {
             return $this->renderDashboard('dashboard/member_user_profile_form', array_merge([
-                'documentTitle' => 'Edit member profile — ' . $layout['webTitle'],
+                'pageTitle' => 'Edit member profile',
                 'mode'           => 'edit',
                 'action'         => site_url('DashBoard/Member/User/Profile/Edit/' . $id),
                 'listUrl'        => $listUrl,
