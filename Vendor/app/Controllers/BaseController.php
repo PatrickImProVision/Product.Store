@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Libraries\RolesSchema;
+use App\Models\RolesModel;
 use App\Models\SeoSettingModel;
 use App\Models\WebSettingModel;
 use CodeIgniter\Controller;
@@ -83,6 +84,96 @@ abstract class BaseController extends Controller
             'metaKeywords'    => $seo['meta_keywords'] ?? '',
             'webTitle'        => $siteName,
             'webDescription'  => $web['description'] ?? 'This project now uses Bootstrap styling instead of the default CodeIgniter welcome style.',
+        ];
+    }
+
+    /**
+     * Ensure `users` table exists (shared by Member and dashboard user management).
+     */
+    protected function ensureUsersTableExists(): bool
+    {
+        try {
+            RolesSchema::ensure();
+
+            $db = \Config\Database::connect();
+
+            $db->query(
+                'CREATE TABLE IF NOT EXISTS users (
+                    id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                    email VARCHAR(255) NOT NULL,
+                    password_hash VARCHAR(255) NOT NULL,
+                    display_name VARCHAR(120) NOT NULL DEFAULT \'\',
+                    remote_image VARCHAR(2048) NULL,
+                    role_id TINYINT UNSIGNED NOT NULL DEFAULT 1,
+                    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                    updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                    UNIQUE KEY users_email_unique (email)
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci'
+            );
+
+            try {
+                $db->query('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL');
+            } catch (\Throwable $e) {
+                // Column already present.
+            }
+
+            try {
+                $db->query('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1');
+            } catch (\Throwable $e) {
+                // Column already present.
+            }
+
+            try {
+                $db->query(
+                    'ALTER TABLE users ADD COLUMN active TINYINT(1) UNSIGNED NOT NULL DEFAULT 1'
+                );
+            } catch (\Throwable $e) {
+                // Column already present.
+            }
+
+            return true;
+        } catch (\Throwable $e) {
+            return false;
+        }
+    }
+
+    /**
+     * @return array{0: bool, 1: string|null, 2: string|null} ok, sanitized URL or null, error message
+     */
+    protected function sanitizeRemoteProfileImageUrl(string $raw): array
+    {
+        $s = trim($raw);
+        if ($s === '') {
+            return [true, null, null];
+        }
+
+        if (mb_strlen($s) > 2048) {
+            return [false, null, 'Profile image URL is too long (max 2048 characters).'];
+        }
+
+        if (! preg_match('#\Ahttps?://#i', $s)) {
+            return [false, null, 'Profile image URL must start with http:// or https://.'];
+        }
+
+        return [true, $s, null];
+    }
+
+    /**
+     * @param array<string, mixed> $row
+     */
+    protected function buildMemberSessionPayload(array $row): array
+    {
+        $roleId = (int) ($row['role_id'] ?? 1);
+        $roles  = new RolesModel();
+
+        return [
+            'id'           => (int) ($row['id'] ?? 0),
+            'email'        => (string) ($row['email'] ?? ''),
+            'display_name' => (string) ($row['display_name'] ?? ''),
+            'remote_image' => trim((string) ($row['remote_image'] ?? '')),
+            'role_id'      => $roleId,
+            'role'         => $roles->slugForRoleId($roleId),
+            'role_name'    => $roles->nameForRoleId($roleId),
         ];
     }
 }

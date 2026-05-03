@@ -67,7 +67,7 @@ $errors = $errors ?? [];
                         <div class="mb-3">
                             <label for="remote_image" class="form-label">Profile image URL <span class="text-secondary small">(optional)</span></label>
                             <input
-                                type="url"
+                                type="text"
                                 class="form-control"
                                 id="remote_image"
                                 name="remote_image"

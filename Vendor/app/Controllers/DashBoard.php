@@ -2,6 +2,12 @@
 
 namespace App\Controllers;
 
+use App\Libraries\MemberCapabilityGate;
+use App\Libraries\RoleRestrictionCapabilities;
+use App\Libraries\RolesSchema;
+use App\Models\RolesModel;
+use App\Models\UserModel;
+
 class DashBoard extends BaseController
 {
     /**
@@ -63,12 +69,31 @@ class DashBoard extends BaseController
                     id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
                     name VARCHAR(255) NOT NULL,
                     email VARCHAR(255) NOT NULL,
-                    message TEXT NULL
+                    message TEXT NULL,
+                    remote_image VARCHAR(2048) NULL
                 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci'
             );
+            $this->upgradeSiteContactSchema();
+
             return true;
         } catch (\Throwable $e) {
             return false;
+        }
+    }
+
+    private function upgradeSiteContactSchema(): void
+    {
+        try {
+            $db = \Config\Database::connect();
+            if (! $db->tableExists('site_contacts')) {
+                return;
+            }
+
+            if (! $db->fieldExists('remote_image', 'site_contacts')) {
+                $db->query('ALTER TABLE site_contacts ADD COLUMN remote_image VARCHAR(2048) NULL AFTER message');
+            }
+        } catch (\Throwable $e) {
+            // Best-effort upgrades only.
         }
     }
 
@@ -107,23 +132,64 @@ class DashBoard extends BaseController
             return redirect()->to(site_url('DashBoard/Site_Contacts'))->with('message', 'Database connection failed. Please check DB settings.');
         }
 
+        $layout = $this->getSiteLayoutData();
+        $listUrl = site_url('DashBoard/Site_Contacts');
+
+        $renderForm = function (array $extra = []) use ($layout, $listUrl): string {
+            return $this->renderDashboard('dashboard/site_contact_form', array_merge([
+                'documentTitle' => 'Create site contact — ' . $layout['webTitle'],
+                'mode'          => 'create',
+                'row'           => null,
+                'action'        => site_url('DashBoard/Site_Contact/Create'),
+                'listUrl'       => $listUrl,
+            ], $extra));
+        };
+
         if ($this->request->is('post')) {
+            $name    = trim((string) $this->request->getPost('name'));
+            $email   = trim((string) $this->request->getPost('email'));
+            $message = trim((string) $this->request->getPost('message'));
+            [$imgOk, $remoteImage, $imgErr] = $this->sanitizeRemoteProfileImageUrl((string) $this->request->getPost('remote_image'));
+
+            $errors = [];
+            if ($name === '') {
+                $errors['name'] = 'Name is required.';
+            }
+            if ($email === '' || ! filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                $errors['email'] = 'A valid email is required.';
+            }
+            if (! $imgOk) {
+                $errors['remote_image'] = $imgErr ?? 'Invalid remote image URL.';
+            }
+
+            $rowState = [
+                'name'          => $name,
+                'email'         => $email,
+                'message'       => $message,
+                'remote_image'  => $imgOk ? ($remoteImage ?? '') : trim((string) $this->request->getPost('remote_image')),
+            ];
+
+            if ($errors !== []) {
+                return $renderForm([
+                    'errors' => $errors,
+                    'row'    => $rowState,
+                ]);
+            }
+
             $db = \Config\Database::connect();
             $db->table('site_contacts')->insert([
-                'name' => trim((string) $this->request->getPost('name')),
-                'email' => trim((string) $this->request->getPost('email')),
-                'message' => trim((string) $this->request->getPost('message')),
+                'name'         => $name,
+                'email'        => $email,
+                'message'      => $message !== '' ? $message : null,
+                'remote_image' => $remoteImage,
             ]);
-            return redirect()->to(site_url('DashBoard/Site_Contacts'))->with('message', 'Contact created successfully.');
+
+            return redirect()->to($listUrl)->with('message', 'Contact created successfully.');
         }
 
-        $layout = $this->getSiteLayoutData();
-
-        return $this->renderDashboard('dashboard/site_contact_form', [
-            'documentTitle' => 'Create site contact — ' . $layout['webTitle'],
-            'mode'          => 'create',
-            'row'           => null,
-            'action'        => site_url('DashBoard/Site_Contact/Create'),
+        return $renderForm([
+            'errors' => [],
+            'row'    => null,
         ]);
     }
 
@@ -139,23 +205,61 @@ class DashBoard extends BaseController
             return redirect()->to(site_url('DashBoard/Site_Contacts'))->with('message', 'Contact not found.');
         }
 
+        $layout  = $this->getSiteLayoutData();
+        $listUrl = site_url('DashBoard/Site_Contacts');
+
+        $renderForm = function (array $extra = []) use ($layout, $listUrl, $row, $id): string {
+            return $this->renderDashboard('dashboard/site_contact_form', array_merge([
+                'documentTitle' => 'Edit site contact — ' . $layout['webTitle'],
+                'mode'          => 'edit',
+                'row'           => $row,
+                'action'        => site_url('DashBoard/Site_Contact/Edit/' . $id),
+                'listUrl'       => $listUrl,
+            ], $extra));
+        };
+
         if ($this->request->is('post')) {
-            $db->table('site_contacts')->where('id', $id)->update([
-                'name' => trim((string) $this->request->getPost('name')),
-                'email' => trim((string) $this->request->getPost('email')),
-                'message' => trim((string) $this->request->getPost('message')),
+            $name    = trim((string) $this->request->getPost('name'));
+            $email   = trim((string) $this->request->getPost('email'));
+            $message = trim((string) $this->request->getPost('message'));
+            [$imgOk, $remoteImage, $imgErr] = $this->sanitizeRemoteProfileImageUrl((string) $this->request->getPost('remote_image'));
+
+            $errors = [];
+            if ($name === '') {
+                $errors['name'] = 'Name is required.';
+            }
+            if ($email === '' || ! filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                $errors['email'] = 'A valid email is required.';
+            }
+            if (! $imgOk) {
+                $errors['remote_image'] = $imgErr ?? 'Invalid remote image URL.';
+            }
+
+            $merged = array_merge($row, [
+                'name'         => $name,
+                'email'        => $email,
+                'message'      => $message,
+                'remote_image' => $imgOk ? ($remoteImage ?? '') : trim((string) $this->request->getPost('remote_image')),
             ]);
-            return redirect()->to(site_url('DashBoard/Site_Contacts'))->with('message', 'Contact updated successfully.');
+
+            if ($errors !== []) {
+                return $renderForm([
+                    'errors' => $errors,
+                    'row'    => $merged,
+                ]);
+            }
+
+            $db->table('site_contacts')->where('id', $id)->update([
+                'name'         => $name,
+                'email'        => $email,
+                'message'      => $message !== '' ? $message : null,
+                'remote_image' => $remoteImage,
+            ]);
+
+            return redirect()->to($listUrl)->with('message', 'Contact updated successfully.');
         }
 
-        $layout = $this->getSiteLayoutData();
-
-        return $this->renderDashboard('dashboard/site_contact_form', [
-            'documentTitle' => 'Edit site contact — ' . $layout['webTitle'],
-            'mode'          => 'edit',
-            'row'           => $row,
-            'action'        => site_url('DashBoard/Site_Contact/Edit/' . $id),
-        ]);
+        return $renderForm(['errors' => []]);
     }
 
     public function Site_Contact_Delete(int $id)
@@ -271,5 +375,761 @@ class DashBoard extends BaseController
         $db->table('web_promoting')->where('id', $id)->delete();
 
         return redirect()->to(site_url('DashBoard/Web_Promoting'))->with('message', 'Promotion deleted successfully.');
+    }
+
+    private function ensureRolesReady(): bool
+    {
+        try {
+            RolesSchema::ensure();
+
+            return \Config\Database::connect()->tableExists('roles');
+        } catch (\Throwable $e) {
+            return false;
+        }
+    }
+
+    /** Lowercase identifier: letter first; letters, digits, hyphen, underscore; max 32. */
+    private function normalizeRoleSlug(string $raw): string
+    {
+        return strtolower(trim($raw));
+    }
+
+    private function roleSlugValid(string $slug): bool
+    {
+        return $slug !== '' && preg_match('/^[a-z][a-z0-9_-]{0,31}$/', $slug) === 1;
+    }
+
+    private function normalizeRoleDescription(string $raw): string
+    {
+        return trim($raw);
+    }
+
+    private function roleLongTextTooLong(string $text): bool
+    {
+        return mb_strlen($text) > 8192;
+    }
+
+    /** SMALLINT UNSIGNED gate: higher tier = broader access in application checks. */
+    private function roleAccessLevelValid(int $level): bool
+    {
+        return $level >= 0 && $level <= 65535;
+    }
+
+    /**
+     * Restriction field = optional capability checkboxes + free-form notes (serialized).
+     *
+     * @return array{capKeys: list<string>, notes: string, composed: string}
+     */
+    private function restrictionPayloadFromRequest(): array
+    {
+        $capKeys = RoleRestrictionCapabilities::sanitizeKeys((array) $this->request->getPost('restriction_capability_keys'));
+        $notes   = $this->normalizeRoleDescription((string) $this->request->getPost('restriction_notes'));
+        $composed = RoleRestrictionCapabilities::compose($capKeys, $notes);
+
+        return [
+            'capKeys'  => $capKeys,
+            'notes'    => $notes,
+            'composed' => $composed,
+        ];
+    }
+
+    /**
+     * List roles (`roles` table).
+     */
+    public function Member_Admin_Roles()
+    {
+        if (! $this->ensureRolesReady()) {
+            return redirect()->to(site_url('DashBoard/Index'))->with('message', 'Roles are unavailable (database error).');
+        }
+
+        $rolesModel = new RolesModel();
+        $rows       = $rolesModel->orderBy('access_level', 'DESC')->orderBy('id', 'ASC')->findAll();
+        $layout     = $this->getSiteLayoutData();
+
+        return $this->renderDashboard('dashboard/member_admin_roles_index', [
+            'documentTitle'   => 'Roles — ' . $layout['webTitle'],
+            'rows'            => $rows,
+            'message'         => session()->getFlashdata('message'),
+            'protectedSlugs'  => RolesModel::getProtectedRoleSlugs(),
+        ]);
+    }
+
+    /**
+     * Create role (slug, display name, description, access_level, restriction, behaviour).
+     */
+    public function Member_Admin_Role_Create()
+    {
+        if (! $this->ensureRolesReady()) {
+            return redirect()->to(site_url('DashBoard/Member/Admin/Roles'))->with('message', 'Roles are unavailable (database error).');
+        }
+
+        $rolesModel = new RolesModel();
+        $layout     = $this->getSiteLayoutData();
+        $listUrl    = site_url('DashBoard/Member/Admin/Roles');
+
+        $renderForm = function (array $extra = []) use ($layout, $listUrl): string {
+            return $this->renderDashboard('dashboard/member_admin_role_form', array_merge([
+                'documentTitle' => 'Create role — ' . $layout['webTitle'],
+                'mode'          => 'create',
+                'action'        => site_url('DashBoard/Member/Admin/Role/Create'),
+                'slugLocked'    => false,
+                'listUrl'       => $listUrl,
+            ], $extra));
+        };
+
+        if ($this->request->is('post')) {
+            $slug          = $this->normalizeRoleSlug((string) $this->request->getPost('slug'));
+            $name          = trim((string) $this->request->getPost('name'));
+            $description   = $this->normalizeRoleDescription((string) $this->request->getPost('description'));
+            $behaviour     = $this->normalizeRoleDescription((string) $this->request->getPost('behaviour'));
+            $accessLevel   = (int) $this->request->getPost('access_level');
+            $restrictionRx = $this->restrictionPayloadFromRequest();
+            $restriction   = $restrictionRx['composed'];
+
+            $errors = [];
+            if (! $this->roleSlugValid($slug)) {
+                $errors['slug'] = 'Slug must start with a letter; use lowercase letters, digits, hyphen or underscore only (max 32 characters).';
+            }
+            if ($name === '' || mb_strlen($name) > 64) {
+                $errors['name'] = 'Display name is required (max 64 characters).';
+            }
+            if (! $this->roleAccessLevelValid($accessLevel)) {
+                $errors['access_level'] = 'Access level must be between 0 and 65535.';
+            }
+            if ($this->roleLongTextTooLong($description)) {
+                $errors['description'] = 'Description must be at most 8192 characters.';
+            }
+            if ($this->roleLongTextTooLong($restriction)) {
+                $errors['restriction'] = 'Restriction / capability outline must be at most 8192 characters.';
+            }
+            if ($this->roleLongTextTooLong($behaviour)) {
+                $errors['behaviour'] = 'Behaviour notes must be at most 8192 characters.';
+            }
+
+            $rowState = [
+                'slug'          => $slug,
+                'name'          => $name,
+                'description'   => $description,
+                'restriction'   => $restriction,
+                'behaviour'     => $behaviour,
+                'access_level'  => $accessLevel,
+            ];
+
+            if ($errors !== []) {
+                return $renderForm([
+                    'errors'                    => $errors,
+                    'row'                       => $rowState,
+                    'restrictionCapabilityKeys' => $restrictionRx['capKeys'],
+                    'restrictionNotes'          => $restrictionRx['notes'],
+                ]);
+            }
+
+            if ($rolesModel->where('slug', $slug)->first() !== null) {
+                return $renderForm([
+                    'errors'                    => ['slug' => 'Another role already uses this slug.'],
+                    'row'                       => $rowState,
+                    'restrictionCapabilityKeys' => $restrictionRx['capKeys'],
+                    'restrictionNotes'          => $restrictionRx['notes'],
+                ]);
+            }
+
+            $descForDb = $description !== '' ? $description : null;
+            $restForDb = $restriction !== '' ? $restriction : null;
+            $behForDb  = $behaviour !== '' ? $behaviour : null;
+
+            if ($rolesModel->insert([
+                'slug'          => $slug,
+                'name'          => $name,
+                'description'   => $descForDb,
+                'access_level'  => $accessLevel,
+                'restriction'   => $restForDb,
+                'behaviour'     => $behForDb,
+            ], true) === false) {
+                return $renderForm([
+                    'errors'                    => ['database' => 'Could not create the role.'],
+                    'row'                       => $rowState,
+                    'restrictionCapabilityKeys' => $restrictionRx['capKeys'],
+                    'restrictionNotes'          => $restrictionRx['notes'],
+                ]);
+            }
+
+            MemberCapabilityGate::clearCache();
+
+            return redirect()->to($listUrl)->with('message', 'Role created.');
+        }
+
+        return $renderForm([
+            'errors' => [],
+            'row'    => null,
+        ]);
+    }
+
+    /**
+     * Edit role. Protected catalog slugs: slug fixed; other fields editable.
+     */
+    public function Member_Admin_Role_Edit(int $id)
+    {
+        if (! $this->ensureRolesReady()) {
+            return redirect()->to(site_url('DashBoard/Member/Admin/Roles'))->with('message', 'Roles are unavailable (database error).');
+        }
+
+        $rolesModel = new RolesModel();
+        $row        = $rolesModel->find($id);
+
+        if ($row === null) {
+            return redirect()->to(site_url('DashBoard/Member/Admin/Roles'))->with('message', 'Role not found.');
+        }
+
+        $slugCurrent = (string) ($row['slug'] ?? '');
+        $slugLocked  = RolesModel::isProtectedRoleSlug($slugCurrent);
+
+        $layout  = $this->getSiteLayoutData();
+        $listUrl = site_url('DashBoard/Member/Admin/Roles');
+
+        $renderForm = function (array $extra = []) use ($layout, $listUrl, $row, $slugLocked, $id): string {
+            return $this->renderDashboard('dashboard/member_admin_role_form', array_merge([
+                'documentTitle' => 'Edit role — ' . $layout['webTitle'],
+                'mode'          => 'edit',
+                'action'        => site_url('DashBoard/Member/Admin/Role/Edit/' . $id),
+                'slugLocked'    => $slugLocked,
+                'listUrl'       => $listUrl,
+                'row'           => $row,
+            ], $extra));
+        };
+
+        if ($this->request->is('post')) {
+            $name          = trim((string) $this->request->getPost('name'));
+            $description   = $this->normalizeRoleDescription((string) $this->request->getPost('description'));
+            $behaviour     = $this->normalizeRoleDescription((string) $this->request->getPost('behaviour'));
+            $accessLevel   = (int) $this->request->getPost('access_level');
+            $restrictionRx = $this->restrictionPayloadFromRequest();
+            $restriction   = $restrictionRx['composed'];
+
+            if ($slugLocked) {
+                $errors = [];
+                if ($name === '' || mb_strlen($name) > 64) {
+                    $errors['name'] = 'Display name is required (max 64 characters).';
+                }
+                if (! $this->roleAccessLevelValid($accessLevel)) {
+                    $errors['access_level'] = 'Access level must be between 0 and 65535.';
+                }
+                if ($this->roleLongTextTooLong($description)) {
+                    $errors['description'] = 'Description must be at most 8192 characters.';
+                }
+                if ($this->roleLongTextTooLong($restriction)) {
+                    $errors['restriction'] = 'Restriction / capability outline must be at most 8192 characters.';
+                }
+                if ($this->roleLongTextTooLong($behaviour)) {
+                    $errors['behaviour'] = 'Behaviour notes must be at most 8192 characters.';
+                }
+                if ($errors !== []) {
+                    return $renderForm([
+                        'errors'                    => $errors,
+                        'row'                       => array_merge($row, [
+                            'name'         => $name,
+                            'description'  => $description,
+                            'restriction'  => $restriction,
+                            'behaviour'    => $behaviour,
+                            'access_level' => $accessLevel,
+                        ]),
+                        'restrictionCapabilityKeys' => $restrictionRx['capKeys'],
+                        'restrictionNotes'          => $restrictionRx['notes'],
+                    ]);
+                }
+
+                $descForDb = $description !== '' ? $description : null;
+                $restForDb = $restriction !== '' ? $restriction : null;
+                $behForDb  = $behaviour !== '' ? $behaviour : null;
+
+                if ($rolesModel->update($id, [
+                    'name'          => $name,
+                    'description'   => $descForDb,
+                    'access_level'  => $accessLevel,
+                    'restriction'   => $restForDb,
+                    'behaviour'     => $behForDb,
+                ]) === false) {
+                    return $renderForm([
+                        'errors'                    => ['database' => 'Could not save changes.'],
+                        'row'                       => array_merge($row, [
+                            'name'         => $name,
+                            'description'  => $description,
+                            'restriction'  => $restriction,
+                            'behaviour'    => $behaviour,
+                            'access_level' => $accessLevel,
+                        ]),
+                        'restrictionCapabilityKeys' => $restrictionRx['capKeys'],
+                        'restrictionNotes'          => $restrictionRx['notes'],
+                    ]);
+                }
+
+                MemberCapabilityGate::clearCache();
+
+                return redirect()->to($listUrl)->with('message', 'Role updated.');
+            }
+
+            $slug = $this->normalizeRoleSlug((string) $this->request->getPost('slug'));
+
+            $errors = [];
+            if (! $this->roleSlugValid($slug)) {
+                $errors['slug'] = 'Slug must start with a letter; use lowercase letters, digits, hyphen or underscore only (max 32 characters).';
+            }
+            if ($name === '' || mb_strlen($name) > 64) {
+                $errors['name'] = 'Display name is required (max 64 characters).';
+            }
+            if (! $this->roleAccessLevelValid($accessLevel)) {
+                $errors['access_level'] = 'Access level must be between 0 and 65535.';
+            }
+            if ($this->roleLongTextTooLong($description)) {
+                $errors['description'] = 'Description must be at most 8192 characters.';
+            }
+            if ($this->roleLongTextTooLong($restriction)) {
+                $errors['restriction'] = 'Restriction / capability outline must be at most 8192 characters.';
+            }
+            if ($this->roleLongTextTooLong($behaviour)) {
+                $errors['behaviour'] = 'Behaviour notes must be at most 8192 characters.';
+            }
+
+            $merged = array_merge($row, [
+                'slug'         => $slug,
+                'name'         => $name,
+                'description'  => $description,
+                'restriction'  => $restriction,
+                'behaviour'    => $behaviour,
+                'access_level' => $accessLevel,
+            ]);
+
+            if ($errors !== []) {
+                return $renderForm([
+                    'errors'                    => $errors,
+                    'row'                       => $merged,
+                    'restrictionCapabilityKeys' => $restrictionRx['capKeys'],
+                    'restrictionNotes'          => $restrictionRx['notes'],
+                ]);
+            }
+
+            $dup = $rolesModel->where('slug', $slug)->where('id !=', $id)->first();
+            if ($dup !== null) {
+                return $renderForm([
+                    'errors'                    => ['slug' => 'Another role already uses this slug.'],
+                    'row'                       => $merged,
+                    'restrictionCapabilityKeys' => $restrictionRx['capKeys'],
+                    'restrictionNotes'          => $restrictionRx['notes'],
+                ]);
+            }
+
+            $descForDb = $description !== '' ? $description : null;
+            $restForDb = $restriction !== '' ? $restriction : null;
+            $behForDb  = $behaviour !== '' ? $behaviour : null;
+
+            if ($rolesModel->update($id, [
+                'slug'          => $slug,
+                'name'          => $name,
+                'description'   => $descForDb,
+                'access_level'  => $accessLevel,
+                'restriction'   => $restForDb,
+                'behaviour'     => $behForDb,
+            ]) === false) {
+                return $renderForm([
+                    'errors'                    => ['database' => 'Could not save changes.'],
+                    'row'                       => $merged,
+                    'restrictionCapabilityKeys' => $restrictionRx['capKeys'],
+                    'restrictionNotes'          => $restrictionRx['notes'],
+                ]);
+            }
+
+            MemberCapabilityGate::clearCache();
+
+            return redirect()->to($listUrl)->with('message', 'Role updated.');
+        }
+
+        return $renderForm(['errors' => []]);
+    }
+
+    /**
+     * Remove custom role only (protected catalog slugs cannot be deleted; no members assigned).
+     */
+    public function Member_Admin_Role_Delete(int $id)
+    {
+        if (! $this->ensureRolesReady()) {
+            return redirect()->to(site_url('DashBoard/Member/Admin/Roles'))->with('message', 'Roles are unavailable (database error).');
+        }
+
+        $rolesModel = new RolesModel();
+        $row        = $rolesModel->find($id);
+
+        if ($row === null) {
+            return redirect()->to(site_url('DashBoard/Member/Admin/Roles'))->with('message', 'Role not found.');
+        }
+
+        $slug = (string) ($row['slug'] ?? '');
+        if (RolesModel::isProtectedRoleSlug($slug)) {
+            return redirect()->to(site_url('DashBoard/Member/Admin/Roles'))->with('message', 'Default catalog roles cannot be deleted.');
+        }
+
+        $assigned = (int) (new UserModel())->where('role_id', $id)->countAllResults();
+        if ($assigned > 0) {
+            return redirect()->to(site_url('DashBoard/Member/Admin/Roles'))->with(
+                'message',
+                'Cannot delete this role while ' . $assigned . ' member account(s) still use it.'
+            );
+        }
+
+        $rolesModel->delete($id);
+
+        MemberCapabilityGate::clearCache();
+
+        return redirect()->to(site_url('DashBoard/Member/Admin/Roles'))->with('message', 'Role deleted.');
+    }
+
+    /** @return array<int, array<string, mixed>> */
+    private function rolesForMemberProfileForms(): array
+    {
+        RolesSchema::ensure();
+
+        return (new RolesModel())->orderBy('access_level', 'DESC')->orderBy('id', 'ASC')->findAll();
+    }
+
+    private function memberProfilesListUrl(): string
+    {
+        return site_url('DashBoard/Member/User/Profiles');
+    }
+
+    public function Member_User_Profiles()
+    {
+        if (! $this->ensureUsersTableExists()) {
+            return redirect()->to(site_url('Index'))->with('message', 'Database unavailable.');
+        }
+
+        if (! $this->ensureRolesReady()) {
+            return redirect()->to(site_url('DashBoard/Index'))->with('message', 'Roles are unavailable (database error).');
+        }
+
+        $userModel   = new UserModel();
+        $users       = $userModel->orderBy('id', 'DESC')->findAll();
+        $rolesModel  = new RolesModel();
+
+        foreach ($users as &$u) {
+            $rid               = (int) ($u['role_id'] ?? 1);
+            $u['role_slug']    = $rolesModel->slugForRoleId($rid);
+            $u['role_display'] = $rolesModel->nameForRoleId($rid);
+        }
+        unset($u);
+
+        $layout = $this->getSiteLayoutData();
+
+        return $this->renderDashboard('dashboard/member_user_profiles_index', [
+            'documentTitle' => 'Member profiles — ' . $layout['webTitle'],
+            'rows'            => $users,
+            'message'         => session()->getFlashdata('message'),
+        ]);
+    }
+
+    public function Member_User_Profile_Create()
+    {
+        if (! $this->ensureUsersTableExists()) {
+            return redirect()->to($this->memberProfilesListUrl())->with('message', 'Database unavailable.');
+        }
+
+        if (! $this->ensureRolesReady()) {
+            return redirect()->to($this->memberProfilesListUrl())->with('message', 'Roles are unavailable (database error).');
+        }
+
+        $layout   = $this->getSiteLayoutData();
+        $listUrl  = $this->memberProfilesListUrl();
+        $roles    = $this->rolesForMemberProfileForms();
+        $userModel = new UserModel();
+
+        $renderForm = function (array $extra = []) use ($layout, $listUrl, $roles): string {
+            return $this->renderDashboard('dashboard/member_user_profile_form', array_merge([
+                'documentTitle' => 'Create member profile — ' . $layout['webTitle'],
+                'mode'           => 'create',
+                'action'         => site_url('DashBoard/Member/User/Profile/Create'),
+                'listUrl'        => $listUrl,
+                'roles'          => $roles,
+                'row'            => null,
+            ], $extra));
+        };
+
+        if ($this->request->is('post')) {
+            $rules = [
+                'email'            => 'required|valid_email|max_length[255]',
+                'display_name'     => 'permit_empty|max_length[120]',
+                'password'         => 'required|min_length[8]|max_length[255]',
+                'password_confirm' => 'required|matches[password]',
+                'role_id'          => 'required|integer',
+            ];
+
+            if (! $this->validate($rules)) {
+                return $renderForm([
+                    'errors' => $this->validator->getErrors(),
+                    'row'    => [
+                        'email'          => strtolower(trim((string) $this->request->getPost('email'))),
+                        'display_name'   => trim((string) $this->request->getPost('display_name')),
+                        'remote_image'   => trim((string) $this->request->getPost('remote_image')),
+                        'role_id'        => (int) $this->request->getPost('role_id'),
+                        'active'         => $this->request->getPost('active') === '1' ? 1 : 0,
+                    ],
+                ]);
+            }
+
+            $email       = strtolower(trim((string) $this->request->getPost('email')));
+            $displayName = trim((string) $this->request->getPost('display_name'));
+            $password    = (string) $this->request->getPost('password');
+            $roleId      = (int) $this->request->getPost('role_id');
+            $active      = $this->request->getPost('active') === '1' ? 1 : 0;
+
+            [$imgOk, $remoteImage, $imgErr] = $this->sanitizeRemoteProfileImageUrl((string) $this->request->getPost('remote_image'));
+            if (! $imgOk) {
+                return $renderForm([
+                    'errors' => ['remote_image' => $imgErr ?? 'Invalid profile image URL.'],
+                    'row'    => [
+                        'email'        => $email,
+                        'display_name' => $displayName,
+                        'remote_image' => trim((string) $this->request->getPost('remote_image')),
+                        'role_id'      => $roleId,
+                        'active'       => $active,
+                    ],
+                ]);
+            }
+
+            if ((new RolesModel())->find($roleId) === null) {
+                return $renderForm([
+                    'errors' => ['role_id' => 'Selected role does not exist.'],
+                    'row'    => [
+                        'email'        => $email,
+                        'display_name' => $displayName,
+                        'remote_image' => $remoteImage ?? '',
+                        'role_id'      => $roleId,
+                        'active'       => $active,
+                    ],
+                ]);
+            }
+
+            if ($userModel->where('email', $email)->first() !== null) {
+                return $renderForm([
+                    'errors' => ['email' => 'An account with this email already exists.'],
+                    'row'    => [
+                        'email'        => $email,
+                        'display_name' => $displayName,
+                        'remote_image' => $remoteImage ?? '',
+                        'role_id'      => $roleId,
+                        'active'       => $active,
+                    ],
+                ]);
+            }
+
+            $inserted = $userModel->insert([
+                'email'          => $email,
+                'password_hash'  => password_hash($password, PASSWORD_DEFAULT),
+                'display_name'   => $displayName,
+                'remote_image'   => $remoteImage,
+                'role_id'        => $roleId,
+                'active'         => $active,
+            ], true);
+
+            if ($inserted === false) {
+                return $renderForm([
+                    'errors' => ['database' => 'Could not create the member account.'],
+                    'row'    => [
+                        'email'        => $email,
+                        'display_name' => $displayName,
+                        'remote_image' => $remoteImage ?? '',
+                        'role_id'      => $roleId,
+                        'active'       => $active,
+                    ],
+                ]);
+            }
+
+            return redirect()->to($listUrl)->with('message', 'Member profile created.');
+        }
+
+        return $renderForm(['errors' => [], 'row' => null]);
+    }
+
+    public function Member_User_Profile_Edit(int $id)
+    {
+        if (! $this->ensureUsersTableExists()) {
+            return redirect()->to($this->memberProfilesListUrl())->with('message', 'Database unavailable.');
+        }
+
+        if (! $this->ensureRolesReady()) {
+            return redirect()->to($this->memberProfilesListUrl())->with('message', 'Roles are unavailable (database error).');
+        }
+
+        $userModel = new UserModel();
+        $row       = $userModel->find($id);
+
+        if ($row === null) {
+            return redirect()->to($this->memberProfilesListUrl())->with('message', 'Member not found.');
+        }
+
+        $layout  = $this->getSiteLayoutData();
+        $listUrl = $this->memberProfilesListUrl();
+        $roles   = $this->rolesForMemberProfileForms();
+
+        $renderForm = function (array $extra = []) use ($layout, $listUrl, $roles, $row, $id): string {
+            return $this->renderDashboard('dashboard/member_user_profile_form', array_merge([
+                'documentTitle' => 'Edit member profile — ' . $layout['webTitle'],
+                'mode'           => 'edit',
+                'action'         => site_url('DashBoard/Member/User/Profile/Edit/' . $id),
+                'listUrl'        => $listUrl,
+                'roles'          => $roles,
+                'row'            => $row,
+            ], $extra));
+        };
+
+        if ($this->request->is('post')) {
+            $rules = [
+                'email'        => 'required|valid_email|max_length[255]',
+                'display_name' => 'permit_empty|max_length[120]',
+                'role_id'      => 'required|integer',
+            ];
+
+            if (! $this->validate($rules)) {
+                return $renderForm([
+                    'errors' => $this->validator->getErrors(),
+                    'row'    => array_merge($row, [
+                        'email'          => trim((string) $this->request->getPost('email')),
+                        'display_name'   => trim((string) $this->request->getPost('display_name')),
+                        'remote_image'   => trim((string) $this->request->getPost('remote_image')),
+                        'role_id'        => (int) $this->request->getPost('role_id'),
+                        'active'         => $this->request->getPost('active') === '1' ? 1 : 0,
+                    ]),
+                ]);
+            }
+
+            $email       = strtolower(trim((string) $this->request->getPost('email')));
+            $displayName = trim((string) $this->request->getPost('display_name'));
+            $roleId      = (int) $this->request->getPost('role_id');
+            $active      = $this->request->getPost('active') === '1' ? 1 : 0;
+            $newPass     = (string) $this->request->getPost('password');
+            $newConfirm  = (string) $this->request->getPost('password_confirm');
+
+            [$imgOk, $remoteImage, $imgErr] = $this->sanitizeRemoteProfileImageUrl((string) $this->request->getPost('remote_image'));
+            if (! $imgOk) {
+                return $renderForm([
+                    'errors' => ['remote_image' => $imgErr ?? 'Invalid profile image URL.'],
+                    'row'    => array_merge($row, [
+                        'email'        => $email,
+                        'display_name' => $displayName,
+                        'remote_image' => trim((string) $this->request->getPost('remote_image')),
+                        'role_id'      => $roleId,
+                        'active'       => $active,
+                    ]),
+                ]);
+            }
+
+            if ((new RolesModel())->find($roleId) === null) {
+                return $renderForm([
+                    'errors' => ['role_id' => 'Selected role does not exist.'],
+                    'row'    => array_merge($row, [
+                        'email'        => $email,
+                        'display_name' => $displayName,
+                        'remote_image' => $remoteImage ?? '',
+                        'role_id'      => $roleId,
+                        'active'       => $active,
+                    ]),
+                ]);
+            }
+
+            $passErrors = [];
+            if ($newPass !== '' || $newConfirm !== '') {
+                if (mb_strlen($newPass) < 8) {
+                    $passErrors['password'] = 'New password must be at least 8 characters.';
+                }
+                if ($newPass !== $newConfirm) {
+                    $passErrors['password_confirm'] = 'Does not match new password.';
+                }
+            }
+
+            if ($passErrors !== []) {
+                return $renderForm([
+                    'errors' => $passErrors,
+                    'row'    => array_merge($row, [
+                        'email'        => $email,
+                        'display_name' => $displayName,
+                        'remote_image' => $remoteImage ?? '',
+                        'role_id'      => $roleId,
+                        'active'       => $active,
+                    ]),
+                ]);
+            }
+
+            $duplicate = $userModel->where('email', $email)->where('id !=', $id)->first();
+            if ($duplicate !== null) {
+                return $renderForm([
+                    'errors' => ['email' => 'Another account already uses this email.'],
+                    'row'    => array_merge($row, [
+                        'email'        => $email,
+                        'display_name' => $displayName,
+                        'remote_image' => $remoteImage ?? '',
+                        'role_id'      => $roleId,
+                        'active'       => $active,
+                    ]),
+                ]);
+            }
+
+            $data = [
+                'email'        => $email,
+                'display_name' => $displayName,
+                'remote_image' => $remoteImage,
+                'role_id'      => $roleId,
+                'active'       => $active,
+            ];
+
+            if ($newPass !== '') {
+                $data['password_hash'] = password_hash($newPass, PASSWORD_DEFAULT);
+            }
+
+            if (! $userModel->update($id, $data)) {
+                return $renderForm([
+                    'errors' => ['database' => 'Could not save changes.'],
+                    'row'    => array_merge($row, [
+                        'email'        => $email,
+                        'display_name' => $displayName,
+                        'remote_image' => $remoteImage ?? '',
+                        'role_id'      => $roleId,
+                        'active'       => $active,
+                    ]),
+                ]);
+            }
+
+            $sessionUser = session()->get('member_user');
+            if (is_array($sessionUser) && (int) ($sessionUser['id'] ?? 0) === $id) {
+                $fresh = $userModel->find($id);
+                if ($fresh !== null) {
+                    session()->set('member_user', $this->buildMemberSessionPayload($fresh));
+                }
+            }
+
+            return redirect()->to($listUrl)->with('message', 'Member profile updated.');
+        }
+
+        return $renderForm(['errors' => []]);
+    }
+
+    public function Member_User_Profile_Delete(int $id)
+    {
+        if (! $this->ensureUsersTableExists()) {
+            return redirect()->to($this->memberProfilesListUrl())->with('message', 'Database unavailable.');
+        }
+
+        $sessionUser = session()->get('member_user');
+        $sessionId   = is_array($sessionUser) ? (int) ($sessionUser['id'] ?? 0) : 0;
+
+        if ($sessionId !== 0 && $id === $sessionId) {
+            return redirect()->to($this->memberProfilesListUrl())->with('message', 'You cannot delete the account you are signed in with.');
+        }
+
+        $userModel = new UserModel();
+        $row       = $userModel->find($id);
+
+        if ($row === null) {
+            return redirect()->to($this->memberProfilesListUrl())->with('message', 'Member not found.');
+        }
+
+        $userModel->delete($id);
+
+        return redirect()->to($this->memberProfilesListUrl())->with('message', 'Member profile deleted.');
     }
 }

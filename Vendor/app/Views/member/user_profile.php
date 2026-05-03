@@ -47,28 +47,32 @@ $formatDt = static function (string $value): string {
             <div class="card shadow-sm border-0">
                 <div class="card-body p-4 p-md-5">
                     <?php $avatar = trim((string) ($profile['remote_image'] ?? '')); ?>
-                    <?php if ($avatar !== ''): ?>
-                        <div class="text-center mb-4">
-                            <a
-                                href="<?= esc($avatar) ?>"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                class="d-inline-block rounded-circle"
-                                title="Open profile image"
-                                aria-label="Open profile image in new tab"
+                    <div class="text-center mb-4">
+                        <?php if ($avatar !== ''): ?>
+                            <img
+                                src="<?= esc($avatar, 'attr') ?>"
+                                alt=""
+                                class="img-thumbnail rounded-circle shadow-sm profile-remote-image-preview"
+                                style="width: 120px; height: 120px; object-fit: cover; background: #fff;"
+                                referrerpolicy="no-referrer"
+                                loading="lazy"
+                                decoding="async"
+                                onerror="this.classList.add('d-none'); var fb=this.nextElementSibling; if(fb) fb.classList.remove('d-none');"
                             >
-                                <img
-                                    src="<?= esc($avatar) ?>"
-                                    alt="Profile photo — opens full image"
-                                    class="img-thumbnail rounded-circle shadow-sm"
-                                    style="width: 120px; height: 120px; object-fit: cover; background: #fff;"
-                                    referrerpolicy="no-referrer"
-                                    onerror="this.style.display='none'; this.closest('a').style.display='none'; this.closest('a').nextElementSibling.style.display='block';"
-                                >
-                            </a>
-                            <p class="text-danger small mt-2 mb-0" style="display: none;">Image could not be loaded.</p>
-                        </div>
-                    <?php endif; ?>
+                            <div class="d-none small text-secondary">
+                                <p class="mb-0">Photo preview is blocked or unavailable here (some hosts disallow embedding).</p>
+                            </div>
+                        <?php else: ?>
+                            <div
+                                class="rounded-circle bg-light border shadow-sm d-inline-flex align-items-center justify-content-center text-secondary mx-auto"
+                                style="width: 120px; height: 120px;"
+                                role="img"
+                                aria-label="No profile photo set"
+                            >
+                                <span class="small px-2 text-center">No profile photo</span>
+                            </div>
+                        <?php endif; ?>
+                    </div>
 
                     <h2 class="h5 text-secondary mb-4">Account details</h2>
                     <dl class="row mb-0">

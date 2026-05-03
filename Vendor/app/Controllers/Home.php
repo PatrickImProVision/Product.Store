@@ -48,6 +48,19 @@ class Home extends BaseController
             $promotions = [];
         }
 
+        $siteContacts = [];
+        try {
+            $db = \Config\Database::connect();
+            if ($db->tableExists('site_contacts')) {
+                $siteContacts = $db->table('site_contacts')
+                    ->orderBy('id', 'ASC')
+                    ->get()
+                    ->getResultArray();
+            }
+        } catch (\Throwable $e) {
+            $siteContacts = [];
+        }
+
         $defaultPromotions = [
             [
                 'title'       => 'Web Promote',
@@ -71,6 +84,7 @@ class Home extends BaseController
             'webTitle'        => $layout['webTitle'],
             'webDescription'  => $layout['webDescription'],
             'promotions'      => $promotions,
+            'siteContacts'    => $siteContacts,
         ]);
     }
 }

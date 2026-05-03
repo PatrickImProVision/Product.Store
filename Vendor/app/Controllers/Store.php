@@ -100,7 +100,7 @@ class Store extends BaseController
 
         return is_array($u)
             && ! empty($u['id'])
-            && (($u['role'] ?? '') === RolesModel::SLUG_ADMINISTRATOR);
+            && RolesModel::slugMayElevatedManageContent((string) ($u['role'] ?? ''));
     }
 
     /** Owner or signed-in administrator (admins may edit/delete legacy rows with no `user_id`). */

@@ -6,6 +6,7 @@ Status: [Waiting, Making, Done]
 	Making   = Routed; stub UI or partial functionality
 	Done     = Routed; working views + behaviour for the linked area
 Use exactly one status word per section below (not a comma-separated list).
+
 ====================================================================
 	Default Server DataBase Application Settings
 ====================================================================
@@ -127,7 +128,7 @@ Status: Waiting, Making, Done
 Status: Waiting, Making, Done
 
 ====================================================================
-	Default Public Administrator Access To Profile
+	Default Restricted Administrator Access To Profile
 ====================================================================
 [APP_ROOT]/Member/Admin/Profile <- The View Of Profile
 [APP_ROOT]/Member/Admin/Register
@@ -137,13 +138,31 @@ Status: Waiting, Making, Done
 Status: Waiting, Making, Done
 
 ====================================================================
-	Default Administrator Access To System
+	Default Restricted Administrator Access To All Roles
+====================================================================
+[APP_ROOT]/DashBoard/Member/Admin/Roles <- The View Of All Roles
+[APP_ROOT]/DashBoard/Member/Admin/Role/Create
+[APP_ROOT]/DashBoard/Member/Admin/Role/Edit/{Id}
+[APP_ROOT]/DashBoard/Member/Admin/Role/Delete/{Id}
+Status: Waiting, Making, Done
+
+====================================================================
+	Default Restricted Administrator Access To All Profiles
+====================================================================
+[APP_ROOT]/DashBoard/Member/User/Profiles <- The View Of All Users
+[APP_ROOT]/DashBoard/Member/User/Profile/Create
+[APP_ROOT]/DashBoard/Member/User/Profile/Edit/{Id}
+[APP_ROOT]/DashBoard/Member/User/Profile/Delete/{Id}
+Status: Waiting, Making, Done
+
+====================================================================
+	Default Restricted Administrator Access To System
 ====================================================================
 [APP_ROOT]/DashBoard/Index <- The View Of System Status
 Status: Waiting, Making, Done
 
 ====================================================================
-	Default Administrator Access To System Contacts
+	Default Restricted Administrator Access To System Contacts
 ====================================================================
 [APP_ROOT]/DashBoard/Site_Contacts <- The View Of Contacts
 [APP_ROOT]/DashBoard/Site_Contact/Create
@@ -152,7 +171,7 @@ Status: Waiting, Making, Done
 Status: Waiting, Making, Done
 
 ====================================================================
-	Default Administrator Access To System User Management
+	Default Restricted Administrator Access To System User Management
 ====================================================================
 [APP_ROOT]/DashBoard/Member/Profiles <- The View Of All Profiles
 [APP_ROOT]/DashBoard/Member/Profile/View/{Id}
@@ -161,7 +180,7 @@ Status: Waiting, Making, Done
 Status: Waiting, Making, Done
 
 ====================================================================
-	Default Administrator Access To System Web Setup
+	Default Restricted Administrator Access To System Web Setup
 ====================================================================
 [APP_ROOT]/DashBoard/SEO_Settings
 [APP_ROOT]/DashBoard/Web_Promoting

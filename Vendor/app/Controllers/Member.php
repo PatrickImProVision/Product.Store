@@ -20,49 +20,7 @@ class Member extends BaseController
 
     private function ensureUsersTable(): bool
     {
-        try {
-            RolesSchema::ensure();
-
-            $db = \Config\Database::connect();
-
-            $db->query(
-                'CREATE TABLE IF NOT EXISTS users (
-                    id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                    email VARCHAR(255) NOT NULL,
-                    password_hash VARCHAR(255) NOT NULL,
-                    display_name VARCHAR(120) NOT NULL DEFAULT \'\',
-                    remote_image VARCHAR(2048) NULL,
-                    role_id TINYINT UNSIGNED NOT NULL DEFAULT 1,
-                    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                    updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-                    UNIQUE KEY users_email_unique (email)
-                ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci'
-            );
-
-            try {
-                $db->query('ALTER TABLE users ADD COLUMN remote_image VARCHAR(2048) NULL');
-            } catch (\Throwable $e) {
-                // Column already present.
-            }
-
-            try {
-                $db->query('ALTER TABLE users ADD COLUMN role_id TINYINT UNSIGNED NOT NULL DEFAULT 1');
-            } catch (\Throwable $e) {
-                // Column already present (avoid AFTER remote_image — legacy tables may lack that column).
-            }
-
-            try {
-                $db->query(
-                    'ALTER TABLE users ADD COLUMN active TINYINT(1) UNSIGNED NOT NULL DEFAULT 1'
-                );
-            } catch (\Throwable $e) {
-                // Column already present.
-            }
-
-            return true;
-        } catch (\Throwable $e) {
-            return false;
-        }
+        return $this->ensureUsersTableExists();
     }
 
     private function ensurePasswordResetTable(): bool
@@ -252,44 +210,6 @@ class Member extends BaseController
         }
     }
 
-    /**
-     * @return array{0: bool, 1: string|null, 2: string|null} ok, stored URL or null, error label
-     */
-    private function sanitizeRemoteImageInput(string $raw): array
-    {
-        $s = trim($raw);
-        if ($s === '') {
-            return [true, null, null];
-        }
-
-        if (mb_strlen($s) > 2048) {
-            return [false, null, 'Profile image URL is too long (max 2048 characters).'];
-        }
-
-        if (! preg_match('#\Ahttps?://#i', $s)) {
-            return [false, null, 'Profile image URL must start with http:// or https://.'];
-        }
-
-        return [true, $s, null];
-    }
-
-    /** @param array<string, mixed> $row */
-    private function memberSessionPayload(array $row): array
-    {
-        $roleId = (int) ($row['role_id'] ?? 1);
-        $roles  = new RolesModel();
-
-        return [
-            'id'           => (int) ($row['id'] ?? 0),
-            'email'        => (string) ($row['email'] ?? ''),
-            'display_name' => (string) ($row['display_name'] ?? ''),
-            'remote_image' => trim((string) ($row['remote_image'] ?? '')),
-            'role_id'      => $roleId,
-            'role'         => $roles->slugForRoleId($roleId),
-            'role_name'    => $roles->nameForRoleId($roleId),
-        ];
-    }
-
     public function User_Profile()
     {
         if (! $this->ensureUsersTable()) {
@@ -316,7 +236,7 @@ class Member extends BaseController
             return redirect()->to(site_url('Member/User/Login'))->with('message', 'This account has been deactivated.');
         }
 
-        session()->set('member_user', $this->memberSessionPayload($row));
+        session()->set('member_user', $this->buildMemberSessionPayload($row));
 
         $layout = $this->getSiteLayoutData();
 
@@ -373,7 +293,7 @@ class Member extends BaseController
             $email        = strtolower(trim((string) $this->request->getPost('email')));
             $displayName  = trim((string) $this->request->getPost('display_name'));
             $password     = (string) $this->request->getPost('password');
-            [$imgOk, $remoteImage, $imgErr] = $this->sanitizeRemoteImageInput((string) $this->request->getPost('remote_image'));
+            [$imgOk, $remoteImage, $imgErr] = $this->sanitizeRemoteProfileImageUrl((string) $this->request->getPost('remote_image'));
             if (! $imgOk) {
                 return view('member/user_register', array_merge($layout, [
                     'documentTitle' => 'Register — ' . $layout['webTitle'],
@@ -491,7 +411,7 @@ class Member extends BaseController
                 ]));
             }
 
-            session()->set('member_user', $this->memberSessionPayload($user));
+            session()->set('member_user', $this->buildMemberSessionPayload($user));
 
             return redirect()->to(site_url('Member/User/Profile'))->with('message', 'You are signed in.');
         }
@@ -967,7 +887,7 @@ class Member extends BaseController
             $currentPass  = (string) $this->request->getPost('current_password');
             $newPass      = (string) $this->request->getPost('password');
             $newConfirm   = (string) $this->request->getPost('password_confirm');
-            [$imgOk, $remoteImage, $imgErr] = $this->sanitizeRemoteImageInput((string) $this->request->getPost('remote_image'));
+            [$imgOk, $remoteImage, $imgErr] = $this->sanitizeRemoteProfileImageUrl((string) $this->request->getPost('remote_image'));
             if (! $imgOk) {
                 return $renderForm([
                     'email'        => $email,
@@ -1014,7 +934,8 @@ class Member extends BaseController
             $data = [
                 'email'          => $email,
                 'display_name'   => $displayName,
-                'remote_image'   => $remoteImage,
+                // Cleared field becomes '' so the stored URL is always overwritten.
+                'remote_image'   => $remoteImage ?? '',
             ];
 
             if ($newPass !== '') {
@@ -1030,11 +951,11 @@ class Member extends BaseController
             }
 
             $updatedRow = $userModel->find($id);
-            session()->set('member_user', $this->memberSessionPayload(is_array($updatedRow) ? $updatedRow : [
+            session()->set('member_user', $this->buildMemberSessionPayload(is_array($updatedRow) ? $updatedRow : [
                 'id'           => $id,
                 'email'        => $email,
                 'display_name' => $displayName,
-                'remote_image' => $remoteImage,
+                'remote_image' => $remoteImage ?? '',
             ]));
 
             return redirect()->to(site_url('Member/User/Profile'))->with('message', 'Your profile was updated.');
@@ -1162,9 +1083,9 @@ class Member extends BaseController
             ]);
         }
 
-        if ($this->isAdministratorUser($user)) {
+        if ($this->accountHasDashboardRole($user)) {
             return $render([
-                'errors'  => ['login' => 'This account already has administrator access.'],
+                'errors'  => ['login' => 'This account already has dashboard access (Owner or Administrator).'],
                 'prefill' => [
                     'email'               => $email,
                     'registration_secret' => $requiresSecret ? '' : trim((string) $this->request->getPost('registration_secret')),
@@ -1191,7 +1112,7 @@ class Member extends BaseController
         }
 
         $updatedRow = $userModel->find((int) $user['id']);
-        session()->set('member_user', $this->memberSessionPayload(is_array($updatedRow) ? $updatedRow : $user));
+        session()->set('member_user', $this->buildMemberSessionPayload(is_array($updatedRow) ? $updatedRow : $user));
 
         return redirect()->to(site_url('DashBoard/Index'))->with('message', 'Administrator role granted. You are signed in.');
     }
@@ -1235,12 +1156,14 @@ class Member extends BaseController
         return $provided !== '' && hash_equals($expected, $provided);
     }
 
-    private function isAdministratorUser(array $user): bool
+    /** Owner or Administrator may use dashboard login and elevated operator flows. */
+    private function accountHasDashboardRole(array $user): bool
     {
         RolesSchema::ensure();
         $roleId = (int) ($user['role_id'] ?? 0);
+        $slug   = (new RolesModel())->slugForRoleId($roleId);
 
-        return (new RolesModel())->slugForRoleId($roleId) === RolesModel::SLUG_ADMINISTRATOR;
+        return RolesModel::slugMayUseDashboard($slug);
     }
 
     /**
@@ -1258,11 +1181,11 @@ class Member extends BaseController
         if (
             is_array($sessionMember)
             && ! empty($sessionMember['id'])
-            && (($sessionMember['role'] ?? '') === RolesModel::SLUG_ADMINISTRATOR)
+            && RolesModel::slugMayUseDashboard((string) ($sessionMember['role'] ?? ''))
         ) {
             return redirect()->to(site_url('DashBoard/Index'))->with(
                 'message',
-                'You are already signed in as an administrator.'
+                'You are already signed in with dashboard access.'
             );
         }
 
@@ -1312,18 +1235,18 @@ class Member extends BaseController
                 ]));
             }
 
-            if (! $this->isAdministratorUser($user)) {
+            if (! $this->accountHasDashboardRole($user)) {
                 return view('member/admin_login', array_merge($layout, [
                     'documentTitle' => 'Administrator sign in — ' . $layout['webTitle'],
                     'notice'        => null,
-                    'errors'        => ['login' => 'This account is not an administrator. Use member login for standard accounts.'],
+                    'errors'        => ['login' => 'This account does not have dashboard access (Owner or Administrator required). Use member login for standard accounts.'],
                     'prefill'       => [
                         'email' => $email,
                     ],
                 ]));
             }
 
-            session()->set('member_user', $this->memberSessionPayload($user));
+            session()->set('member_user', $this->buildMemberSessionPayload($user));
 
             return redirect()->to(site_url('DashBoard/Index'))->with('message', 'Signed in as administrator.');
         }

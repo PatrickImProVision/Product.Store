@@ -6,6 +6,7 @@ Status: [Waiting, Making, Done]
 	Making   = Routed; stub UI or partial functionality
 	Done     = Routed; working views + behaviour for the linked area
 Use exactly one status word per section below (not a comma-separated list).
+
 ====================================================================
 	Default Server DataBase Application Settings
 ====================================================================
@@ -17,117 +18,171 @@ DB Driver: MySQLi
 Status: Waiting, Making, Done
 
 ====================================================================
+	Default Server Path Application Settings
+====================================================================
+
+::CURRENT_PATH
+CURRENT_PHP_EXE_PATH = "B:\AppData\PortableApps\XamppPortable\App\Xampp\php\php.exe"
+CURRENT_PHP_INI_PATH = "B:\AppData\PortableApps\XamppPortable\App\Xampp\php\php.ini"
+CURRENT_MAIL_EXE_PATH = "B:\AppData\PortableApps\XamppPortable\App\Xampp\sendmail\sendmail.exe"
+CURRENT_MAIL_INI_PATH = "B:\AppData\PortableApps\XamppPortable\App\Xampp\sendmail\sendmail.ini"
+
+::DEFAULT_PATH
+DEFAULT_PHP_EXE_PATH = "C:\Xampp\php\php.exe"
+DEFAULT_PHP_INI_PATH = "C:\Xampp\php\php.ini"
+DEFAULT_MAIL_EXE_PATH = "C:\Xampp\sendmail\sendmail.exe"
+DEFAULT_MAIL_INI_PATH = "C:\Xampp\sendmail\sendmail.ini"
+
+If Exists CURRENT_PATH
+Then CURRENT_PATH
+Else DEFAULT_PATH
+
+====================================================================
 	Default Server E-Mail Application Settings
 ====================================================================
+
+----------------------------------------------------------------------
+// *\xampp\php\php.ini
+----------------------------------------------------------------------
+[mail function]
+smtp_port=587
+sendmail_from = Patrick.ImProVision@gmail.com
+sendmail_path = "\"*\xampp\sendmail\sendmail.exe\" -t"
+
+----------------------------------------------------------------------
+// *\xampp\sendmail\sendmail.ini
+----------------------------------------------------------------------
 smtp_server=smtp.gmail.com
 smtp_port=587
+error_logfile=error.log
+debug_logfile=debug.log
 sendmail_from = Patrick.ImProVision@gmail.com
 auth_username=Patrick.ImProVision@gmail.com
 auth_password=Silver25022026
+force_sender=Patrick.ImProVision@gmail.com
+Status: Waiting, Making, Done
 
 ====================================================================
 	Default Server Application Settings
 ====================================================================
 [SERVER_ROOT] = http://localhost
-[APP_ROOT] = http://localhost/Product.Store
+[APP_ROOT] = [SERVER_ROOT]/Product.Store
 Status: Waiting, Making, Done
 
 ====================================================================
 	Default Public Guest Access To Application
 ====================================================================
-http://localhost/Product.Store/Index <- The View Of Main Index
+[APP_ROOT]/Index <- The View Of Main Index
 Status: Waiting, Making, Done
 
 ====================================================================
 	Default Public Guest Access To Basket
 ====================================================================
-http://localhost/Product.Store/Store/Basket/Index <- The View Of Added Products
-http://localhost/Product.Store/Store/Basket/Add/{Id}
-http://localhost/Product.Store/Store/Basket/Edit/{Id}
-http://localhost/Product.Store/Store/Basket/Delete/{Id}
+[APP_ROOT]/Store/Basket/Index <- The View Of Added Products
+[APP_ROOT]/Store/Basket/Add/{Id}
+[APP_ROOT]/Store/Basket/Edit/{Id}
+[APP_ROOT]/Store/Basket/Delete/{Id}
 Status: Waiting, Making, Done
 
 ====================================================================
 	Default Public Guest Access To Store Search Products
 ====================================================================
-http://localhost/Product.Store/Store/Search/Index <- The View Of Full Text Store Search
-http://localhost/Product.Store/Store/Search/Whisper
+[APP_ROOT]/Store/Search/Index <- The View Of Full Text Store Search
+[APP_ROOT]/Store/Search/Whisper
 Status: Waiting, Making, Done
 
 ====================================================================
 	Default Public Guest Access To All Store Products
 ====================================================================
-http://localhost/Product.Store/Store/Index <- The View Of Products Index
-http://localhost/Product.Store/Store/Product/View/{Id}
+[APP_ROOT]/Store/Index <- The View Of Products Index
+[APP_ROOT]/Store/Product/View/{Id}
 Status: Waiting, Making, Done
 
 ====================================================================
 	Default Public User Access To Profile
 ====================================================================
-http://localhost/Product.Store/Member/User/Profile <- The View Of Profile
-http://localhost/Product.Store/Member/User/Register
-http://localhost/Product.Store/Member/User/Login
-http://localhost/Product.Store/Member/User/ForgotPassword
-http://localhost/Product.Store/Member/User/Activate/{GUID}
-http://localhost/Product.Store/Member/User/Edit/{Id}
-http://localhost/Product.Store/Member/User/Delete/{GUID}
+[APP_ROOT]/Member/User/Profile <- The View Of Profile
+[APP_ROOT]/Member/User/Register
+[APP_ROOT]/Member/User/Login
+[APP_ROOT]/Member/User/ForgotPassword
+[APP_ROOT]/Member/User/Activate/{GUID}
+[APP_ROOT]/Member/User/Edit/{Id}
+[APP_ROOT]/Member/User/DeActivate/{GUID}
 Status: Waiting, Making, Done
 
 ====================================================================
 	Default Public User Access To Store Product
 ====================================================================
-http://localhost/Product.Store/Store/Product/Create
-http://localhost/Product.Store/Store/Product/Edit/{Id}
-http://localhost/Product.Store/Store/Product/Delete/{Id}
+[APP_ROOT]/Store/Product/Create
+[APP_ROOT]/Store/Product/Edit/{Id}
+[APP_ROOT]/Store/Product/Delete/{Id}
 Status: Waiting, Making, Done
 
 ====================================================================
 	Default Public User Access To CheckOut
 ====================================================================
-http://localhost/Product.Store/Store/CheckOut/Index <- The View Of CheckOut
-http://localhost/Product.Store/Store/CheckOut/Create
-http://localhost/Product.Store/Store/CheckOut/Edit/{Id}
-http://localhost/Product.Store/Store/CheckOut/Delete/{Id}
+[APP_ROOT]/Store/CheckOut/Index <- The View Of CheckOut
+[APP_ROOT]/Store/CheckOut/Create
+[APP_ROOT]/Store/CheckOut/Edit/{Id}
+[APP_ROOT]/Store/CheckOut/Delete/{Id}
 Status: Waiting, Making, Done
 
 ====================================================================
-	Default Public Administrator Access To Profile
+	Default Restricted Administrator Access To Profile
 ====================================================================
-http://localhost/Product.Store/Member/Admin/Profile <- The View Of Profile
-http://localhost/Product.Store/Member/Admin/Register
-http://localhost/Product.Store/Member/Admin/Login
-http://localhost/Product.Store/Member/Admin/Edit/{Id}
-http://localhost/Product.Store/Member/Admin/Delete/{Id}
+[APP_ROOT]/Member/Admin/Profile <- The View Of Profile
+[APP_ROOT]/Member/Admin/Register
+[APP_ROOT]/Member/Admin/Login
+[APP_ROOT]/Member/Admin/Edit/{Id}
+[APP_ROOT]/Member/Admin/Delete/{Id}
 Status: Waiting, Making, Done
 
 ====================================================================
-	Default Administrator Access To System
+	Default Restricted Administrator Access To All Roles
 ====================================================================
-http://localhost/Product.Store/DashBoard/Index <- The View Of System Status
+[APP_ROOT]/DashBoard/Member/Admin/Roles <- The View Of All Roles
+[APP_ROOT]/DashBoard/Member/Admin/Role/Create
+[APP_ROOT]/DashBoard/Member/Admin/Role/Edit/{Id}
+[APP_ROOT]/DashBoard/Member/Admin/Role/Delete/{Id}
 Status: Waiting, Making, Done
 
 ====================================================================
-	Default Administrator Access To System Contacts
+	Default Restricted Administrator Access To All Profiles
 ====================================================================
-http://localhost/Product.Store/DashBoard/Site_Contacts <- The View Of Contacts
-http://localhost/Product.Store/DashBoard/Site_Contact/Create
-http://localhost/Product.Store/DashBoard/Site_Contact/Edit/{Id}
-http://localhost/Product.Store/DashBoard/Site_Contact/Delete/{Id}
+[APP_ROOT]/DashBoard/Member/User/Profiles <- The View Of All Users
+[APP_ROOT]/DashBoard/Member/User/Profile/Create
+[APP_ROOT]/DashBoard/Member/User/Profile/Edit/{Id}
+[APP_ROOT]/DashBoard/Member/User/Profile/Delete/{Id}
 Status: Waiting, Making, Done
 
 ====================================================================
-	Default Administrator Access To System User Management
+	Default Restricted Administrator Access To System
 ====================================================================
-http://localhost/Product.Store/DashBoard/Member/Profiles <- The View Of All Profiles
-http://localhost/Product.Store/DashBoard/Member/Profile/View/{Id}
-http://localhost/Product.Store/DashBoard/Member/Profile/Edit/{Id}
-http://localhost/Product.Store/DashBoard/Member/Profile/Delete/{Id}
+[APP_ROOT]/DashBoard/Index <- The View Of System Status
 Status: Waiting, Making, Done
 
 ====================================================================
-	Default Administrator Access To System Web Setup
+	Default Restricted Administrator Access To System Contacts
 ====================================================================
-http://localhost/Product.Store/DashBoard/SEO_Settings
-http://localhost/Product.Store/DashBoard/Web_Promoting
-http://localhost/Product.Store/DashBoard/Web_Settings
+[APP_ROOT]/DashBoard/Site_Contacts <- The View Of Contacts
+[APP_ROOT]/DashBoard/Site_Contact/Create
+[APP_ROOT]/DashBoard/Site_Contact/Edit/{Id}
+[APP_ROOT]/DashBoard/Site_Contact/Delete/{Id}
+Status: Waiting, Making, Done
+
+====================================================================
+	Default Restricted Administrator Access To System User Management
+====================================================================
+[APP_ROOT]/DashBoard/Member/Profiles <- The View Of All Profiles
+[APP_ROOT]/DashBoard/Member/Profile/View/{Id}
+[APP_ROOT]/DashBoard/Member/Profile/Edit/{Id}
+[APP_ROOT]/DashBoard/Member/Profile/Delete/{Id}
+Status: Waiting, Making, Done
+
+====================================================================
+	Default Restricted Administrator Access To System Web Setup
+====================================================================
+[APP_ROOT]/DashBoard/SEO_Settings
+[APP_ROOT]/DashBoard/Web_Promoting
+[APP_ROOT]/DashBoard/Web_Settings
 Status: Waiting, Making, Done

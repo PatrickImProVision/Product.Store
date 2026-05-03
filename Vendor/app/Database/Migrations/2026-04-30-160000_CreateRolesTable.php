@@ -40,7 +40,11 @@ class CreateRolesTable extends Migration
         $this->db->query(
             'INSERT IGNORE INTO roles (id, slug, name) VALUES
                 (1, \'user\', \'User\'),
-                (2, \'administrator\', \'Administrator\')'
+                (2, \'administrator\', \'Administrator\'),
+                (3, \'owner\', \'Owner\'),
+                (4, \'moderator\', \'Moderator\'),
+                (5, \'author\', \'Author\'),
+                (6, \'guest\', \'Guest\')'
         );
     }
 
